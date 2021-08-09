@@ -1,4 +1,4 @@
-<p align="center">Lux - Vue Admin Dashboard Template</p>
+<p align="center">HRMS - Admin Dashboard </p>
 
 - Vue js Admin with dark mode + RTL + Demo Apps
 - Vuetify - Number #1 UI Vue Component Library
@@ -11,11 +11,11 @@
 See - `LuxAdminPro-Documentation.pdf`
 
 ## Commands
-#### `yarn`
+#### `npm install`
 > Installs package dependencies
 
-#### `yarn dev`
+#### `npm run dev`
 > Compiles and hot-reloads for development
 
-#### `yarn build`
+#### `npm run generate`
 > Compiles and minifies for production
