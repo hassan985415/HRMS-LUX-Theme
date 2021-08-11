@@ -94,10 +94,15 @@
 | Sign in template for user authentication into the application
 |
 */
-import {mapActions, mapMutations} from "vuex";
+import { mapActions, mapMutations, mapState } from "vuex";
 export default {
   name: "signin.vue",
   layout: "auth",
+  created() {
+    if (this.user.isAuthenticated) {
+      this.$router.replace("/dashboard/analytics");
+    }
+  },
   data() {
     return {
       // sign in buttons
@@ -150,6 +155,9 @@ export default {
       }
     };
   },
+  computed: {
+    ...mapState("app", ["user"])
+  },
   methods: {
     ...mapActions("app", ["login"]),
     ...mapMutations("app", ["SHOW_LOADER", "SHOW_SNACKBAR"]),
@@ -182,8 +190,12 @@ export default {
         .catch(error => {
           this.isLoading = false;
           this.isSignInDisabled = false;
-          this.SHOW_LOADER (false)
-          this.SHOW_SNACKBAR({  snackbar:true,color:'red',message:error.response.data.message})
+          this.SHOW_LOADER(false);
+          this.SHOW_SNACKBAR({
+            snackbar: true,
+            color: "red",
+            message: error.response.data.message
+          });
         });
     },
     signInProvider(provider) {},
