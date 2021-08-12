@@ -36,7 +36,9 @@ export default {
     { src: '~/plugins/clipboard.js', mode: 'client' },
     { src: '~/plugins/vue-shortkey.js', mode: 'client' },
     //for state
-    { src: "~/plugins/vuex-persist", ssr: false },
+    { src: '~/plugins/vuex-persist', ssr: false },
+    // for auto logout
+    { src: '~/plugins/vidle.js' },
     // // // filters
     { src: '~/filters/capitalize.js' },
     { src: '~/filters/lowercase.js' },
