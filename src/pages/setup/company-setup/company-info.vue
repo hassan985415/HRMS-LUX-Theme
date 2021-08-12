@@ -196,12 +196,8 @@ export default {
       dialog: false,
       dialogDelete: false,
       headers: [
-        {
-          text: 'ID',
-          align: 'start',
-          value: 'id'
-        },
-        { text: 'Logo', value: 'logo' },
+        { text: 'ID', align: 'start', value: 'id' },
+        { text: 'Logo', value: 'logo', sortable: false },
         { text: 'En Name', value: 'en_name' },
         { text: 'Ar Name', value: 'ar_name' },
         { text: 'En Register Name', value: 'en_register_name' },
@@ -397,5 +393,9 @@ export default {
 <style scoped>
 .direction {
   direction: rtl;
+}
+.data-table-custom >>> th,
+.data-table-custom >>> td {
+  padding: 2px 4px !important;
 }
 </style>
