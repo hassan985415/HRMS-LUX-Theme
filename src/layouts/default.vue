@@ -1,5 +1,13 @@
 <template>
   <v-app>
+    <v-idle
+      :loop="false"
+      :reminders="[5]"
+      :wait="5"
+      :duration="1800"
+      @idle="onidle"
+      @remind="onremind"
+    />
     <div
       v-shortkey="['ctrl', '/']"
       class="d-flex flex-grow-1"
@@ -41,7 +49,6 @@
               {{ item.key ? $t(item.key) : item.text }}
             </v-btn>
           </div>
-
 
         </template>
       </v-navigation-drawer>
@@ -134,7 +141,7 @@
 </template>
 
 <script>
-import {mapMutations, mapState} from 'vuex'
+import { mapActions, mapMutations, mapState } from 'vuex'
 
 // navigation menu configurations
 import config from '../configs'
@@ -145,11 +152,11 @@ import ToolbarApps from '../components/toolbar/ToolbarApps'
 import ToolbarLanguage from '../components/toolbar/ToolbarLanguage'
 import ToolbarCurrency from '../components/toolbar/ToolbarCurrency'
 import ToolbarNotifications from '../components/toolbar/ToolbarNotifications'
-import Snackbar from "../components/Snackbar";
-import Loader from "../components/Loader";
+import Snackbar from '../components/Snackbar'
+import Loader from '../components/Loader'
 
 export default {
-  name: 'default',
+  name: 'Default',
   components: {
     MainMenu,
     ToolbarUser,
@@ -170,16 +177,27 @@ export default {
   },
   computed: {
     ...mapState('app', ['product', 'isContentBoxed', 'menuTheme', 'toolbarTheme', 'isToolbarDetached',
-    'loader', 'alert'])
+      'loader', 'alert'])
   },
   created () {
-    this.SHOW_SNACKBAR ( {snackbar:false,color:'', message:''})
+    this.SHOW_SNACKBAR ( { snackbar:false,color:'', message:'' })
     this.SHOW_LOADER(false)
   },
   methods: {
     ...mapMutations('app', ['SHOW_SNACKBAR', 'SHOW_LOADER']),
+    ...mapActions('app', ['reset']),
     onKeyup(e) {
       this.$refs.search.focus()
+    },
+    onidle() {
+      console.log('in logout')
+      this.reset()
+      this.$router.push('/signin')
+    },
+    onremind(time) {
+      console.log('here', time)
+      // alert seconds remaining to 00:00
+      // alert('You have left this browser idle for 30 minutes' + time)
     }
   }
 }
