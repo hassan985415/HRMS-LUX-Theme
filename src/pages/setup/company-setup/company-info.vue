@@ -3,7 +3,14 @@
     <v-row justify="center">
       <v-col cols="12" md="12">
 <!--        <MaterialCard color="success" title="Company Info" class="px-5 py-3">-->
-          <v-data-table v-if="!dialog" :headers="headers" :items="allData" sort-by="en_name">
+          <v-data-table
+            v-if="!dialog"
+            :headers="headers"
+            :items="allData"
+            sort-by="en_name"
+            class="data-table-custom"
+            @click:row.self="editItem"
+          >
             <template v-slot:item.logo="{ item }">
               <img
                 v-if="item.logo"
@@ -32,10 +39,10 @@
 
             <template v-slot:item.actions="{ item }" >
              <div class="d-flex">
-                <v-icon small class="mr-2" @click="editItem(item)">
+                <v-icon small class="mr-2" @click.stop="editItem(item)">
                 mdi-pencil
               </v-icon>
-              <v-icon small @click="deleteItem(item.id)">
+              <v-icon small @click.stop="deleteItem(item.id)">
                 mdi-delete
               </v-icon>
              </div>
@@ -196,12 +203,8 @@ export default {
       dialog: false,
       dialogDelete: false,
       headers: [
-        {
-          text: 'ID',
-          align: 'start',
-          value: 'id'
-        },
-        { text: 'Logo', value: 'logo' },
+        { text: 'ID', align: 'start', value: 'id' },
+        { text: 'Logo', value: 'logo', sortable: false },
         { text: 'En Name', value: 'en_name' },
         { text: 'Ar Name', value: 'ar_name' },
         { text: 'En Register Name', value: 'en_register_name' },
@@ -397,5 +400,9 @@ export default {
 <style scoped>
 .direction {
   direction: rtl;
+}
+.data-table-custom >>> th,
+.data-table-custom >>> td {
+  padding: 2px 4px !important;
 }
 </style>
