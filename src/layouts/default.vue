@@ -171,7 +171,7 @@ export default {
     return {
       drawer: null,
       showSearch: false,
-
+      snack : {},
       navigation: config.navigation
     }
   },
@@ -179,9 +179,12 @@ export default {
     ...mapState('app', ['product', 'isContentBoxed', 'menuTheme', 'toolbarTheme', 'isToolbarDetached',
       'loader', 'alert'])
   },
-  created () {
-    this.SHOW_SNACKBAR ( { snackbar:false,color:'', message:'' })
-    this.SHOW_LOADER(false)
+  watch : {
+    alert (val) {
+      if (val.snackbar) {
+        this.clear()
+      }
+    }
   },
   methods: {
     ...mapMutations('app', ['SHOW_SNACKBAR', 'SHOW_LOADER']),
@@ -198,6 +201,18 @@ export default {
       console.log('here', time)
       // alert seconds remaining to 00:00
       // alert('You have left this browser idle for 30 minutes' + time)
+    },
+    clear () {
+      // eslint-disable-next-line @typescript-eslint/no-this-alias
+      const $this = this
+
+      const limitedInterval = setInterval(() => { $this.SHOW_SNACKBAR({
+        snackbar: false,
+        color: '',
+        message: ''
+      })
+      clearInterval(limitedInterval)
+      }, 3000)
     }
   }
 }

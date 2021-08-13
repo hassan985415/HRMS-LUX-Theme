@@ -26,23 +26,42 @@
 
 <script>
 import { mapState , mapMutations } from 'vuex'
-import Loader from "../components/Loader";
-import Snackbar from "../components/Snackbar";
+import Loader from '../components/Loader'
+import Snackbar from '../components/Snackbar'
 
 export default {
-  name: 'auth',
+  name: 'Auth',
   components : {
     Loader, Snackbar
   },
   computed: {
     ...mapState('app', ['product','loader', 'alert'])
   },
-  methods : {
-    ...mapMutations('app', ['SHOW_SNACKBAR', 'SHOW_LOADER'])
+  watch : {
+    alert (val) {
+      if (val.snackbar) {
+        this.clear()
+      }
+    }
   },
   created () {
-    this.SHOW_SNACKBAR ( {snackbar:false,color:'', message:''})
+    this.SHOW_SNACKBAR ( { snackbar:false,color:'', message:'' })
     this.SHOW_LOADER(false)
+  },
+  methods : {
+    ...mapMutations('app', ['SHOW_SNACKBAR', 'SHOW_LOADER']),
+    clear () {
+      // eslint-disable-next-line @typescript-eslint/no-this-alias
+      const $this = this
+
+      const limitedInterval = setInterval(() => { $this.SHOW_SNACKBAR({
+        snackbar: false,
+        color: '',
+        message: ''
+      })
+      clearInterval(limitedInterval)
+      }, 3000)
+    }
   }
 }
 </script>
