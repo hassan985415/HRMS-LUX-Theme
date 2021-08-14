@@ -20,16 +20,33 @@ export default [
     text: "Setup",
     key: "menu.setup",
     items: [
-      { icon: "mdi-cube-outline", text: "Company Setup", items: companySetup },
-      { icon: "mdi-cube-outline", text: "ؐMaster File", items: masterFile },
-      { icon: "mdi-cube-outline", text: "Preferences", items: preferences },
+      { 
+      icon: "mdi-cube-outline", 
+      text: "Company Setup",
+      key:"menu.companySetup", 
+      items: companySetup
+     },
       {
-        icon: "mdi-cube-outline",
-        text: "Associate Benefits",
-        items: [
+      icon: "mdi-cube-outline",
+      text: "ؐMaster File",
+      key:"menu.masterFile",
+      items: masterFile 
+      },
+      { 
+      icon: "mdi-cube-outline",
+      text: "Preferences",
+      key:"menu.preferences",
+      items: preferences 
+        },
+      {
+      icon: "mdi-cube-outline",
+      text: "Associate Benefits",
+      key:"menu.associateBenefits",
+      items: [
           {
             icon: "mdi-circle-medium",
             text: "Associate Benefits",
+            key:"menu.associateBenefits",
             link: "/setup/associate-benefits"
           }
         ]
@@ -37,10 +54,12 @@ export default [
       {
         icon: "mdi-cube-outline",
         text: "Associate Evaluations",
+        key:"menu.associateEvaluations",
         items: [
           {
             icon: "mdi-circle-medium",
             text: "Associate Evaluations",
+            key:"menu.associateEvaluations",
             link: "/setup/associate-evaluation"
           }
         ]
@@ -48,10 +67,12 @@ export default [
       {
         icon: "mdi-cube-outline",
         text: "Letter",
+        key:"menu.letter",
         items: [
           {
             icon: "mdi-circle-medium",
             text: "Letter",
+            key:"menu.letter",
             link: "/setup/letter/letter"
           }
         ]
@@ -59,10 +80,12 @@ export default [
       {
         icon: "mdi-cube-outline",
         text: "Sms",
+        key:"menu.sms",
         items: [
           {
             icon: "mdi-circle-medium",
             text: "Sms",
+            key:"menu.sms",
             link: "/setup/sms/sms-letter"
           }
         ]
