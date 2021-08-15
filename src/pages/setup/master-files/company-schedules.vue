@@ -23,7 +23,7 @@
               <v-toolbar
                 flat
               >
-                <v-toolbar-title><h3>Company Schedules</h3></v-toolbar-title>
+                <v-toolbar-title><h3>{{ $t("companySchedule.title") }}</h3></v-toolbar-title>
                 <v-spacer></v-spacer>
                 <v-dialog
                   v-model="dialog"
@@ -39,7 +39,7 @@
                       v-on="on"
 
                     >
-                      Create Company Schedule
+                      {{ $t("companySchedule.create") }}
                     </v-btn>
                   </template>
                   <v-card>

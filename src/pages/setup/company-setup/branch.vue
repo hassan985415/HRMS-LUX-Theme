@@ -25,7 +25,7 @@
               <v-toolbar
                 flat
               >
-                <v-toolbar-title><h3>Branch</h3></v-toolbar-title>
+                <v-toolbar-title><h3>{{ $t("branch.title") }}</h3></v-toolbar-title>
                 <v-spacer></v-spacer>
                   <template>
                     <v-btn
@@ -35,7 +35,7 @@
                       rounded
                       @click="dialog= true"
                     >
-                      Create Branch
+                      {{ $t("branch.create") }}
                     </v-btn>
                   </template>
               </v-toolbar>

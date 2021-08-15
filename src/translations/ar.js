@@ -149,7 +149,108 @@ export default {
   },
   companyInfo: {
     title: "معلومات الشركة",
-    create: "إنشاء معلومات الشركة"
+    create: "إنشاء معلومات الشركة",
+    actions:"عمل",
+  },
+  branch: {
+    title: "فرع",
+    create: "إنشاء فرع"
+  },
+  department: {
+    title: " الإدارات",
+    create: "إنشاء الإدارات "
+  },
+  departmentSection: {
+    title: " قسم القسم",
+    create: "إنشاء قسم القسم "
+  },
+  bank: {
+    title: " مصرف",
+    create: "إنشاء مصرف "
+  },
+  countryNationality: {
+    title: " الدولة / الجنسية",
+    create: "إنشاء الدولة / الجنسية "
+  },
+  city: {
+    title: "مدينة",
+    create: "إنشاء مدينة "
+  },
+  religion: {
+    title: "دين",
+    create: "إنشاء دين "
+  },
+  evaluationCompetencies: {
+    title: "تقييم",
+    create: "إنشاء تقييم "
+  },
+  evaluationType: {
+    title: "أنواع التقييم",
+    create: "إنشاء تقييم "
+  },
+  document: {
+    title: "أنواع المستندات",
+    create: "إنشاء المستندات "
+  },
+  beneficiary: {
+    title: "أنواع المستفيدين",
+    create: "إنشاء أنواع المستفيدين "
+  },
+  leave: {
+    title: "أنواع الإجازات / الإجازات",
+    create: "إنشاء أنواع الإجازات / الإجازات "
+  },
+  position: {
+    title: "المناصب / التعيينات",
+    create: "إنشاء المناصب "
+  },
+  sponsor: {
+    title: "الرعاة",
+    create: "إنشاء الرعاة "
+  },
+  earning: {
+    title: "الأرباح",
+    create: "إنشاء الأرباح "
+  },
+  deduction: {
+    title: "الخصومات",
+    create: "إنشاء الخصومات "
+  },
+  modification: {
+    title: "التعديل",
+    create: "إنشاء التعديل "
+  },
+  currency: {
+    title: "أنواع العملات",
+    create: "إنشاء العملات "
+  },
+  section: {
+    title: "الأقسام",
+    create: "إنشاء الأقسام "
+  },
+  costCenter: {
+    title: "مراكز التكلفة",
+    create: "إنشاء مركز التكلفة "
+  },
+  percentage: {
+    title: "النسبة المئوية",
+    create: "إنشاء النسبة المئوية "
+  },
+  education: {
+    title: "أنواع التعليم",
+    create: "إنشاء التعليم "
+  },
+  session: {
+    title: "الجلسات",
+    create: "إنشاء جلسة"
+  },
+  companySchedule: {
+    title: "جداول الشركة",
+    create: "إنشاء جدول الشركة"
+  },
+  gosiSubscription: {
+    title: "جوزي اشتراك",
+    create: "إنشاء جوزي اشتراك"
   },
   menu: {
     companySetup: "إعداد الشركة",
@@ -193,7 +294,7 @@ export default {
     educationTypes: "أنواع التعليم",
     sessions: "الجلسات",
     companySchedules: "جداول الشركة",
-    gosiSubscription: " جوزي اشتراك",
+    gosiSubscription: "جوزي اشتراك",
 
     search: "بحث (اضغط على 'ctrl + /' للتركيز)",
     dashboard: "لوحة القيادة",

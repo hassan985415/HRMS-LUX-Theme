@@ -23,7 +23,7 @@
               <v-toolbar
                 flat
               >
-                <v-toolbar-title><h3>Document Types</h3></v-toolbar-title>
+                <v-toolbar-title><h3>{{ $t("document.title") }}</h3></v-toolbar-title>
                 <v-spacer></v-spacer>
                 <v-dialog
                   v-model="dialog"
@@ -39,7 +39,7 @@
 
                       rounded
                     >
-                      Create Document Type
+                     {{ $t("document.create") }}
                     </v-btn>
                   </template>
                   <v-card>

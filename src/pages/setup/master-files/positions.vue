@@ -24,7 +24,7 @@
               <v-toolbar
                 flat
               >
-                <v-toolbar-title><h3>Positions/Designations</h3></v-toolbar-title>
+                <v-toolbar-title><h3>{{ $t("position.title") }}</h3></v-toolbar-title>
                 <v-spacer></v-spacer>
                 <v-dialog
                   v-model="dialog"
@@ -39,7 +39,7 @@
                       v-on="on"
                         rounded
                     >
-                      Create Position
+                      {{ $t("position.create") }}
                     </v-btn>
                   </template>
                   <v-card>

@@ -29,7 +29,7 @@
                 <!--                  inset-->
                 <!--                  vertical-->
                 <!--                ></v-divider>-->
-                <v-toolbar-title><h3>Country Nationality</h3></v-toolbar-title>
+                <v-toolbar-title><h3>{{ $t("countryNationality.title") }}</h3></v-toolbar-title>
                 <v-spacer></v-spacer>
                 <v-dialog
                   v-model="dialog"
@@ -45,7 +45,7 @@
                       v-on="on"
 
                     >
-                      Create Country
+                      {{ $t("countryNationality.create") }}
                     </v-btn>
                   </template>
                   <v-card>

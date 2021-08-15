@@ -16,7 +16,7 @@
               <!--                  inset-->
               <!--                  vertical-->
               <!--                ></v-divider>-->
-              <v-toolbar-title><h3>City</h3></v-toolbar-title>
+              <v-toolbar-title><h3>{{ $t("city.title") }}</h3></v-toolbar-title>
               <v-spacer></v-spacer>
               <v-dialog v-model="dialog" max-width="500px">
                 <template v-slot:activator="{ on, attrs }">
@@ -29,7 +29,7 @@
                     rounded
 
                   >
-                    Create City
+                    {{ $t("city.create") }}
                   </v-btn>
                 </template>
                 <v-card>

@@ -31,7 +31,108 @@ export default {
   },
   companyInfo: {
     title: "Company Info",
-    create: "Create Company Info"
+    create: "Create Company Info",
+    actions: "Action",
+  },
+  branch: {
+    title: "Branch",
+    create: "Create Branch",
+  },
+  department:{
+    title: "Departments",
+    create: "Create Department",
+  },
+  departmentSection:{
+    title: "Department Section",
+    create: "Create Department Section",
+  },
+  bank:{
+    title: "Bank",
+    create: "Create Bank",
+  },
+  countryNationality:{
+    title: "Country Nationality",
+    create: "Create Country Nationality",
+  },
+  city:{
+    title: "City",
+    create: "Create City",
+  },
+  religion:{
+    title: "Religion",
+    create: "Create Religion",
+  },
+  evaluationCompetencies:{
+    title: "Evaluation",
+    create: "Create Evaluation",
+  },
+  evaluationType:{
+    title: "Evaluation Type",
+    create: "Create Evaluation",
+  },
+  document:{
+    title: "Document Type",
+    create: "Create Document",
+  },
+  beneficiary:{
+    title: "Beneficary Type",
+    create: "Create Beneficary Type",
+  },
+  leave:{
+    title: "Leave/Vocation Type",
+    create: "Create Leave/Vocation Type",
+  },
+  position:{
+    title: "Position/Designation",
+    create: "Create Position",
+  },
+  sponsor:{
+    title: "Sponsor",
+    create: "Create Sponsor",
+  },
+  earning:{
+    title: "Earnings",
+    create: "Create Earnings",
+  },
+  deduction:{
+    title: "Deductions",
+    create: "Create Deductions",
+  },
+  modification:{
+    title: "Modification",
+    create: "Create Modification",
+  },
+  currency:{
+    title: "Currency Type",
+    create: "Create Currency",
+  },
+  section:{
+    title: "Section",
+    create: "Create Section",
+  },
+  costCenter:{
+    title: "Cost Centers",
+    create: "Create Cost Center",
+  },
+  percentage:{
+    title: "Percentage",
+    create: "Create Percentage",
+  },
+  education:{
+    title: "Education Types",
+    create: "Create Education",
+  },
+  session:{
+    title: "Sessions",
+    create: "Create Session",
+  },
+  companySchedule:{
+    title: "Company Schedules",
+    create: "Create Company Schedule",
+  },
+  gosiSubscription:{
+    title: "Gosi Subscription",
+    create: "Create Gosi Subscription",
   },
   email: {
     compose: "Compose Email",

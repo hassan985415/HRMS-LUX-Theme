@@ -23,7 +23,7 @@
               <v-toolbar
                 flat
               >
-                <v-toolbar-title><h3>Sponsors</h3></v-toolbar-title>
+                <v-toolbar-title><h3>{{ $t("sponsor.title") }}</h3></v-toolbar-title>
                 <v-spacer></v-spacer>
                 <v-dialog
                   v-model="dialog"
@@ -38,7 +38,7 @@
                       v-on="on"
                         rounded
                     >
-                      Create Sponsor
+                      {{ $t("sponsor.create") }}
                     </v-btn>
                   </template>
                   <v-card>

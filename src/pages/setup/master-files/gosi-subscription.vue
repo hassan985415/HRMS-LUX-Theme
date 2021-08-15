@@ -23,7 +23,7 @@
               <v-toolbar
                 flat
               >
-                <v-toolbar-title><h3>Gosi Subscription</h3></v-toolbar-title>
+                <v-toolbar-title><h3>{{ $t("gosiSubscription.title") }}</h3></v-toolbar-title>
                 <v-spacer></v-spacer>
                 <v-dialog
                   v-model="dialog"
@@ -39,7 +39,7 @@
 
                       rounded
                     >
-                      Create Gosi Subscription
+                      {{ $t("gosiSubscription.create") }}
                     </v-btn>
                   </template>
                   <v-card>

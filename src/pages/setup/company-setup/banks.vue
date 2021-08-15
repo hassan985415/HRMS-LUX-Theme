@@ -10,7 +10,7 @@
         <v-data-table v-if="!dialog" :headers="headers" :items="allData" sort-by="en_name">
           <template v-slot:top>
             <v-toolbar flat>
-              <v-toolbar-title><h3>Banks</h3></v-toolbar-title>
+              <v-toolbar-title><h3>{{ $t("bank.title") }}</h3></v-toolbar-title>
               <v-spacer></v-spacer>
                 <template>
                   <v-btn
@@ -20,7 +20,7 @@
                     rounded
                     @click="dialog= true"
                   >
-                    Create Bank
+                   {{ $t("bank.create") }}
                   </v-btn>
                 </template>
             </v-toolbar>
