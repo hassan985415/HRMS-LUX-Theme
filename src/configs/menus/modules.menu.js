@@ -44,7 +44,7 @@ export default [
       key:"menu.associateBenefits",
       items: [
           {
-            icon: "mdi-circle-medium",
+            icon: "mdi-shield-check",
             text: "Associate Benefits",
             key:"menu.associateBenefits",
             link: "/setup/associate-benefits"
@@ -52,12 +52,12 @@ export default [
         ]
       },
       {
-        icon: "mdi-cube-outline",
+        icon: "mdi-circle-medium",
         text: "Associate Evaluations",
         key:"menu.associateEvaluations",
         items: [
           {
-            icon: "mdi-circle-medium",
+            icon: "mdi-text-box-check",
             text: "Associate Evaluations",
             key:"menu.associateEvaluations",
             link: "/setup/associate-evaluation"
@@ -70,7 +70,7 @@ export default [
         key:"menu.letter",
         items: [
           {
-            icon: "mdi-circle-medium",
+            icon: "mdi-email-newsletter",
             text: "Letter",
             key:"menu.letter",
             link: "/setup/letter/letter"
@@ -83,7 +83,7 @@ export default [
         key:"menu.sms",
         items: [
           {
-            icon: "mdi-circle-medium",
+            icon: "mdi-message-alert",
             text: "Sms",
             key:"menu.sms",
             link: "/setup/sms/sms-letter"
