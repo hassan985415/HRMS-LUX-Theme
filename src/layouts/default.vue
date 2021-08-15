@@ -25,9 +25,18 @@
       >
         <!-- Navigation menu info -->
         <template v-slot:prepend>
-          <div class="pa-2">
-            <div class="title font-weight-bold text-uppercase primary--text">{{ product.name }}</div>
-            <div class="overline grey--text">{{ product.version }}</div>
+          <div class="pl-2 pt-2">
+            <v-img
+              src="/images/logo_en.png"
+             
+              max-height="130"
+              max-width="140"
+            >
+           </v-img>
+           
+
+            <!-- <div class="title font-weight-bold text-uppercase primary--text">{{ product.name }}</div>
+            <div class="overline grey--text">{{ product.version }}</div> -->
           </div>
         </template>
 
@@ -49,7 +58,6 @@
               {{ item.key ? $t(item.key) : item.text }}
             </v-btn>
           </div>
-
         </template>
       </v-navigation-drawer>
 
@@ -61,9 +69,12 @@
         :light="toolbarTheme === 'light'"
         :dark="toolbarTheme === 'dark'"
       >
-        <v-card class="flex-grow-1 d-flex" :class="[isToolbarDetached ? 'pa-1 mt-3 mx-1' : 'pa-0 ma-0']" :flat="!isToolbarDetached">
+        <v-card
+          class="flex-grow-1 d-flex"
+          :class="[isToolbarDetached ? 'pa-1 mt-3 mx-1' : 'pa-0 ma-0']"
+          :flat="!isToolbarDetached"
+        >
           <div class="d-flex flex-grow-1 align-center">
-
             <!-- search input mobile -->
             <v-text-field
               v-if="showSearch"
@@ -78,7 +89,9 @@
             ></v-text-field>
 
             <div v-else class="d-flex flex-grow-1 align-center">
-              <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
+              <v-app-bar-nav-icon
+                @click.stop="drawer = !drawer"
+              ></v-app-bar-nav-icon>
 
               <v-spacer class="d-none d-lg-block"></v-spacer>
 
@@ -102,11 +115,11 @@
 
               <toolbar-language />
 
-              <div class="hidden-xs-only mx-1">
+              <!-- <div class="hidden-xs-only mx-1">
                 <toolbar-currency />
-              </div>
+              </div> -->
 
-              <toolbar-apps />
+              <!-- <toolbar-apps /> -->
 
               <div :class="[$vuetify.rtl ? 'ml-1' : 'mr-1']">
                 <toolbar-notifications />
@@ -141,22 +154,22 @@
 </template>
 
 <script>
-import { mapActions, mapMutations, mapState } from 'vuex'
+import { mapActions, mapMutations, mapState } from "vuex";
 
 // navigation menu configurations
-import config from '../configs'
+import config from "../configs";
 
-import MainMenu from '../components/navigation/MainMenu'
-import ToolbarUser from '../components/toolbar/ToolbarUser'
-import ToolbarApps from '../components/toolbar/ToolbarApps'
-import ToolbarLanguage from '../components/toolbar/ToolbarLanguage'
-import ToolbarCurrency from '../components/toolbar/ToolbarCurrency'
-import ToolbarNotifications from '../components/toolbar/ToolbarNotifications'
-import Snackbar from '../components/Snackbar'
-import Loader from '../components/Loader'
+import MainMenu from "../components/navigation/MainMenu";
+import ToolbarUser from "../components/toolbar/ToolbarUser";
+import ToolbarApps from "../components/toolbar/ToolbarApps";
+import ToolbarLanguage from "../components/toolbar/ToolbarLanguage";
+import ToolbarCurrency from "../components/toolbar/ToolbarCurrency";
+import ToolbarNotifications from "../components/toolbar/ToolbarNotifications";
+import Snackbar from "../components/Snackbar";
+import Loader from "../components/Loader";
 
 export default {
-  name: 'Default',
+  name: "Default",
   components: {
     MainMenu,
     ToolbarUser,
@@ -173,34 +186,41 @@ export default {
       showSearch: false,
 
       navigation: config.navigation
-    }
+    };
   },
   computed: {
-    ...mapState('app', ['product', 'isContentBoxed', 'menuTheme', 'toolbarTheme', 'isToolbarDetached',
-      'loader', 'alert'])
+    ...mapState("app", [
+      "product",
+      "isContentBoxed",
+      "menuTheme",
+      "toolbarTheme",
+      "isToolbarDetached",
+      "loader",
+      "alert"
+    ])
   },
-  created () {
-    this.SHOW_SNACKBAR ( { snackbar:false,color:'', message:'' })
-    this.SHOW_LOADER(false)
+  created() {
+    this.SHOW_SNACKBAR({ snackbar: false, color: "", message: "" });
+    this.SHOW_LOADER(false);
   },
   methods: {
-    ...mapMutations('app', ['SHOW_SNACKBAR', 'SHOW_LOADER']),
-    ...mapActions('app', ['reset']),
+    ...mapMutations("app", ["SHOW_SNACKBAR", "SHOW_LOADER"]),
+    ...mapActions("app", ["reset"]),
     onKeyup(e) {
-      this.$refs.search.focus()
+      this.$refs.search.focus();
     },
     onidle() {
-      console.log('in logout')
-      this.reset()
-      this.$router.push('/signin')
+      console.log("in logout");
+      this.reset();
+      this.$router.push("/signin");
     },
     onremind(time) {
-      console.log('here', time)
+      console.log("here", time);
       // alert seconds remaining to 00:00
       // alert('You have left this browser idle for 30 minutes' + time)
     }
   }
-}
+};
 </script>
 
 <style scoped>
