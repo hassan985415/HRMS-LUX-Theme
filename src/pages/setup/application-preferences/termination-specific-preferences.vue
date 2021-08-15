@@ -18,6 +18,7 @@
             :headers="headers"
             :items="allData"
             sort-by="en_name"
+            v-if="!dialog"
           >
             <template v-slot:top>
               <v-toolbar
@@ -25,147 +26,17 @@
               >
                 <v-toolbar-title><h3>Termination Specific Preferences</h3></v-toolbar-title>
                 <v-spacer></v-spacer>
-                <v-dialog
-                  v-model="dialog"
-                  max-width="500px"
-                >
-                  <template v-slot:activator="{ on, attrs }">
+                  <template>
                     <v-btn
                       color="primary"
                       dark
                       class="mb-2"
-                      v-bind="attrs"
-                      v-on="on"
-
                       rounded
+                      @click="dialog = true"
                     >
                       Create Termination Specific Preference
                     </v-btn>
                   </template>
-                  <v-card>
-                    <v-card-title>
-                      <span class="headline">{{ formTitle }}</span>
-                    </v-card-title>
-                    <v-card-text>
-                      <v-container>
-                        <v-form ref="form">
-                          <v-container class="py-0">
-                            <v-row>
-                              <v-col
-                                cols="12"
-                                sm="6"
-                                md="6"
-                              >
-                                <v-select
-                                  v-model="editedItem.company_id"
-                                  :items="companies"
-                                  :item-text="companies.text"
-                                  :item-value="companies.value"
-                                  label="Select Company"
-                                ></v-select>
-                              </v-col>
-                              <v-col
-                                cols="12"
-                                sm="6"
-                                md="6"
-                              >
-                                <v-select
-                                  v-model="editedItem.branch_id"
-                                  :items="branches"
-                                  :item-text="branches.text"
-                                  :item-value="branches.value"
-                                  label="Select branch"
-                                ></v-select>
-                              </v-col>
-                              <v-col
-                                cols="12"
-                                sm="6"
-                                md="6"
-                              >
-                                <v-checkbox
-                                  v-model="editedItem.include_eos"
-                                  :false-value="0"
-                                  :true-value="1"
-                                  label="Include eos"
-                                  color="success"
-                                  hide-details
-                                ></v-checkbox>
-                              </v-col>
-                              <v-col
-                                cols="12"
-                                sm="6"
-                                md="6"
-                              >
-                                <v-text-field
-                                  label="End service benefit"
-                                  v-model="editedItem.end_service_benefit"
-                                  :rules="[ (value) => !!value || 'This  field is required',
-                                (value) => (value && value.length <= 100) || 'maximum 100 characters',]"
-                                ></v-text-field>
-                              </v-col>
-                              <v-col
-                                cols="12"
-                                sm="6"
-                                md="6"
-                              >
-                                <v-text-field
-                                  label="Resignation notice"
-                                  type="number"
-                                  v-model="editedItem.resignation_notice"
-                                  :rules="[ (value) => !!value || 'This  field is required']"
-                                ></v-text-field>
-                              </v-col>
-                              <v-col
-                                cols="12"
-                                sm="6"
-                                md="6"
-                              >
-                                <v-text-field
-                                  label="Termination notice"
-                                  type="number"
-                                  v-model="editedItem.termination_notice"
-                                  :rules="[ (value) => !!value || 'This  field is required']"
-                                ></v-text-field>
-                              </v-col>
-                            </v-row>
-                          </v-container>
-                        </v-form>
-
-                      </v-container>
-                    </v-card-text>
-
-                    <v-card-actions>
-                      <v-spacer></v-spacer>
-                      <v-btn
-                        color="blue darken-1"
-                        text
-                        @click="dialog = false"
-                        rounded
-                      >
-                        Cancel
-                      </v-btn>
-                      <v-btn
-                        color="blue darken-1"
-                        text
-                        @click="save"
-                        rounded
-                      >
-                        Save
-                      </v-btn>
-                    </v-card-actions>
-                  </v-card>
-                </v-dialog>
-                <v-dialog v-model="dialogDelete" max-width="390px" persistent>
-                  <v-card>
-                    <v-card-title class="headline">Are you sure you want to delete this record?</v-card-title>
-                    <v-card-actions>
-                      <v-spacer></v-spacer>
-                      <v-btn color="blue darken-1" text @click="dialogDelete=false">Cancel</v-btn>
-                      <v-btn color="blue darken-1" text @click="deleteItemConfirm">OK</v-btn>
-                      <v-spacer></v-spacer>
-                    </v-card-actions>
-                  </v-card>
-                </v-dialog>
               </v-toolbar>
             </template>
 
@@ -180,6 +51,129 @@
             </div>
           </template>
           </v-data-table>
+        <v-card v-else>
+          <v-card-title>
+            <span class="headline">{{ formTitle }}</span>
+          </v-card-title>
+          <v-card-text>
+            <v-container>
+              <v-form ref="form">
+                <v-container class="py-0">
+                  <v-row>
+                    <v-col
+                      cols="12"
+                      sm="6"
+                      md="6"
+                    >
+                      <v-select
+                        v-model="editedItem.company_id"
+                        :items="companies"
+                        :item-text="companies.text"
+                        :item-value="companies.value"
+                        label="Select Company"
+                      ></v-select>
+                    </v-col>
+                    <v-col
+                      cols="12"
+                      sm="6"
+                      md="6"
+                    >
+                      <v-select
+                        v-model="editedItem.branch_id"
+                        :items="branches"
+                        :item-text="branches.text"
+                        :item-value="branches.value"
+                        label="Select branch"
+                      ></v-select>
+                    </v-col>
+                    <v-col
+                      cols="12"
+                      sm="6"
+                      md="6"
+                    >
+                      <v-checkbox
+                        v-model="editedItem.include_eos"
+                        :false-value="0"
+                        :true-value="1"
+                        label="Include eos"
+                        color="success"
+                        hide-details
+                      ></v-checkbox>
+                    </v-col>
+                    <v-col
+                      cols="12"
+                      sm="6"
+                      md="6"
+                    >
+                      <v-text-field
+                        label="End service benefit"
+                        v-model="editedItem.end_service_benefit"
+                        :rules="[ (value) => !!value || 'This  field is required',
+                                (value) => (value && value.length <= 100) || 'maximum 100 characters',]"
+                      ></v-text-field>
+                    </v-col>
+                    <v-col
+                      cols="12"
+                      sm="6"
+                      md="6"
+                    >
+                      <v-text-field
+                        label="Resignation notice"
+                        type="number"
+                        v-model="editedItem.resignation_notice"
+                        :rules="[ (value) => !!value || 'This  field is required']"
+                      ></v-text-field>
+                    </v-col>
+                    <v-col
+                      cols="12"
+                      sm="6"
+                      md="6"
+                    >
+                      <v-text-field
+                        label="Termination notice"
+                        type="number"
+                        v-model="editedItem.termination_notice"
+                        :rules="[ (value) => !!value || 'This  field is required']"
+                      ></v-text-field>
+                    </v-col>
+                  </v-row>
+                </v-container>
+              </v-form>
+
+            </v-container>
+          </v-card-text>
+
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn
+              color="blue darken-1"
+              text
+              @click="dialog = false"
+              rounded
+            >
+              Cancel
+            </v-btn>
+            <v-btn
+              color="blue darken-1"
+              text
+              @click="save"
+              rounded
+            >
+              Save
+            </v-btn>
+          </v-card-actions>
+        </v-card>
+        <v-dialog v-model="dialogDelete" max-width="390px" persistent>
+          <v-card>
+            <v-card-title class="headline">Are you sure you want to delete this record?</v-card-title>
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn color="blue darken-1" text @click="dialogDelete=false">Cancel</v-btn>
+              <v-btn color="blue darken-1" text @click="deleteItemConfirm">OK</v-btn>
+              <v-spacer></v-spacer>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
 <!--        </MaterialCard>-->
       </v-col>
     </v-row>

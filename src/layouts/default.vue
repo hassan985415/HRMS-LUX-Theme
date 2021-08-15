@@ -121,9 +121,9 @@
       <v-main>
         <v-container class="fill-height" :fluid="!isContentBoxed">
           <v-layout>
-            <snackbar v-if="alert.snackbar"></snackbar>
-            <loader v-if="loader"></loader>
             <client-only>
+              <snackbar v-if="alert.snackbar"></snackbar>
+              <loader v-if="loader"></loader>
               <nuxt />
             </client-only>
           </v-layout>

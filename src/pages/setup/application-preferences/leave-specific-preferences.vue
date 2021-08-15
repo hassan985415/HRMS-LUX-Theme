@@ -18,6 +18,7 @@
             :headers="headers"
             :items="allData"
             sort-by="en_name"
+            v-if="!dialog"
           >
             <template v-slot:top>
               <v-toolbar
@@ -25,217 +26,17 @@
               >
                 <v-toolbar-title><h3>Leave Specific Preferences</h3></v-toolbar-title>
                 <v-spacer></v-spacer>
-                <v-dialog
-                  v-model="dialog"
-                  max-width="500px"
-                >
-                  <template v-slot:activator="{ on, attrs }">
+                  <template>
                     <v-btn
                       color="primary"
                       dark
                       class="mb-2"
-                      v-bind="attrs"
-                      v-on="on"
-
                       rounded
+                      @click="dialog = true"
                     >
                       Create Leave Specific Preference
                     </v-btn>
                   </template>
-                  <v-card>
-                    <v-card-title>
-                      <span class="headline">{{ formTitle }}</span>
-                    </v-card-title>
-                    <v-card-text>
-                      <v-container>
-                        <v-form ref="form">
-                          <v-container class="py-0">
-                            <v-row>
-                              <v-col
-                                cols="12"
-                                sm="6"
-                                md="6"
-                              >
-                                <v-select
-                                  v-model="editedItem.company_id"
-                                  :items="companies"
-                                  :item-text="companies.text"
-                                  :item-value="companies.value"
-                                  label="Select Company"
-                                ></v-select>
-                              </v-col>
-                              <v-col
-                                cols="12"
-                                sm="6"
-                                md="6"
-                              >
-                                <v-select
-                                  v-model="editedItem.branch_id"
-                                  :items="branches"
-                                  :item-text="branches.text"
-                                  :item-value="branches.value"
-                                  label="Select branch"
-                                ></v-select>
-                              </v-col>
-                              <v-col
-                                cols="12"
-                                sm="6"
-                                md="6"
-                              >
-                                <v-checkbox
-                                  v-model="editedItem.forward_vacation_days_balance"
-                                  :false-value="0"
-                                  :true-value="1"
-                                  label="Forward vacation days"
-                                  color="success"
-                                  hide-details
-                                ></v-checkbox>
-                              </v-col>
-                              <v-col
-                                cols="12"
-                                sm="6"
-                                md="6"
-                              >
-                                <v-checkbox
-                                  v-model="editedItem.use_latest_salary_calc"
-                                  :false-value="0"
-                                  :true-value="1"
-                                  label="Use latest salary calc"
-                                  color="success"
-                                  hide-details
-                                ></v-checkbox>
-                              </v-col>
-                              <v-col
-                                cols="12"
-                                sm="6"
-                                md="6"
-                              >
-                                <v-checkbox
-                                  v-model="editedItem.include_vacation_days"
-                                  :false-value="0"
-                                  :true-value="1"
-                                  label="Include vacation days"
-                                  color="success"
-                                  hide-details
-                                ></v-checkbox>
-                              </v-col>
-                              <v-col
-                                cols="12"
-                                sm="6"
-                                md="6"
-                              >
-                                <v-checkbox
-                                  v-model="editedItem.days_in_year"
-                                  :false-value="0"
-                                  :true-value="1"
-                                  label="Days in year"
-                                  color="success"
-                                  hide-details
-                                ></v-checkbox>
-                              </v-col>
-                              <v-col
-                                cols="12"
-                                sm="6"
-                                md="6"
-                              >
-                                <v-checkbox
-                                  v-model="editedItem.include_eos"
-                                  :false-value="0"
-                                  :true-value="1"
-                                  label="Include eos"
-                                  color="success"
-                                  hide-details
-                                ></v-checkbox>
-                              </v-col>
-                              <v-col
-                                cols="12"
-                                sm="6"
-                                md="6"
-                              >
-                                <v-checkbox
-                                  v-model="editedItem.current_days_month"
-                                  :false-value="0"
-                                  :true-value="1"
-                                  label="Current days month"
-                                  color="success"
-                                  hide-details
-                                ></v-checkbox>
-                              </v-col>
-                              <v-col
-                                cols="12"
-                                sm="6"
-                                md="6"
-                              >
-                                <v-text-field
-                                  label="Vacation per contract"
-                                  type="number"
-                                  v-model="editedItem.vacation_per_contract"
-                                  :rules="[ (value) => !!value || 'This  field is required']"
-                                ></v-text-field>
-                              </v-col>
-                              <v-col
-                                cols="12"
-                                sm="6"
-                                md="6"
-                              >
-                                <v-text-field
-                                  label="Vacation per contract"
-                                  type="number"
-                                  v-model="editedItem.vacation_days_per_contract"
-                                  :rules="[ (value) => !!value || 'This  field is required']"
-                                ></v-text-field>
-                              </v-col>
-                              <v-col
-                                cols="12"
-                                sm="6"
-                                md="6"
-                              >
-                                <v-text-field
-                                  label="Fiscal year end"
-                                  type="date"
-                                  v-model="editedItem.fiscal_year_end"
-                                  :rules="[ (value) => !!value || 'This  field is required']"
-                                ></v-text-field>
-                              </v-col>
-                            </v-row>
-                          </v-container>
-                        </v-form>
-
-                      </v-container>
-                    </v-card-text>
-
-                    <v-card-actions>
-                      <v-spacer></v-spacer>
-                      <v-btn
-                        color="blue darken-1"
-                        text
-                        @click="dialog = false"
-                        rounded
-                      >
-                        Cancel
-                      </v-btn>
-                      <v-btn
-                        color="blue darken-1"
-                        text
-                        @click="save"
-                        rounded
-                      >
-                        Save
-                      </v-btn>
-                    </v-card-actions>
-                  </v-card>
-                </v-dialog>
-                <v-dialog v-model="dialogDelete" max-width="390px" persistent>
-                  <v-card>
-                    <v-card-title class="headline">Are you sure you want to delete this record?</v-card-title>
-                    <v-card-actions>
-                      <v-spacer></v-spacer>
-                      <v-btn color="blue darken-1" text @click="dialogDelete=false">Cancel</v-btn>
-                      <v-btn color="blue darken-1" text @click="deleteItemConfirm">OK</v-btn>
-                      <v-spacer></v-spacer>
-                    </v-card-actions>
-                  </v-card>
-                </v-dialog>
               </v-toolbar>
             </template>
 
@@ -250,6 +51,199 @@
             </div>
           </template>
           </v-data-table>
+        <v-card v-else>
+          <v-card-title>
+            <span class="headline">{{ formTitle }}</span>
+          </v-card-title>
+          <v-card-text>
+            <v-container>
+              <v-form ref="form">
+                <v-container class="py-0">
+                  <v-row>
+                    <v-col
+                      cols="12"
+                      sm="6"
+                      md="6"
+                    >
+                      <v-select
+                        v-model="editedItem.company_id"
+                        :items="companies"
+                        :item-text="companies.text"
+                        :item-value="companies.value"
+                        label="Select Company"
+                      ></v-select>
+                    </v-col>
+                    <v-col
+                      cols="12"
+                      sm="6"
+                      md="6"
+                    >
+                      <v-select
+                        v-model="editedItem.branch_id"
+                        :items="branches"
+                        :item-text="branches.text"
+                        :item-value="branches.value"
+                        label="Select branch"
+                      ></v-select>
+                    </v-col>
+                    <v-col
+                      cols="12"
+                      sm="6"
+                      md="6"
+                    >
+                      <v-checkbox
+                        v-model="editedItem.forward_vacation_days_balance"
+                        :false-value="0"
+                        :true-value="1"
+                        label="Forward vacation days"
+                        color="success"
+                        hide-details
+                      ></v-checkbox>
+                    </v-col>
+                    <v-col
+                      cols="12"
+                      sm="6"
+                      md="6"
+                    >
+                      <v-checkbox
+                        v-model="editedItem.use_latest_salary_calc"
+                        :false-value="0"
+                        :true-value="1"
+                        label="Use latest salary calc"
+                        color="success"
+                        hide-details
+                      ></v-checkbox>
+                    </v-col>
+                    <v-col
+                      cols="12"
+                      sm="6"
+                      md="6"
+                    >
+                      <v-checkbox
+                        v-model="editedItem.include_vacation_days"
+                        :false-value="0"
+                        :true-value="1"
+                        label="Include vacation days"
+                        color="success"
+                        hide-details
+                      ></v-checkbox>
+                    </v-col>
+                    <v-col
+                      cols="12"
+                      sm="6"
+                      md="6"
+                    >
+                      <v-checkbox
+                        v-model="editedItem.days_in_year"
+                        :false-value="0"
+                        :true-value="1"
+                        label="Days in year"
+                        color="success"
+                        hide-details
+                      ></v-checkbox>
+                    </v-col>
+                    <v-col
+                      cols="12"
+                      sm="6"
+                      md="6"
+                    >
+                      <v-checkbox
+                        v-model="editedItem.include_eos"
+                        :false-value="0"
+                        :true-value="1"
+                        label="Include eos"
+                        color="success"
+                        hide-details
+                      ></v-checkbox>
+                    </v-col>
+                    <v-col
+                      cols="12"
+                      sm="6"
+                      md="6"
+                    >
+                      <v-checkbox
+                        v-model="editedItem.current_days_month"
+                        :false-value="0"
+                        :true-value="1"
+                        label="Current days month"
+                        color="success"
+                        hide-details
+                      ></v-checkbox>
+                    </v-col>
+                    <v-col
+                      cols="12"
+                      sm="6"
+                      md="6"
+                    >
+                      <v-text-field
+                        label="Vacation per contract"
+                        type="number"
+                        v-model="editedItem.vacation_per_contract"
+                        :rules="[ (value) => !!value || 'This  field is required']"
+                      ></v-text-field>
+                    </v-col>
+                    <v-col
+                      cols="12"
+                      sm="6"
+                      md="6"
+                    >
+                      <v-text-field
+                        label="Vacation per contract"
+                        type="number"
+                        v-model="editedItem.vacation_days_per_contract"
+                        :rules="[ (value) => !!value || 'This  field is required']"
+                      ></v-text-field>
+                    </v-col>
+                    <v-col
+                      cols="12"
+                      sm="6"
+                      md="6"
+                    >
+                      <v-text-field
+                        label="Fiscal year end"
+                        type="date"
+                        v-model="editedItem.fiscal_year_end"
+                        :rules="[ (value) => !!value || 'This  field is required']"
+                      ></v-text-field>
+                    </v-col>
+                  </v-row>
+                </v-container>
+              </v-form>
+
+            </v-container>
+          </v-card-text>
+
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn
+              color="blue darken-1"
+              text
+              @click="dialog = false"
+              rounded
+            >
+              Cancel
+            </v-btn>
+            <v-btn
+              color="blue darken-1"
+              text
+              @click="save"
+              rounded
+            >
+              Save
+            </v-btn>
+          </v-card-actions>
+        </v-card>
+        <v-dialog v-model="dialogDelete" max-width="390px" persistent>
+          <v-card>
+            <v-card-title class="headline">Are you sure you want to delete this record?</v-card-title>
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn color="blue darken-1" text @click="dialogDelete=false">Cancel</v-btn>
+              <v-btn color="blue darken-1" text @click="deleteItemConfirm">OK</v-btn>
+              <v-spacer></v-spacer>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
 <!--        </MaterialCard>-->
       </v-col>
     </v-row>

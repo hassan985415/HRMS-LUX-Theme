@@ -2,59 +2,59 @@
   <v-container id="user-profile" fluid tag="section">
     <v-row justify="center">
       <v-col cols="12" md="12">
-<!--        <MaterialCard color="success" title="Company Info" class="px-5 py-3">-->
-          <v-data-table
-            v-if="!dialog"
-            :headers="headers"
-            :items="allData"
-            sort-by="en_name"
-            class="data-table-custom"
-            @click:row.self="editItem"
-          >
-            <template v-slot:item.logo="{ item }">
-              <img
-                v-if="item.logo"
-                :src="fileUrl + item.logo"
-                alt=""
-                style="display: flex;border-radius: 50%;"
-                width="50"
-                height="50"
-              />
-            </template>
-            <template v-slot:top>
-              <v-toolbar flat>
-                <v-toolbar-title><h3>Company Info</h3></v-toolbar-title>
-                <v-spacer></v-spacer>
-                    <v-btn
-                      color="primary"
-                      dark
-                      class="mb-2"
-                      rounded
-                      @click="dialog = true"
-                    >
-                      Create Company Info
-                    </v-btn>
-              </v-toolbar>
-            </template>
+        <!--        <MaterialCard color="success" title="Company Info" class="px-5 py-3">-->
+        <v-data-table
+          v-if="!dialog"
+          :headers="headers"
+          :items="allData"
+          sort-by="en_name"
+          class="data-table-custom"
+          @click:row.self="editItem"
+        >
+          <template v-slot:item.logo="{ item }">
+            <img
+              v-if="item.logo"
+              :src="fileUrl + item.logo"
+              alt=""
+              style="display: flex;border-radius: 50%;"
+              width="50"
+              height="50"
+            />
+          </template>
+          <template v-slot:top>
+            <v-toolbar flat>
+              <v-toolbar-title><h3>Company Info</h3></v-toolbar-title>
+              <v-spacer></v-spacer>
+              <v-btn
+                color="primary"
+                dark
+                class="mb-2"
+                rounded
+                @click="dialog = true"
+              >
+                Create Company Info
+              </v-btn>
+            </v-toolbar>
+          </template>
 
-            <template v-slot:item.actions="{ item }" >
-             <div class="d-flex">
-                <v-icon small class="mr-2" @click.stop="editItem(item)">
+          <template v-slot:item.actions="{ item }" >
+            <div class="d-flex">
+              <v-icon small class="mr-2" @click.stop="editItem(item)">
                 mdi-pencil
               </v-icon>
               <v-icon small @click.stop="deleteItem(item.id)">
                 mdi-delete
               </v-icon>
-             </div>
-            </template>
-          </v-data-table>
+            </div>
+          </template>
+        </v-data-table>
         <v-card v-else>
           <v-card-title>
             <span class="headline">{{ formTitle }}</span>
           </v-card-title>
           <v-card-text>
             <v-container>
-              <v-form ref="form"  v-model="valid" lazy-validation>
+              <v-form ref="form" v-model="valid" lazy-validation>
                 <v-container class="py-0">
                   <v-row>
                     <v-col cols="12" sm="6" md="6">
@@ -62,12 +62,12 @@
                         v-model="editedItem.en_name"
                         label="Name in English"
                         :rules="[
-                                    value =>
-                                      !!value || 'This  field is required',
-                                    value =>
-                                      (value && value.length <= 50) ||
-                                      'maximum 50 characters'
-                                  ]"
+                          value =>
+                            !!value || 'This  field is required',
+                          value =>
+                            (value && value.length <= 50) ||
+                            'maximum 50 characters'
+                        ]"
                       ></v-text-field>
                     </v-col>
                     <v-col cols="12" sm="6" md="6">
@@ -76,12 +76,12 @@
                         label="Name in Arabic"
                         class="direction"
                         :rules="[
-                                    value =>
-                                      !!value || 'This  field is required',
-                                    value =>
-                                      (value && value.length <= 50) ||
-                                      'maximum 50 characters'
-                                  ]"
+                          value =>
+                            !!value || 'This  field is required',
+                          value =>
+                            (value && value.length <= 50) ||
+                            'maximum 50 characters'
+                        ]"
                       ></v-text-field>
                     </v-col>
                     <v-col cols="12" sm="6" md="6">
@@ -116,9 +116,9 @@
                         label="Incorporation Date"
                         type="date"
                         :rules="[
-                                    value =>
-                                      !!value || 'This  field is required'
-                                  ]"
+                          value =>
+                            !!value || 'This  field is required'
+                        ]"
                       ></v-text-field>
                     </v-col>
                     <v-col cols="12" sm="6" md="6">
@@ -182,7 +182,7 @@
             </v-card-actions>
           </v-card>
         </v-dialog>
-<!--        </MaterialCard>-->
+        <!--        </MaterialCard>-->
       </v-col>
     </v-row>
   </v-container>
@@ -232,17 +232,17 @@ export default {
       fileUrl: baseURL.FILE_URL
     }
   },
-  watch: {
-    dialog: function (val) {
-      if(!val){
-        this.$refs.form.reset()
-        this.editedIndex = -1
-      }
-    },
-  },
   computed: {
     formTitle() {
       return this.editedIndex === -1 ? 'New Company Info' : 'Edit Company Info'
+    }
+  },
+  watch: {
+    dialog: function (val) {
+      if (!val) {
+        this.$refs.form.reset()
+        this.editedIndex = -1
+      }
     }
   },
   created() {
