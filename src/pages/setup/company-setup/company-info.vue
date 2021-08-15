@@ -17,8 +17,8 @@
                 :src="fileUrl + item.logo"
                 alt=""
                 style="display: flex;border-radius: 50%;"
-                width="50"
-                height="50"
+                width="38"
+                height="38"
               />
             </template>
             <template v-slot:top>
