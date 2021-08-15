@@ -23,16 +23,17 @@
             </template>
             <template v-slot:top>
               <v-toolbar flat>
-                <v-toolbar-title><h3>Company Info</h3></v-toolbar-title>
+                <v-toolbar-title><h3> {{ $t('companyInfo.title') }}</h3></v-toolbar-title>
                 <v-spacer></v-spacer>
                     <v-btn
                       color="primary"
                       dark
                       class="mb-2"
                       rounded
+                      
                       @click="dialog = true"
                     >
-                      Create Company Info
+                      {{ $t('companyInfo.create') }}
                     </v-btn>
               </v-toolbar>
             </template>
