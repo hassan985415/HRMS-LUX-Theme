@@ -4,12 +4,12 @@
       <v-col cols="12" md="12">
         <!--        <MaterialCard color="success" title="Company Info" class="px-5 py-3">-->
         <v-data-table
-          v-if="!dialog"
+          v-if="!dialog && !view"
           :headers="headers"
           :items="allData"
           sort-by="en_name"
           class="data-table-custom"
-          @click:row.self="editItem"
+          @click:row.self="viewItem"
         >
           <template v-slot:item.logo="{ item }">
             <img
@@ -47,7 +47,7 @@
             </div>
           </template>
         </v-data-table>
-        <v-card v-else>
+        <v-card v-if="dialog">
           <v-card-title>
             <span class="headline">{{ formTitle }}</span>
           </v-card-title>
@@ -180,6 +180,49 @@
           </v-card>
         </v-dialog>
         <!--        </MaterialCard>-->
+
+<!--        view single record-->
+        <v-card v-if="view">
+          <v-card-title>
+            <span class="headline"> View </span>
+          </v-card-title>
+          <v-card-text>
+            <v-row>
+              <v-col cols="12" sm="6" md="6"><h3> Logo </h3> </v-col>
+              <v-col cols="12" sm="6" md="6"> <img
+                v-if="editedItem.logo"
+                :src="fileUrl + editedItem.logo"
+                alt=""
+                style="display: flex;border-radius: 50%;"
+                width="38"
+                height="38"
+              /> </v-col>
+              <v-col cols="12" sm="6" md="6"><h3> En Name </h3> </v-col>
+              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.en_name}} </span> </v-col>
+              <v-col cols="12" sm="6" md="6"><h3> Ar Name </h3> </v-col>
+              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.ar_name}} </span> </v-col>
+              <v-col cols="12" sm="6" md="6"><h3> En Register Name </h3> </v-col>
+              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.er_register_name}} </span> </v-col>
+              <v-col cols="12" sm="6" md="6"><h3> Ar Register Name </h3> </v-col>
+              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.er_register_name}} </span> </v-col>
+              <v-col cols="12" sm="6" md="6"><h3> Incorporation Date </h3> </v-col>
+              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.incorporation_date}} </span> </v-col>
+              <v-col cols="12" sm="6" md="6"><h3> En Type of Business </h3> </v-col>
+              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.en_type_of_business}} </span> </v-col>
+              <v-col cols="12" sm="6" md="6"><h3> Ar Type of Business </h3> </v-col>
+              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.ar_type_of_business}} </span> </v-col>
+            </v-row>
+          </v-card-text>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn color="blue darken-1" text rounded @click="view = false; editedItem = {}; editedIndex = -1">
+              Cancel
+            </v-btn>
+            <v-btn color="blue darken-1" text rounded @click="dialog = true; view = false">
+              Edit
+            </v-btn>
+          </v-card-actions>
+        </v-card>
       </v-col>
     </v-row>
   </v-container>
@@ -198,6 +241,7 @@ export default {
     return {
       valid: true,
       dialog: false,
+      view: false,
       dialogDelete: false,
       headers: [
         { text: 'ID', align: 'start', value: 'id' },
@@ -358,6 +402,13 @@ export default {
       // console.log('index',this.desserts.indexOf(item))
       this.editedItem = Vue.util.extend({}, item)
       this.dialog = true
+    },
+    viewItem(item) {
+      this.editedIndex = 2
+      // this.editedIndex =this.desserts.indexOf(item)
+      // console.log('index',this.desserts.indexOf(item))
+      this.editedItem = Vue.util.extend({}, item)
+      this.view = true
     },
     deleteItem(id) {
       this.countryId[0] = id
