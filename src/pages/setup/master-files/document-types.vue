@@ -9,182 +9,39 @@
         cols="12"
         md="12"
       >
-<!--        <MaterialCard-->
-<!--          color="success"-->
-<!--          title="Document Types"-->
-<!--          class="px-5 py-3"-->
-<!--        >-->
-          <v-data-table
-            :headers="headers"
-            :items="allData"
-            sort-by="en_name"
-          >
-            <template v-slot:top>
-              <v-toolbar
-                flat
-              >
-                <v-toolbar-title><h3>{{ $t("document.title") }}</h3></v-toolbar-title>
-                <v-spacer></v-spacer>
-                <v-dialog
-                  v-model="dialog"
-                  max-width="500px"
+        <!--        <MaterialCard-->
+        <!--          color="success"-->
+        <!--          title="Document Types"-->
+        <!--          class="px-5 py-3"-->
+        <!--        >-->
+        <v-data-table
+          v-if="!dialog && !view"
+          :headers="headers"
+          :items="allData"
+          sort-by="en_name"
+          @click:row.self="viewItem"
+        >
+          <template v-slot:top>
+            <v-toolbar
+              flat
+            >
+              <v-toolbar-title><h3>Document Types</h3></v-toolbar-title>
+              <v-spacer></v-spacer>
+              <template>
+                <v-btn
+                  color="primary"
+                  dark
+                  class="mb-2"
+                  rounded
+                  @click="dialog = true"
                 >
-                  <template v-slot:activator="{ on, attrs }">
-                    <v-btn
-                      color="primary"
-                      dark
-                      class="mb-2"
-                      v-bind="attrs"
-                      v-on="on"
+                  Create Document Type
+                </v-btn>
+              </template>
+            </v-toolbar>
+          </template>
 
-                      rounded
-                    >
-                     {{ $t("document.create") }}
-                    </v-btn>
-                  </template>
-                  <v-card>
-                    <v-card-title>
-                      <span class="headline">{{ formTitle }}</span>
-                    </v-card-title>
-                    <v-card-text>
-                      <v-container>
-                        <v-form ref="form">
-                          <v-container class="py-0">
-                            <v-row>
-                              <v-col
-                                cols="12"
-                                sm="6"
-                                md="6"
-                              >
-                                <v-text-field
-                                  label="Document Types in Arabic"
-                                  class="direction"
-                                  v-model="editedItem.ar_name"
-                                  :rules="[ (value) => !!value || 'This  field is required',
-                                (value) => (value && value.length <= 50) || 'maximum 50 characters',]"
-                                ></v-text-field>
-                              </v-col>
-                              <v-col
-                                cols="12"
-                                sm="6"
-                                md="6"
-                              >
-                                <v-text-field
-                                  label="Document Types in English"
-                                  v-model="editedItem.en_name"
-                                  :rules="[ (value) => !!value || 'This  field is required',
-                                (value) => (value && value.length <= 50) || 'maximum 50 characters',]"
-                                ></v-text-field>
-                              </v-col>
-                              <v-col
-                                cols="12"
-                                sm="6"
-                                md="6"
-                              >
-                                <v-text-field
-                                  label="Exp Date"
-                                  type="date"
-                                  v-model="editedItem.exp_date"
-                                  :rules="[ (value) => !!value || 'This  field is required']"
-                                ></v-text-field>
-                              </v-col>
-                              <v-col
-                                cols="12"
-                                sm="6"
-                                md="6"
-                              >
-                                <v-checkbox
-                                  v-model="editedItem.hijriflag"
-                                  :false-value="0"
-                                  :true-value="1"
-                                  label="Hijri Flag"
-                                  color="success"
-                                  hide-details
-                                ></v-checkbox>
-                              </v-col>
-                              <v-col
-                                cols="12"
-                                sm="6"
-                                md="6"
-                              >
-                                <v-checkbox
-                                  v-model="editedItem.co_flag"
-                                  :false-value="0"
-                                  :true-value="1"
-                                  label="Co Flag"
-                                  color="success"
-                                  hide-details
-                                ></v-checkbox>
-                              </v-col>
-                              <v-col
-                                cols="12"
-                                sm="6"
-                                md="6"
-                              >
-                                <v-checkbox
-                                  v-model="editedItem.substitution"
-                                  :false-value="0"
-                                  :true-value="1"
-                                  label="Substitution"
-                                  color="success"
-                                  hide-details
-                                ></v-checkbox>
-                              </v-col>
-                              <v-col
-                                cols="12"
-                                sm="6"
-                                md="6"
-                              >
-                                <v-checkbox
-                                  v-model="editedItem.renew_flag"
-                                  :false-value="0"
-                                  :true-value="1"
-                                  label="Renew Flag"
-                                  color="success"
-                                  hide-details
-                                ></v-checkbox>
-                              </v-col>
-                            </v-row>
-                          </v-container>
-                        </v-form>
-
-                      </v-container>
-                    </v-card-text>
-
-                    <v-card-actions>
-                      <v-spacer></v-spacer>
-                      <v-btn
-                        color="blue darken-1"
-                        text
-                        @click="dialog = false"
-                      >
-                        Cancel
-                      </v-btn>
-                      <v-btn
-                        color="blue darken-1"
-                        text
-                        @click="save"
-                      >
-                        Save
-                      </v-btn>
-                    </v-card-actions>
-                  </v-card>
-                </v-dialog>
-                <v-dialog v-model="dialogDelete" max-width="390px" persistent>
-                  <v-card>
-                    <v-card-title class="headline">Are you sure you want to delete this record?</v-card-title>
-                    <v-card-actions>
-                      <v-spacer></v-spacer>
-                      <v-btn color="blue darken-1" text @click="dialogDelete=false">Cancel</v-btn>
-                      <v-btn color="blue darken-1" text @click="deleteItemConfirm">OK</v-btn>
-                      <v-spacer></v-spacer>
-                    </v-card-actions>
-                  </v-card>
-                </v-dialog>
-              </v-toolbar>
-            </template>
-
-             <template v-slot:item.actions="{ item }">
+          <template v-slot:item.actions="{ item }">
             <div class="d-flex">
               <v-icon small class="mr-2" @click="editItem(item)">
                 mdi-pencil
@@ -194,30 +51,201 @@
               </v-icon>
             </div>
           </template>
-          </v-data-table>
-<!--        </MaterialCard>-->
+        </v-data-table>
+        <v-card v-if="dialog">
+          <v-card-title>
+            <span class="headline">{{ formTitle }}</span>
+          </v-card-title>
+          <v-card-text>
+            <v-container>
+              <v-form ref="form">
+                <v-container class="py-0">
+                  <v-row>
+                    <v-col
+                      cols="12"
+                      sm="6"
+                      md="6"
+                    >
+                      <v-text-field
+                        v-model="editedItem.ar_name"
+                        label="Document Types in Arabic"
+                        class="direction"
+                        :rules="[ (value) => !!value || 'This  field is required',
+                                  (value) => (value && value.length <= 50) || 'maximum 50 characters',]"
+                      ></v-text-field>
+                    </v-col>
+                    <v-col
+                      cols="12"
+                      sm="6"
+                      md="6"
+                    >
+                      <v-text-field
+                        v-model="editedItem.en_name"
+                        label="Document Types in English"
+                        :rules="[ (value) => !!value || 'This  field is required',
+                                  (value) => (value && value.length <= 50) || 'maximum 50 characters',]"
+                      ></v-text-field>
+                    </v-col>
+                    <v-col
+                      cols="12"
+                      sm="6"
+                      md="6"
+                    >
+                      <v-text-field
+                        v-model="editedItem.exp_date"
+                        label="Exp Date"
+                        type="date"
+                        :rules="[ (value) => !!value || 'This  field is required']"
+                      ></v-text-field>
+                    </v-col>
+                    <v-col
+                      cols="12"
+                      sm="6"
+                      md="6"
+                    >
+                      <v-checkbox
+                        v-model="editedItem.hijriflag"
+                        :false-value="0"
+                        :true-value="1"
+                        label="Hijri Flag"
+                        color="success"
+                        hide-details
+                      ></v-checkbox>
+                    </v-col>
+                    <v-col
+                      cols="12"
+                      sm="6"
+                      md="6"
+                    >
+                      <v-checkbox
+                        v-model="editedItem.co_flag"
+                        :false-value="0"
+                        :true-value="1"
+                        label="Co Flag"
+                        color="success"
+                        hide-details
+                      ></v-checkbox>
+                    </v-col>
+                    <v-col
+                      cols="12"
+                      sm="6"
+                      md="6"
+                    >
+                      <v-checkbox
+                        v-model="editedItem.substitution"
+                        :false-value="0"
+                        :true-value="1"
+                        label="Substitution"
+                        color="success"
+                        hide-details
+                      ></v-checkbox>
+                    </v-col>
+                    <v-col
+                      cols="12"
+                      sm="6"
+                      md="6"
+                    >
+                      <v-checkbox
+                        v-model="editedItem.renew_flag"
+                        :false-value="0"
+                        :true-value="1"
+                        label="Renew Flag"
+                        color="success"
+                        hide-details
+                      ></v-checkbox>
+                    </v-col>
+                  </v-row>
+                </v-container>
+              </v-form>
+
+            </v-container>
+          </v-card-text>
+
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn
+              color="blue darken-1"
+              text
+              @click="dialog = false"
+            >
+              Cancel
+            </v-btn>
+            <v-btn
+              color="blue darken-1"
+              text
+              @click="save"
+            >
+              Save
+            </v-btn>
+          </v-card-actions>
+        </v-card>
+        <v-dialog v-model="dialogDelete" max-width="390px" persistent>
+          <v-card>
+            <v-card-title class="headline">Are you sure you want to delete this record?</v-card-title>
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn color="blue darken-1" text @click="dialogDelete=false">Cancel</v-btn>
+              <v-btn color="blue darken-1" text @click="deleteItemConfirm">OK</v-btn>
+              <v-spacer></v-spacer>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
+        <!--        </MaterialCard>-->
+        <v-card v-if="view">
+          <v-card-title>
+            <span class="headline"> View </span>
+          </v-card-title>
+          <v-card-text>
+            <v-row>
+              <v-col cols="12" sm="6" md="6"><h3> En Name </h3> </v-col>
+              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.en_name}} </span> </v-col>
+              <v-col cols="12" sm="6" md="6"><h3> Ar Name </h3> </v-col>
+              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.ar_name}} </span> </v-col>
+              <v-col cols="12" sm="6" md="6"><h3> Exp Date </h3> </v-col>
+              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.exp_date}} </span> </v-col>
+              <v-col cols="12" sm="6" md="6"><h3> Hijri Flag </h3> </v-col>
+              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.hijriflag}} </span> </v-col>
+              <v-col cols="12" sm="6" md="6"><h3> Co Flag </h3> </v-col>
+              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.co_flag}} </span> </v-col>
+              <v-col cols="12" sm="6" md="6"><h3> Substitution </h3> </v-col>
+              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.substitution}} </span> </v-col>
+              <v-col cols="12" sm="6" md="6"><h3> Renew Flag </h3> </v-col>
+              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.renew_flag}} </span> </v-col>
+            </v-row>
+          </v-card-text>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn color="blue darken-1" text rounded @click="view = false; editedItem = {}; editedIndex = -1">
+              Cancel
+            </v-btn>
+            <v-btn color="blue darken-1" text rounded @click="dialog = true; view = false">
+              Edit
+            </v-btn>
+          </v-card-actions>
+        </v-card>
       </v-col>
     </v-row>
   </v-container>
 </template>
 
 <script>
-import MaterialCard from "../../../components/base/MaterialCard";
-import Vue from "vue";
-import {mapActions, mapMutations} from "vuex";
+import MaterialCard from '../../../components/base/MaterialCard'
+import Vue from 'vue'
+import { mapActions, mapMutations } from 'vuex'
 export default {
-  name: "DocumentTypes",
-  components: {MaterialCard },
+  name: 'DocumentTypes',
+  components: { MaterialCard },
   middleware: ['auth'],
-  data(){
-    return{
+  data() {
+    return {
       dialog: false,
+      view: false,
       dialogDelete: false,
       headers: [
         {
           text: 'ID',
           align: 'start',
-          value: 'id',
+          value: 'id'
         },
         { text: 'En Name', value: 'en_name' },
         { text: 'Ar Name', value: 'ar_name' },
@@ -226,7 +254,7 @@ export default {
         { text: 'Co Flag', value: 'co_flag' },
         { text: 'Substitution', value: 'substitution' },
         { text: 'Renew Flag', value: 'renew_flag' },
-        { text: 'Actions', value: 'actions', sortable: false },
+        { text: 'Actions', value: 'actions', sortable: false }
       ],
       desserts: [],
       editedIndex: -1,
@@ -237,7 +265,7 @@ export default {
         hijriflag: '0',
         co_flag: '0',
         substitution: '0',
-        renew_flag: '0',
+        renew_flag: '0'
       },
       countryId:[],
       allData: []
@@ -250,11 +278,11 @@ export default {
   },
   watch: {
     dialog: function (val) {
-      if(!val){
+      if (!val) {
         this.$refs.form.reset()
         this.editedIndex = -1
       }
-    },
+    }
   },
   created () {
     this.getList()
@@ -262,66 +290,69 @@ export default {
   methods: {
     ...mapActions('app', ['list', 'update', 'create', 'delete']),
     ...mapMutations('app', ['SHOW_LOADER','SHOW_SNACKBAR']),
-    getList(){
-      let data = { path: "/documents" }
-      this.list(data).then(response => {
+    getList() {
+      const data = { path: '/documents' }
+
+      this.list(data).then((response) => {
         this.allData = response.data.data
-        this.SHOW_LOADER ( false);
+        this.SHOW_LOADER ( false)
         this.SHOW_SNACKBAR( {
           snackbar: true,
-          color: "green",
+          color: 'green',
           message: response.data.message
-        });
-      });
+        })
+      })
     },
     async save () {
-      if(this.$refs.form.validate()) {
+      if (this.$refs.form.validate()) {
         if (this.editedIndex > -1) {
-          let data={
-            path:"/document/"+this.editedItem.id,
+          const data = {
+            path:'/document/' + this.editedItem.id,
             data:this.editedItem
           }
-          this.SHOW_LOADER ( true);
-          await this.update(data).then(response => {
+
+          this.SHOW_LOADER ( true)
+          await this.update(data).then((response) => {
             this.dialog = false
-            this.SHOW_LOADER ( false);
+            this.SHOW_LOADER ( false)
             this.SHOW_SNACKBAR( {
               snackbar: true,
-              color: "green",
+              color: 'green',
               message: response.data.message
-            });
+            })
             this.getList()
-          }).catch(error => {
-            this.SHOW_LOADER ( false);
+          }).catch((error) => {
+            this.SHOW_LOADER ( false)
             this.SHOW_SNACKBAR( {
               snackbar: true,
-              color: "error",
+              color: 'error',
               message: error.response.data.message
-            });
+            })
           })
         }
         else {
-          let data={
-            path:"/documents",
+          const data = {
+            path:'/documents',
             data:this.editedItem
           }
-          this.SHOW_LOADER ( true);
-          await this.create(data).then(response => {
+
+          this.SHOW_LOADER ( true)
+          await this.create(data).then((response) => {
             this.dialog = false
-            this.SHOW_LOADER ( false);
+            this.SHOW_LOADER ( false)
             this.SHOW_SNACKBAR( {
               snackbar: true,
-              color: "green",
+              color: 'green',
               message: response.data.message
-            });
+            })
             this.getList()
-          }).catch(error => {
-            this.SHOW_LOADER ( false);
+          }).catch((error) => {
+            this.SHOW_LOADER ( false)
             this.SHOW_SNACKBAR( {
               snackbar: true,
-              color: "error",
+              color: 'error',
               message: error.response.data.message
-            });
+            })
           })
         }
       }
@@ -331,37 +362,45 @@ export default {
       this.editedIndex = 2
       // this.editedIndex =this.desserts.indexOf(item)
       // console.log('index',this.desserts.indexOf(item))
-      this.editedItem = Vue.util.extend({}, item);
+      this.editedItem = Vue.util.extend({}, item)
       this.dialog = true
     },
+    viewItem (item) {
+      this.editedIndex = 2
+      // this.editedIndex =this.desserts.indexOf(item)
+      // console.log('index',this.desserts.indexOf(item))
+      this.editedItem = Vue.util.extend({}, item)
+      this.view = true
+    },
     deleteItem (id) {
-      this.countryId[0]=id
+      this.countryId[0] = id
       // this.editedIndex = this.desserts.indexOf(item)
       // this.editedItem = Object.assign({}, item)
       this.dialogDelete = true
     },
     async deleteItemConfirm() {
       this.dialogDelete = false
-      this.SHOW_LOADER ( true);
-      let data = {
+      this.SHOW_LOADER ( true)
+      const data = {
         'ids': this.countryId,
         'path' : '/delete_documents'
       }
-      await this.delete(data).then(response => {
-        this.SHOW_LOADER ( false);
+
+      await this.delete(data).then((response) => {
+        this.SHOW_LOADER ( false)
         this.SHOW_SNACKBAR( {
           snackbar: true,
-          color: "green",
+          color: 'green',
           message: response.data.message
-        });
+        })
         this.getList()
-      }).catch(error => {
-        this.SHOW_LOADER ( false);
+      }).catch((error) => {
+        this.SHOW_LOADER ( false)
         this.SHOW_SNACKBAR( {
           snackbar: true,
-          color: "error",
+          color: 'error',
           message: error.response.data.message
-        });
+        })
       })
     },
     reset() {
@@ -376,7 +415,7 @@ export default {
       this.editedIndex = -1
     }
 
-  },
+  }
 }
 </script>
 

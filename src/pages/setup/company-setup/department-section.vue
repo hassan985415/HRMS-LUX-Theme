@@ -18,7 +18,8 @@
             :headers="headers"
             :items="allData"
             sort-by="en_name"
-            v-if="!dialog"
+            v-if="!dialog && !view"
+            @click:row.self="viewItem"
           >
             <template v-slot:top>
               <v-toolbar
@@ -51,7 +52,7 @@
             </div>
           </template>
           </v-data-table>
-        <v-card v-else>
+        <v-card v-if="dialog">
           <v-card-title>
             <span class="headline">{{ formTitle }}</span>
           </v-card-title>
@@ -162,6 +163,31 @@
           </v-card>
         </v-dialog>
 <!--        </MaterialCard>-->
+        <!--        view single record-->
+        <v-card v-if="view">
+          <v-card-title>
+            <span class="headline"> View </span>
+          </v-card-title>
+          <v-card-text>
+            <v-row>
+              <v-col cols="12" sm="6" md="6"><h3> En Name </h3> </v-col>
+              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.en_name}} </span> </v-col>
+              <v-col cols="12" sm="6" md="6"><h3> Ar Name </h3> </v-col>
+              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.ar_name}} </span> </v-col>
+              <v-col cols="12" sm="6" md="6"><h3> Status </h3> </v-col>
+              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.status}} </span> </v-col>
+            </v-row>
+          </v-card-text>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn color="blue darken-1" text rounded @click="view = false; editedItem = {}; editedIndex = -1">
+              Cancel
+            </v-btn>
+            <v-btn color="blue darken-1" text rounded @click="dialog = true; view = false">
+              Edit
+            </v-btn>
+          </v-card-actions>
+        </v-card>
       </v-col>
     </v-row>
   </v-container>
@@ -179,6 +205,7 @@ export default {
     return {
       dialog: false,
       dialogDelete: false,
+      view: false,
       headers: [
         {
           text: 'ID',
@@ -211,7 +238,7 @@ export default {
         this.$refs.form.reset()
         this.editedIndex = -1
       }
-    },
+    }
   },
   computed: {
     formTitle () {
@@ -329,6 +356,15 @@ export default {
       this.editedItem.company_id = item.company_id.id
       this.editedItem.department_id = item.department_id.id
       this.dialog = true
+    },
+    viewItem (item) {
+      this.editedIndex = 2
+      // this.editedIndex =this.desserts.indexOf(item)
+      // console.log('index',this.desserts.indexOf(item))
+      this.editedItem = Vue.util.extend({}, item)
+      this.editedItem.company_id = item.company_id.id
+      this.editedItem.department_id = item.department_id.id
+      this.view = true
     },
     deleteItem (id) {
       this.countryId[0] = id

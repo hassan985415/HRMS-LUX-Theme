@@ -28,12 +28,11 @@
           <div class="pl-2 pt-2">
             <v-img
               src="/images/logo_en.png"
-             
+
               max-height="130"
               max-width="140"
             >
-           </v-img>
-           
+            </v-img>
 
             <!-- <div class="title font-weight-bold text-uppercase primary--text">{{ product.name }}</div>
             <div class="overline grey--text">{{ product.version }}</div> -->
@@ -134,9 +133,9 @@
       <v-main>
         <v-container class="fill-height" :fluid="!isContentBoxed">
           <v-layout>
-            <snackbar v-if="alert.snackbar"></snackbar>
-            <loader v-if="loader"></loader>
             <client-only>
+              <snackbar v-if="alert.snackbar"></snackbar>
+              <loader v-if="loader"></loader>
               <nuxt />
             </client-only>
           </v-layout>
@@ -154,22 +153,22 @@
 </template>
 
 <script>
-import { mapActions, mapMutations, mapState } from "vuex";
+import { mapActions, mapMutations, mapState } from 'vuex'
 
 // navigation menu configurations
-import config from "../configs";
+import config from '../configs'
 
-import MainMenu from "../components/navigation/MainMenu";
-import ToolbarUser from "../components/toolbar/ToolbarUser";
-import ToolbarApps from "../components/toolbar/ToolbarApps";
-import ToolbarLanguage from "../components/toolbar/ToolbarLanguage";
-import ToolbarCurrency from "../components/toolbar/ToolbarCurrency";
-import ToolbarNotifications from "../components/toolbar/ToolbarNotifications";
-import Snackbar from "../components/Snackbar";
-import Loader from "../components/Loader";
+import MainMenu from '../components/navigation/MainMenu'
+import ToolbarUser from '../components/toolbar/ToolbarUser'
+import ToolbarApps from '../components/toolbar/ToolbarApps'
+import ToolbarLanguage from '../components/toolbar/ToolbarLanguage'
+import ToolbarCurrency from '../components/toolbar/ToolbarCurrency'
+import ToolbarNotifications from '../components/toolbar/ToolbarNotifications'
+import Snackbar from '../components/Snackbar'
+import Loader from '../components/Loader'
 
 export default {
-  name: "Default",
+  name: 'Default',
   components: {
     MainMenu,
     ToolbarUser,
@@ -184,43 +183,58 @@ export default {
     return {
       drawer: null,
       showSearch: false,
-
+      snack : {},
       navigation: config.navigation
-    };
+    }
   },
   computed: {
-    ...mapState("app", [
-      "product",
-      "isContentBoxed",
-      "menuTheme",
-      "toolbarTheme",
-      "isToolbarDetached",
-      "loader",
-      "alert"
+    ...mapState('app', [
+      'product',
+      'isContentBoxed',
+      'menuTheme',
+      'toolbarTheme',
+      'isToolbarDetached',
+      'loader',
+      'alert'
     ])
   },
-  created() {
-    this.SHOW_SNACKBAR({ snackbar: false, color: "", message: "" });
-    this.SHOW_LOADER(false);
+  watch : {
+    alert (val) {
+      if (val.snackbar) {
+        this.clear()
+      }
+    }
   },
   methods: {
-    ...mapMutations("app", ["SHOW_SNACKBAR", "SHOW_LOADER"]),
-    ...mapActions("app", ["reset"]),
+    ...mapMutations('app', ['SHOW_SNACKBAR', 'SHOW_LOADER']),
+    ...mapActions('app', ['reset']),
     onKeyup(e) {
-      this.$refs.search.focus();
+      this.$refs.search.focus()
     },
     onidle() {
-      console.log("in logout");
-      this.reset();
-      this.$router.push("/signin");
+      console.log('in logout')
+      this.reset()
+      this.$router.push('/signin')
     },
     onremind(time) {
-      console.log("here", time);
+      console.log('here', time)
       // alert seconds remaining to 00:00
       // alert('You have left this browser idle for 30 minutes' + time)
+    },
+    clear () {
+      // eslint-disable-next-line @typescript-eslint/no-this-alias
+      const $this = this
+
+      const limitedInterval = setInterval(() => { $this.SHOW_SNACKBAR({
+        snackbar: false,
+        color: '',
+        message: ''
+      })
+      clearInterval(limitedInterval)
+      }, 3000)
     }
   }
-};
+}
 </script>
 
 <style scoped>
