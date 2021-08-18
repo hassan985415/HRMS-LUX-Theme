@@ -9,7 +9,10 @@ export default {
     faq: "التعليمات",
     contact: "اتصل بنا",
     tos: "شروط الخدمة",
-    policy: "سياسة الخصوصية"
+    policy: "سياسة الخصوصية",
+    edit:"يحرر",
+    ok:"حسنا",
+    deleteRecord:"هل أنت متأكد أنك تريد حذف هذا السجل؟",
   },
   board: {
     titlePlaceholder: "أدخل عنوانًا لهذه البطاقة",
@@ -151,6 +154,19 @@ export default {
     title: "معلومات الشركة",
     create: "إنشاء معلومات الشركة",
     actions:"عمل",
+    logo:"شعار الشركة",
+    id:"بطاقة تعريف",
+    view:"رأي",
+    englishName:"اسم الشركة بالانجليزية",
+    arabicName:"اسم الشركة بالعربية",
+    englishRegisterName:"اسم الشركة القانوني باللغة الإنجليزية",
+    arabicRegisterName:"اسم الشركة القانوني باللغة العربية",
+    dateOfIncorporation:"تاريخ التأسيس",
+    typeOfBussinessInEnglish:"نوع العمل في اللغة الإنجليزية",
+    typeOfBussinessInArabic:"نوع العمل باللغة العربية",
+
+    new:"معلومات الشركة الجديدة",
+    edit:"تحرير معلومات الشركة",
   },
   branch: {
     title: "فرع",

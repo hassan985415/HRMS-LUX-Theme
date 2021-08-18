@@ -59,7 +59,7 @@
                     <v-col cols="12" sm="6" md="6">
                       <v-text-field
                         v-model="editedItem.en_name"
-                        label="Name in English"
+                        :label="$t('companyInfo.englishName')"
                         :rules="[
                           value => !!value || 'This  field is required',
                           value =>
@@ -71,7 +71,7 @@
                     <v-col cols="12" sm="6" md="6">
                       <v-text-field
                         v-model="editedItem.ar_name"
-                        label="Name in Arabic"
+                        :label="$t('companyInfo.arabicName')"
                         class="direction"
                         :rules="[
                           value => !!value || 'This  field is required',
@@ -84,33 +84,33 @@
                     <v-col cols="12" sm="6" md="6">
                       <v-text-field
                         v-model="editedItem.en_register_name"
-                        label="Register Name in English"
+                        :label="$t('companyInfo.englishRegisterName')"
                       ></v-text-field>
                     </v-col>
                     <v-col cols="12" sm="6" md="6">
                       <v-text-field
                         v-model="editedItem.er_register_name"
-                        label="Register Name in Arabic"
+                        :label="$t('companyInfo.arabicRegisterName')"
                         class="direction"
                       ></v-text-field>
                     </v-col>
                     <v-col cols="12" sm="6" md="6">
                       <v-text-field
                         v-model="editedItem.en_type_of_business"
-                        label="En type of business"
+                        :label="$t('companyInfo.typeOfBussinessInEnglish')"
                       ></v-text-field>
                     </v-col>
                     <v-col cols="12" sm="6" md="6">
                       <v-text-field
                         v-model="editedItem.ar_type_of_business"
-                        label="Ar type of business"
+                        :label="$t('companyInfo.typeOfBussinessInArabic')"
                         class="direction"
                       ></v-text-field>
                     </v-col>
                     <v-col cols="12" sm="6" md="6">
                       <v-text-field
                         v-model="editedItem.incorporation_date"
-                        label="Incorporation Date"
+                        :label="$t('companyInfo.dateOfIncorporation')"
                         type="date"
                         :rules="[value => !!value || 'This  field is required']"
                       ></v-text-field>
@@ -118,7 +118,7 @@
                     <v-col cols="12" sm="6" md="6" class="d-flex">
                       <v-text-field
                         id="file"
-                        label="Logo"
+                        :label="$t('companyInfo.logo')"
                         type="file"
                       ></v-text-field>
 
@@ -151,10 +151,10 @@
           <v-card-actions>
             <v-spacer></v-spacer>
             <v-btn color="blue darken-1" text rounded @click="dialog = false">
-              Cancel
+              {{ $t("common.cancel") }}
             </v-btn>
             <v-btn color="blue darken-1" text rounded @click="save">
-              Save
+              {{ $t("common.save") }}
             </v-btn>
           </v-card-actions>
         </v-card>
@@ -162,19 +162,19 @@
           <v-card>
             <v-card-title
               class="headline"
-            >Are you sure you want to delete this record?</v-card-title>
+            >{{ $t("common.deleteRecord") }}</v-card-title>
             <v-card-actions>
               <v-spacer></v-spacer>
               <v-btn
                 color="blue darken-1"
                 text
                 @click="dialogDelete = false"
-              >Cancel</v-btn>
+              >{{ $t("common.cancel") }}</v-btn>
               <v-btn
                 color="blue darken-1"
                 text
                 @click="deleteItemConfirm"
-              >OK</v-btn>
+              >{{ $t("common.ok") }}</v-btn>
               <v-spacer></v-spacer>
             </v-card-actions>
           </v-card>
@@ -184,11 +184,11 @@
 <!--        view single record-->
         <v-card v-if="view">
           <v-card-title>
-            <span class="headline"> View </span>
+            <span class="headline"> {{ $t("companyInfo.view") }} </span>
           </v-card-title>
           <v-card-text>
             <v-row>
-              <v-col cols="12" sm="6" md="6"><h3> Logo </h3> </v-col>
+              <v-col cols="12" sm="6" md="6"><h3> {{ $t("companyInfo.logo") }} </h3> </v-col>
               <v-col cols="12" sm="6" md="6"> <img
                 v-if="editedItem.logo"
                 :src="fileUrl + editedItem.logo"
@@ -197,29 +197,29 @@
                 width="38"
                 height="38"
               /> </v-col>
-              <v-col cols="12" sm="6" md="6"><h3> En Name </h3> </v-col>
+              <v-col cols="12" sm="6" md="6"><h3> {{ $t("companyInfo.englishName") }} </h3> </v-col>
               <v-col cols="12" sm="6" md="6"><span>{{ editedItem.en_name}} </span> </v-col>
-              <v-col cols="12" sm="6" md="6"><h3> Ar Name </h3> </v-col>
+              <v-col cols="12" sm="6" md="6"><h3> {{ $t("companyInfo.arabicName") }} </h3> </v-col>
               <v-col cols="12" sm="6" md="6"><span>{{ editedItem.ar_name}} </span> </v-col>
-              <v-col cols="12" sm="6" md="6"><h3> En Register Name </h3> </v-col>
+              <v-col cols="12" sm="6" md="6"><h3> {{ $t("companyInfo.englishRegisterName") }} </h3> </v-col>
               <v-col cols="12" sm="6" md="6"><span>{{ editedItem.er_register_name}} </span> </v-col>
-              <v-col cols="12" sm="6" md="6"><h3> Ar Register Name </h3> </v-col>
+              <v-col cols="12" sm="6" md="6"><h3> {{ $t("companyInfo.arabicRegisterName") }} </h3> </v-col>
               <v-col cols="12" sm="6" md="6"><span>{{ editedItem.er_register_name}} </span> </v-col>
-              <v-col cols="12" sm="6" md="6"><h3> Incorporation Date </h3> </v-col>
+              <v-col cols="12" sm="6" md="6"><h3> {{ $t("companyInfo.dateOfIncorporation") }} </h3> </v-col>
               <v-col cols="12" sm="6" md="6"><span>{{ editedItem.incorporation_date}} </span> </v-col>
-              <v-col cols="12" sm="6" md="6"><h3> En Type of Business </h3> </v-col>
+              <v-col cols="12" sm="6" md="6"><h3> {{ $t("companyInfo.typeOfBussinessInEnglish") }} </h3> </v-col>
               <v-col cols="12" sm="6" md="6"><span>{{ editedItem.en_type_of_business}} </span> </v-col>
-              <v-col cols="12" sm="6" md="6"><h3> Ar Type of Business </h3> </v-col>
+              <v-col cols="12" sm="6" md="6"><h3> {{ $t("companyInfo.typeOfBussinessInArabic") }} </h3> </v-col>
               <v-col cols="12" sm="6" md="6"><span>{{ editedItem.ar_type_of_business}} </span> </v-col>
             </v-row>
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
             <v-btn color="blue darken-1" text rounded @click="view = false; editedItem = {}; editedIndex = -1">
-              Cancel
+              {{ $t("common.cancel") }}
             </v-btn>
             <v-btn color="blue darken-1" text rounded @click="dialog = true; view = false">
-              Edit
+              {{ $t("common.edit") }}
             </v-btn>
           </v-card-actions>
         </v-card>
@@ -244,16 +244,16 @@ export default {
       view: false,
       dialogDelete: false,
       headers: [
-        { text: 'ID', align: 'start', value: 'id' },
-        { text: 'Logo', value: 'logo', sortable: false },
-        { text: 'En Name', value: 'en_name' },
-        { text: 'Ar Name', value: 'ar_name' },
-        { text: 'En Register Name', value: 'en_register_name' },
-        { text: 'Ar Register Name', value: 'er_register_name' },
-        { text: 'Incorporation Date', value: 'incorporation_date' },
-        { text: 'En Type of Business', value: 'en_type_of_business' },
-        { text: 'Ar Type of Business', value: 'ar_type_of_business' },
-        { text: 'Actions', value: 'actions', sortable: false }
+        { text: this.$i18n.t("companyInfo.id"), align: 'start', value: 'id' },
+        { text: this.$i18n.t("companyInfo.logo"), value: 'logo', sortable: false },
+        { text: this.$i18n.t("companyInfo.englishName"), value: 'en_name' },
+        { text: this.$i18n.t("companyInfo.arabicName"), value: 'ar_name' },
+        { text: this.$i18n.t("companyInfo.englishRegisterName"), value: 'en_register_name' },
+        { text: this.$i18n.t("companyInfo.arabicRegisterName"), value: 'er_register_name' },
+        { text: this.$i18n.t("companyInfo.dateOfIncorporation"), value: 'incorporation_date' },
+        { text: this.$i18n.t("companyInfo.typeOfBussinessInEnglish"), value: 'en_type_of_business' },
+        { text: this.$i18n.t("companyInfo.typeOfBussinessInArabic"), value: 'ar_type_of_business' },
+        { text: this.$i18n.t("companyInfo.actions"), value: 'actions', sortable: false }
       ],
       desserts: [],
       editedIndex: -1,
@@ -275,7 +275,7 @@ export default {
   },
   computed: {
     formTitle() {
-      return this.editedIndex === -1 ? 'New Company Info' : 'Edit Company Info'
+      return this.editedIndex === -1 ? this.$t('companyInfo.new') : this.$t('companyInfo.edit')
     }
   },
   watch: {

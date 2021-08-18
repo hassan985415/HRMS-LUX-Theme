@@ -9,7 +9,10 @@ export default {
     faq: "FAQ",
     contact: "Contact Us",
     tos: "Terms of Service",
-    policy: "Privacy Policy"
+    policy: "Privacy Policy",
+    edit:"Cancel",
+    ok:"Ok",
+    deleteRecord:"Are you sure you want to delete this record?",
   },
   board: {
     titlePlaceholder: "Enter a title for this card",
@@ -30,9 +33,22 @@ export default {
     message: "Message"
   },
   companyInfo: {
-    title: "Company Info",
-    create: "Create Company Info",
+    title:   "Company Info",
+    create:  "Create Company Info",
     actions: "Action",
+    logo:    "COMPANY LOGO",
+    id:      "ID",
+    view:    "View",
+    englishName:    "Company Name in English",
+    arabicName:    "Company Name in Arabic",
+    englishRegisterName:"Legal Company Name in English",
+    arabicRegisterName:"Legal Company Name in Arabic",
+    dateOfIncorporation:"Date Of Incorporation",
+    typeOfBussinessInEnglish:"Type Of Bussiness In English",
+    typeOfBussinessInArabic:"Type Of Bussiness In Arabic",
+
+    new:"New Company Info",
+    edit:"Edit Company Info"
   },
   branch: {
     title: "Branch",
