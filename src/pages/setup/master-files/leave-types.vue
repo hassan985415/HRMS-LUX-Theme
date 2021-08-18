@@ -16,7 +16,8 @@
         <!--          class="px-5 py-3"-->
         <!--        >-->
         <v-data-table
-          v-if="!dialog"
+          v-if="!dialog && !view"
+          @click:row.self="viewItem"
           :headers="headers"
           :items="allData"
           sort-by="en_name"
@@ -52,7 +53,7 @@
             </div>
           </template>
         </v-data-table>
-        <v-card v-else>
+        <v-card v-if="dialog">
           <v-card-title>
             <span class="headline">{{ formTitle }}</span>
           </v-card-title>
@@ -246,6 +247,47 @@
           </v-card>
         </v-dialog>
         <!--        </MaterialCard>-->
+
+        <v-card v-if="view">
+          <v-card-title>
+            <span class="headline"> View </span>
+          </v-card-title>
+          <v-card-text>
+            <v-row>
+              <v-col cols="12" sm="6" md="6"><h3> En Name </h3> </v-col>
+              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.en_name}} </span> </v-col>
+              <v-col cols="12" sm="6" md="6"><h3> Ar Name </h3> </v-col>
+              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.ar_name}} </span> </v-col>
+              <v-col cols="12" sm="6" md="6"><h3> Duration </h3> </v-col>
+              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.duration}} </span> </v-col>
+              <v-col cols="12" sm="6" md="6"><h3> Is Salary </h3> </v-col>
+              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.is_salary}} </span> </v-col>
+              <v-col cols="12" sm="6" md="6"><h3> Require Visa </h3> </v-col>
+              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.requirevisa}} </span> </v-col>
+              <v-col cols="12" sm="6" md="6"><h3> With Pay </h3> </v-col>
+              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.withpay}} </span> </v-col>
+              <v-col cols="12" sm="6" md="6"><h3> Operator </h3> </v-col>
+              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.operator}} </span> </v-col>
+              <v-col cols="12" sm="6" md="6"><h3> Extra Leave Calc </h3> </v-col>
+              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.extra_leavecalc}} </span> </v-col>
+              <v-col cols="12" sm="6" md="6"><h3> Is Active </h3> </v-col>
+              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.is_active}} </span> </v-col>
+              <v-col cols="12" sm="6" md="6"><h3> Is Settlement </h3> </v-col>
+              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.is_settlement}} </span> </v-col>
+              <v-col cols="12" sm="6" md="6"><h3> Request </h3> </v-col>
+              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.request}} </span> </v-col>
+            </v-row>
+          </v-card-text>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn color="blue darken-1" text rounded @click="view = false; editedItem = {}; editedIndex = -1">
+              Cancel
+            </v-btn>
+            <v-btn color="blue darken-1" text rounded @click="dialog = true; view = false">
+              Edit
+            </v-btn>
+          </v-card-actions>
+        </v-card>
       </v-col>
     </v-row>
   </v-container>
@@ -263,6 +305,7 @@ export default {
   data() {
     return {
       dialog: false,
+      view: false,
       dialogDelete: false,
       headers: [
         {
@@ -395,6 +438,13 @@ export default {
       // console.log('index',this.desserts.indexOf(item))
       this.editedItem = Vue.util.extend({}, item)
       this.dialog = true
+    },
+    viewItem (item) {
+      this.editedIndex = 2
+      // this.editedIndex =this.desserts.indexOf(item)
+      // console.log('index',this.desserts.indexOf(item))
+      this.editedItem = Vue.util.extend({}, item)
+      this.view = true
     },
     deleteItem (id) {
       this.countryId[0] = id
