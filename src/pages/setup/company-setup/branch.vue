@@ -72,7 +72,7 @@
                         :items="companies"
                         :item-text="companies.text"
                         :item-value="companies.value"
-                        label="Select Company"
+                        :label="$t('branch.company')"
                         :rules="[ (value) => !!value || 'This  field is required']"
                       ></v-select>
                     </v-col>
@@ -86,7 +86,7 @@
                         :items="countries"
                         :item-text="countries.text"
                         :item-value="countries.value"
-                        label="Select Country"
+                        :label="$t('branch.country')"
                         @change="getCountyCites"
                         :rules="[ (value) => !!value || 'This  field is required']"
                       ></v-select>
@@ -98,7 +98,7 @@
                     >
                       <v-text-field
                         v-model="editedItem.en_name"
-                        label="Branch Name in English"
+                        :label="$t('branch.englishName')"
                         :rules="[ (value) => !!value || 'This  field is required',
                                             (value) => (value && value.length <= 50) || 'maximum 50 characters',]"
                       ></v-text-field>
@@ -110,7 +110,7 @@
                     >
                       <v-text-field
                         v-model="editedItem.ar_name"
-                        label="Branch Name in Arabic"
+                        :label="$t('branch.arabicName')"
                         class="direction"
                         :rules="[ (value) => !!value || 'This  field is required',
                                             (value) => (value && value.length <= 50) || 'maximum 50 characters',]"
@@ -123,7 +123,7 @@
                     >
                       <v-text-field
                         v-model="editedItem.en_manager_name"
-                        label="Manager Name in English"
+                        :label="$t('branch.managerEnglish')"
                         :rules="[ (value) => !!value || 'This  field is required',
                                             (value) => (value && value.length <= 50) || 'maximum 50 characters',]"
                       ></v-text-field>
@@ -135,7 +135,7 @@
                     >
                       <v-text-field
                         v-model="editedItem.ar_manager_name"
-                        label="Manager Name in Arabic"
+                        :label="$t('branch.managerArabic')"
                         class="direction"
                         :rules="[ (value) => !!value || 'This  field is required',
                                             (value) => (value && value.length <= 50) || 'maximum 50 characters',]"
@@ -151,7 +151,7 @@
                         :items="cities"
                         :item-text="cities.text"
                         :item-value="cities.value"
-                        label="Select City"
+                        :label="$t('branch.city')"
                         :rules="[ (value) => !!value || 'This  field is required']"
                       ></v-select>
                     </v-col>
@@ -162,7 +162,7 @@
                     >
                       <v-text-field
                         v-model="editedItem.address_1"
-                        label="Address_1"
+                       :label="$t('branch.address1')"
                       ></v-text-field>
                     </v-col>
                     <v-col
@@ -172,7 +172,7 @@
                     >
                       <v-text-field
                         v-model="editedItem.address_2"
-                        label="Address_2"
+                        :label="$t('branch.address2')"
                       ></v-text-field>
                     </v-col>
                     <v-col
@@ -182,7 +182,7 @@
                     >
                       <v-text-field
                         v-model="editedItem.address_3"
-                        label="Address_3"
+                        :label="$t('branch.address3')"
                       ></v-text-field>
                     </v-col>
                     <v-col
@@ -192,7 +192,7 @@
                     >
                       <v-text-field
                         v-model="editedItem.address_4"
-                        label="Address_4"
+                        :label="$t('branch.address4')"
                       ></v-text-field>
                     </v-col>
                     <v-col
@@ -202,7 +202,7 @@
                     >
                       <v-text-field
                         v-model="editedItem.postal_code"
-                        label="postal_code"
+                        :label="$t('branch.postalCode')"
                         type="number"
                       ></v-text-field>
                     </v-col>
@@ -213,7 +213,7 @@
                     >
                       <v-text-field
                         v-model="editedItem.state_region"
-                        label="state_region"
+                        :label="$t('branch.stateRegion')"
                       ></v-text-field>
                     </v-col>
                     <v-col
@@ -223,7 +223,7 @@
                     >
                       <v-text-field
                         v-model="editedItem.phone_1"
-                        label="phone_1"
+                        :label="$t('branch.telephone1')"
                       ></v-text-field>
                     </v-col>
                     <v-col
@@ -233,7 +233,7 @@
                     >
                       <v-text-field
                         v-model="editedItem.phone_2"
-                        label="phone_2"
+                        :label="$t('branch.telephone2')"
                       ></v-text-field>
                     </v-col>
                     <v-col
@@ -243,7 +243,7 @@
                     >
                       <v-text-field
                         v-model="editedItem.phone_3"
-                        label="phone_3"
+                        :label="$t('branch.telephone3')"
                       ></v-text-field>
                     </v-col>
                     <v-col
@@ -253,7 +253,7 @@
                     >
                       <v-text-field
                         v-model="editedItem.fax_1"
-                        label="fax_1"
+                        :label="$t('branch.faxno1')"
                       ></v-text-field>
                     </v-col>
                     <v-col
@@ -263,10 +263,10 @@
                     >
                       <v-text-field
                         v-model="editedItem.fax_2"
-                        label="fax_2"
+                        :label="$t('branch.faxno2')"
                       ></v-text-field>
                     </v-col>
-                    <v-col
+                    <!-- <v-col
                       cols="12"
                       sm="6"
                       md="6"
@@ -275,7 +275,7 @@
                         v-model="editedItem.fax_3"
                         label="fax_3"
                       ></v-text-field>
-                    </v-col>
+                    </v-col> -->
                     <v-col
                       cols="12"
                       sm="6"
@@ -283,7 +283,7 @@
                     >
                       <v-text-field
                         v-model="editedItem.email"
-                        label="email"
+                        :label="$t('branch.email')"
                       ></v-text-field>
                     </v-col>
                     <v-col
@@ -293,7 +293,7 @@
                     >
                       <v-text-field
                         v-model="editedItem.website"
-                        label="website"
+                        :label="$t('branch.website')"
                       ></v-text-field>
                     </v-col>
                     <v-col
@@ -303,10 +303,10 @@
                     >
                       <v-text-field
                         v-model="editedItem.status"
-                        label="status"
+                        :label="$t('branch.status')"
                       ></v-text-field>
                     </v-col>
-                    <v-col
+                    <!-- <v-col
                       cols="12"
                       sm="6"
                       md="6"
@@ -315,8 +315,8 @@
                         v-model="editedItem.remarks_1"
                         label="remarks_1"
                       ></v-text-field>
-                    </v-col>
-                    <v-col
+                    </v-col> -->
+                    <!-- <v-col
                       cols="12"
                       sm="6"
                       md="6"
@@ -324,8 +324,8 @@
                       <v-text-field
                         v-model="editedItem.remarks_2"
                         label="remarks_2"
-                      ></v-text-field>
-                    </v-col>
+                      ></v-text-field> -->
+                    <!-- </v-col>
                     <v-col
                       cols="12"
                       sm="6"
@@ -335,7 +335,7 @@
                         v-model="editedItem.remarks_3"
                         label="remarks_3"
                       ></v-text-field>
-                    </v-col>
+                    </v-col> -->
 
                   </v-row>
                 </v-container>
@@ -352,7 +352,7 @@
               rounded
               @click="dialog = false"
             >
-              Cancel
+              {{ $t("common.cancel") }}
             </v-btn>
             <v-btn
               color="blue darken-1"
@@ -360,17 +360,17 @@
               rounded
               @click="save"
             >
-              Save
+              {{ $t("common.save") }}
             </v-btn>
           </v-card-actions>
         </v-card>
         <v-dialog v-model="dialogDelete" max-width="390px" persistent>
           <v-card>
-            <v-card-title class="headline">Are you sure you want to delete this record?</v-card-title>
+            <v-card-title class="headline">{{ $t("common.deleteRecord") }}</v-card-title>
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn color="blue darken-1" text @click="dialogDelete=false">Cancel</v-btn>
-              <v-btn color="blue darken-1" text @click="deleteItemConfirm">OK</v-btn>
+              <v-btn color="blue darken-1" text @click="dialogDelete=false">{{ $t("common.cancel") }}</v-btn>
+              <v-btn color="blue darken-1" text @click="deleteItemConfirm">{{ $t("common.ok") }}</v-btn>
               <v-spacer></v-spacer>
             </v-card-actions>
           </v-card>
@@ -378,63 +378,63 @@
 <!--        </MaterialCard>-->
         <v-card v-if="view">
           <v-card-title>
-            <span class="headline"> View </span>
+            <span class="headline"> {{ $t("common.view") }} </span>
           </v-card-title>
           <v-card-text>
             <v-row>
-              <v-col cols="12" sm="6" md="6"><h3> En Name </h3> </v-col>
+              <v-col cols="12" sm="6" md="6"><h3> {{ $t("branch.englishName") }} </h3> </v-col>
               <v-col cols="12" sm="6" md="6"><span>{{ editedItem.en_name}} </span> </v-col>
-              <v-col cols="12" sm="6" md="6"><h3> Ar Name </h3> </v-col>
+              <v-col cols="12" sm="6" md="6"><h3> {{ $t("branch.arabicName") }}</h3> </v-col>
               <v-col cols="12" sm="6" md="6"><span>{{ editedItem.ar_name}} </span> </v-col>
-              <v-col cols="12" sm="6" md="6"><h3> En Manager Name </h3> </v-col>
+              <v-col cols="12" sm="6" md="6"><h3> {{ $t("branch.managerEnglish") }} </h3> </v-col>
               <v-col cols="12" sm="6" md="6"><span>{{ editedItem.en_manager_name}} </span> </v-col>
-              <v-col cols="12" sm="6" md="6"><h3> Ar Manager Name </h3> </v-col>
+              <v-col cols="12" sm="6" md="6"><h3>{{ $t("branch.managerArabic") }} </h3> </v-col>
               <v-col cols="12" sm="6" md="6"><span>{{ editedItem.ar_manager_name}} </span> </v-col>
-              <v-col cols="12" sm="6" md="6"><h3> Address 1 </h3> </v-col>
+              <v-col cols="12" sm="6" md="6"><h3> {{ $t("branch.address1") }} </h3> </v-col>
               <v-col cols="12" sm="6" md="6"><span>{{ editedItem.address_1}} </span> </v-col>
-              <v-col cols="12" sm="6" md="6"><h3> Address 2 </h3> </v-col>
+              <v-col cols="12" sm="6" md="6"><h3> {{ $t("branch.address2") }} </h3> </v-col>
               <v-col cols="12" sm="6" md="6"><span>{{ editedItem.address_2}} </span> </v-col>
-              <v-col cols="12" sm="6" md="6"><h3> Address 3 </h3> </v-col>
+              <v-col cols="12" sm="6" md="6"><h3> {{ $t("branch.address3") }} </h3> </v-col>
               <v-col cols="12" sm="6" md="6"><span>{{ editedItem.address_3}} </span> </v-col>
-              <v-col cols="12" sm="6" md="6"><h3> Address 4 </h3> </v-col>
+              <v-col cols="12" sm="6" md="6"><h3>{{ $t("branch.address4") }} </h3> </v-col>
               <v-col cols="12" sm="6" md="6"><span>{{ editedItem.address_4}} </span> </v-col>
-              <v-col cols="12" sm="6" md="6"><h3> Postal code </h3> </v-col>
+              <v-col cols="12" sm="6" md="6"><h3> {{ $t("branch.postalCode") }} </h3> </v-col>
               <v-col cols="12" sm="6" md="6"><span>{{ editedItem.postal_code}} </span> </v-col>
-              <v-col cols="12" sm="6" md="6"><h3> state region </h3> </v-col>
+              <v-col cols="12" sm="6" md="6"><h3> {{ $t("branch.stateRegion") }} </h3> </v-col>
               <v-col cols="12" sm="6" md="6"><span>{{ editedItem.state_region}} </span> </v-col>
-              <v-col cols="12" sm="6" md="6"><h3> Phone 1 </h3> </v-col>
+              <v-col cols="12" sm="6" md="6"><h3> {{ $t("branch.telephone1") }} </h3> </v-col>
               <v-col cols="12" sm="6" md="6"><span>{{ editedItem.phone_1}} </span> </v-col>
-              <v-col cols="12" sm="6" md="6"><h3> Phone 2 </h3> </v-col>
+              <v-col cols="12" sm="6" md="6"><h3> {{ $t("branch.telephone2") }} </h3> </v-col>
               <v-col cols="12" sm="6" md="6"><span>{{ editedItem.phone_2}} </span> </v-col>
-              <v-col cols="12" sm="6" md="6"><h3> Phone 3 </h3> </v-col>
+              <v-col cols="12" sm="6" md="6"><h3> {{ $t("branch.telephone3") }} </h3> </v-col>
               <v-col cols="12" sm="6" md="6"><span>{{ editedItem.phone_3}} </span> </v-col>
-              <v-col cols="12" sm="6" md="6"><h3> Fax 1 </h3> </v-col>
+              <v-col cols="12" sm="6" md="6"><h3> {{ $t("branch.faxno1") }} </h3> </v-col>
               <v-col cols="12" sm="6" md="6"><span>{{ editedItem.fax_1}} </span> </v-col>
-              <v-col cols="12" sm="6" md="6"><h3> Fax 2 </h3> </v-col>
+              <v-col cols="12" sm="6" md="6"><h3> {{ $t("branch.faxno2") }} </h3> </v-col>
               <v-col cols="12" sm="6" md="6"><span>{{ editedItem.fax_2}} </span> </v-col>
-              <v-col cols="12" sm="6" md="6"><h3> Fax 3 </h3> </v-col>
-              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.fax_3}} </span> </v-col>
-              <v-col cols="12" sm="6" md="6"><h3> Email </h3> </v-col>
+              <!-- <v-col cols="12" sm="6" md="6"><h3> Fax 3 </h3> </v-col> -->
+              <!-- <v-col cols="12" sm="6" md="6"><span>{{ editedItem.fax_3}} </span> </v-col> -->
+              <v-col cols="12" sm="6" md="6"><h3> {{ $t("branch.email") }} </h3> </v-col>
               <v-col cols="12" sm="6" md="6"><span>{{ editedItem.email}} </span> </v-col>
-              <v-col cols="12" sm="6" md="6"><h3> Website </h3> </v-col>
+              <v-col cols="12" sm="6" md="6"><h3> {{ $t("branch.website") }} </h3> </v-col>
               <v-col cols="12" sm="6" md="6"><span>{{ editedItem.website}} </span> </v-col>
-              <v-col cols="12" sm="6" md="6"><h3> Status </h3> </v-col>
+              <v-col cols="12" sm="6" md="6"><h3> {{ $t("branch.status") }} </h3> </v-col>
               <v-col cols="12" sm="6" md="6"><span>{{ editedItem.status}} </span> </v-col>
-              <v-col cols="12" sm="6" md="6"><h3> Remarks 1 </h3> </v-col>
-              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.remarks_1}} </span> </v-col>
-              <v-col cols="12" sm="6" md="6"><h3> Remarks 2 </h3> </v-col>
-              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.remarks_2}} </span> </v-col>
-              <v-col cols="12" sm="6" md="6"><h3> Remarks 3 </h3> </v-col>
-              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.remarks_3}} </span> </v-col>
+              <v-col cols="12" sm="6" md="6"><h3> {{ $t("branch.country") }} </h3> </v-col>
+              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.country}} </span> </v-col>
+              <v-col cols="12" sm="6" md="6"><h3> {{ $t("branch.city") }} </h3> </v-col>
+              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.city}} </span> </v-col>
+              <!-- <v-col cols="12" sm="6" md="6"><h3> Remarks 3 </h3> </v-col> -->
+              <!-- <v-col cols="12" sm="6" md="6"><span>{{ editedItem.remarks_3}} </span> </v-col> -->
             </v-row>
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
             <v-btn color="blue darken-1" text rounded @click="view = false; editedItem = {}; editedIndex = -1">
-              Cancel
+              {{ $t("common.cancel") }}
             </v-btn>
             <v-btn color="blue darken-1" text rounded @click="dialog = true; view = false">
-              Edit
+             {{ $t("common.edit") }}
             </v-btn>
           </v-card-actions>
         </v-card>
@@ -459,33 +459,33 @@ export default {
       view: false,
       headers: [
         {
-          text: 'ID',
+          text: this.$i18n.t("branch.id"),
           align: 'start',
           value: 'id'
         },
-        { text: 'En Name', value: 'en_name' },
-        { text: 'Ar Name', value: 'ar_name' },
-        { text: 'En Manager Name', value: 'en_manager_name' },
-        { text: 'Ar Manager Name', value: 'ar_manager_name' },
-        { text: 'Address 1', value: 'address_1' },
-        { text: 'Address 2', value: 'address_2' },
-        { text: 'Address 3', value: 'address_3' },
-        { text: 'Address 4', value: 'address_4' },
-        { text: 'postal code', value: 'postal_code' },
-        { text: 'state region', value: 'state_region' },
-        { text: 'phone 1', value: 'phone_1' },
-        { text: 'phone 2', value: 'phone_2' },
-        { text: 'phone 3', value: 'phone_3' },
-        { text: 'fax 1', value: 'fax_1' },
-        { text: 'fax 2', value: 'fax_2' },
-        { text: 'fax 3', value: 'fax_3' },
-        { text: 'email', value: 'email' },
-        { text: 'website', value: 'website' },
-        { text: 'status', value: 'status' },
-        { text: 'remarks 1', value: 'remarks_1' },
-        { text: 'remarks 2', value: 'remarks_2' },
-        { text: 'remarks 3', value: 'remarks_3' },
-        { text: 'Actions', value: 'actions', sortable: false }
+        { text: this.$i18n.t("branch.arabicName"), value: 'en_name' },
+        { text: this.$i18n.t("branch.englishName"), value: 'ar_name' },
+        { text: this.$i18n.t("branch.managerArabic"), value: 'en_manager_name' },
+        { text: this.$i18n.t("branch.managerEnglish"), value: 'ar_manager_name' },
+        { text: this.$i18n.t("branch.address1"), value: 'address_1' },
+        { text: this.$i18n.t("branch.address2"), value: 'address_2' },
+        { text: this.$i18n.t("branch.address3"), value: 'address_3' },
+        { text: this.$i18n.t("branch.address4"), value: 'address_4' },
+        { text: this.$i18n.t("branch.postalCode"), value: 'postal_code' },
+        { text: this.$i18n.t("branch.stateRegion"), value: 'state_region' },
+        { text: this.$i18n.t("branch.telephone1"), value: 'phone_1' },
+        { text: this.$i18n.t("branch.telephone2"), value: 'phone_2' },
+        { text: this.$i18n.t("branch.telephone3"), value: 'phone_3' },
+        { text: this.$i18n.t("branch.faxno1"), value: 'fax_1' },
+        { text: this.$i18n.t("branch.faxno2"), value: 'fax_2' },
+        // { text: 'fax 3', value: 'fax_3' },
+        { text: this.$i18n.t("branch.email"), value: 'email' },
+        { text: this.$i18n.t("branch.website"), value: 'website' },
+        { text: this.$i18n.t("branch.status"), value: 'status' },
+        { text: this.$i18n.t("branch.country"), value: 'country' },
+        { text: this.$i18n.t("branch.city"), value: 'city' },
+        // { text: 'remarks 3', value: 'remarks_3' },
+        { text: this.$i18n.t("common.action"), value: 'actions', sortable: false }
       ],
       desserts: [],
       editedIndex: -1,
@@ -533,7 +533,7 @@ export default {
   },
   computed: {
     formTitle () {
-      return this.editedIndex === -1 ? 'New Branch' : 'Edit Branch'
+      return this.editedIndex === -1 ? this.$t('branch.new') : this.$t('branch.edit')
     }
   },
   created () {
