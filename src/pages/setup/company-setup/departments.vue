@@ -72,6 +72,7 @@
                         :items="companies"
                         :item-text="companies.text"
                         :item-value="companies.value"
+                        :readonly="view"
                         label="Select Company"
                         :rules="[ (value) => !!value || 'This  field is required']"
                       ></v-select>
@@ -86,6 +87,7 @@
                         :items="branches"
                         :item-text="branches.text"
                         :item-value="branches.value"
+                        :readonly="view"
                         label="Select Branch"
                         :rules="[ (value) => !!value || 'This  field is required']"
                       ></v-select>
@@ -97,6 +99,7 @@
                     >
                       <v-text-field
                         v-model="editedItem.en_name"
+                        :readonly="view"
                         label="Name in English"
                         :rules="[ (value) => !!value || 'This  field is required',
                                   (value) => (value && value.length <= 50) || 'maximum 50 characters',]"
@@ -109,6 +112,7 @@
                     >
                       <v-text-field
                         v-model="editedItem.ar_name"
+                        :readonly="view"
                         label="Name in Arabic"
                         class="direction"
                         :rules="[ (value) => !!value || 'This  field is required',
@@ -122,6 +126,7 @@
                     >
                       <v-text-field
                         v-model="editedItem.en_manager_name"
+                        :readonly="view"
                         label="Manager Name in English"
                         :rules="[ (value) => !!value || 'This  field is required',
                                   (value) => (value && value.length <= 50) || 'maximum 50 characters',]"
@@ -134,6 +139,7 @@
                     >
                       <v-text-field
                         v-model="editedItem.ar_manager_name"
+                        :readonly="view"
                         label="Manager Name in Arabic"
                         :rules="[ (value) => !!value || 'This  field is required',
                                   (value) => (value && value.length <= 50) || 'maximum 50 characters',]"
@@ -146,6 +152,7 @@
                     >
                       <v-text-field
                         v-model="editedItem.acctgbranch"
+                        :readonly="view"
                         label="Acctgbranch"
                       ></v-text-field>
                     </v-col>
@@ -156,6 +163,7 @@
                     >
                       <v-text-field
                         v-model="editedItem.fabranch"
+                        :readonly="view"
                         label="Fabranch"
                       ></v-text-field>
                     </v-col>
@@ -166,23 +174,22 @@
             </v-container>
           </v-card-text>
 
-          <v-card-actions>
+          <v-card-actions v-if="!view">
             <v-spacer></v-spacer>
-            <v-btn
-              color="blue darken-1"
-              text
-              rounded
-              @click="dialog = false"
-            >
+            <v-btn color="blue darken-1" text rounded @click="dialog = false">
               Cancel
             </v-btn>
-            <v-btn
-              color="blue darken-1"
-              text
-              rounded
-              @click="save"
-            >
+            <v-btn color="blue darken-1" text rounded @click="save">
               Save
+            </v-btn>
+          </v-card-actions>
+          <v-card-actions v-else>
+            <v-spacer></v-spacer>
+            <v-btn color="blue darken-1" text rounded @click="view = false; editedItem = {}; editedIndex = -1">
+              Cancel
+            </v-btn>
+            <v-btn color="blue darken-1" text rounded @click="view = false">
+              Edit
             </v-btn>
           </v-card-actions>
         </v-card>
@@ -199,36 +206,36 @@
         </v-dialog>
         <!--        </MaterialCard>-->
         <!--        view single record-->
-        <v-card v-if="view">
-          <v-card-title>
-            <span class="headline"> View </span>
-          </v-card-title>
-          <v-card-text>
-            <v-row>
-              <v-col cols="12" sm="6" md="6"><h3> En Name </h3> </v-col>
-              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.en_name }} </span> </v-col>
-              <v-col cols="12" sm="6" md="6"><h3> Ar Name </h3> </v-col>
-              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.ar_name }} </span> </v-col>
-              <v-col cols="12" sm="6" md="6"><h3> En Manager Name </h3> </v-col>
-              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.en_manager_name }} </span> </v-col>
-              <v-col cols="12" sm="6" md="6"><h3> Ar Manager Name </h3> </v-col>
-              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.ar_manager_name }} </span> </v-col>
-              <v-col cols="12" sm="6" md="6"><h3> acctgbranch </h3> </v-col>
-              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.acctgbranch }} </span> </v-col>
-              <v-col cols="12" sm="6" md="6"><h3> fabranch </h3> </v-col>
-              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.fabranch }} </span> </v-col>
-            </v-row>
-          </v-card-text>
-          <v-card-actions>
-            <v-spacer></v-spacer>
-            <v-btn color="blue darken-1" text rounded @click="view = false; editedItem = {}; editedIndex = -1">
-              Cancel
-            </v-btn>
-            <v-btn color="blue darken-1" text rounded @click="dialog = true; view = false">
-              Edit
-            </v-btn>
-          </v-card-actions>
-        </v-card>
+        <!--        <v-card v-if="view">-->
+        <!--          <v-card-title>-->
+        <!--            <span class="headline"> View </span>-->
+        <!--          </v-card-title>-->
+        <!--          <v-card-text>-->
+        <!--            <v-row>-->
+        <!--              <v-col cols="12" sm="6" md="6"><h3> En Name </h3> </v-col>-->
+        <!--              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.en_name }} </span> </v-col>-->
+        <!--              <v-col cols="12" sm="6" md="6"><h3> Ar Name </h3> </v-col>-->
+        <!--              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.ar_name }} </span> </v-col>-->
+        <!--              <v-col cols="12" sm="6" md="6"><h3> En Manager Name </h3> </v-col>-->
+        <!--              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.en_manager_name }} </span> </v-col>-->
+        <!--              <v-col cols="12" sm="6" md="6"><h3> Ar Manager Name </h3> </v-col>-->
+        <!--              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.ar_manager_name }} </span> </v-col>-->
+        <!--              <v-col cols="12" sm="6" md="6"><h3> acctgbranch </h3> </v-col>-->
+        <!--              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.acctgbranch }} </span> </v-col>-->
+        <!--              <v-col cols="12" sm="6" md="6"><h3> fabranch </h3> </v-col>-->
+        <!--              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.fabranch }} </span> </v-col>-->
+        <!--            </v-row>-->
+        <!--          </v-card-text>-->
+        <!--          <v-card-actions>-->
+        <!--            <v-spacer></v-spacer>-->
+        <!--            <v-btn color="blue darken-1" text rounded @click="view = false; editedItem = {}; editedIndex = -1">-->
+        <!--              Cancel-->
+        <!--            </v-btn>-->
+        <!--            <v-btn color="blue darken-1" text rounded @click="dialog = true; view = false">-->
+        <!--              Edit-->
+        <!--            </v-btn>-->
+        <!--          </v-card-actions>-->
+        <!--        </v-card>-->
       </v-col>
     </v-row>
   </v-container>
@@ -413,6 +420,7 @@ export default {
       this.editedItem.company_id = item.company_id.id
       this.editedItem.branch_id = item.branch_id.id
       this.view = true
+      this.dialog = true
     },
     deleteItem (id) {
       this.countryId[0] = id
