@@ -61,7 +61,8 @@
                       <v-text-field
                         v-model="editedItem.en_name"
                         label="Name in English"
-                        :readonly="view"
+                        :disabled="view"
+                        :filled="view"
                         :rules="[
                           value => !!value || 'This  field is required',
                           value =>
@@ -73,7 +74,8 @@
                     <v-col cols="12" sm="6" md="6">
                       <v-text-field
                         v-model="editedItem.ar_name"
-                        :readonly="view"
+                        :disabled="view"
+                        :filled="view"
                         label="Name in Arabic"
                         class="direction"
                         :rules="[
@@ -88,13 +90,15 @@
                       <v-text-field
                         v-model="editedItem.en_register_name"
                         label="Register Name in English"
-                        :readonly="view"
+                        :disabled="view"
+                        :filled="view"
                       ></v-text-field>
                     </v-col>
                     <v-col cols="12" sm="6" md="6">
                       <v-text-field
                         v-model="editedItem.er_register_name"
-                        :readonly="view"
+                        :disabled="view"
+                        :filled="view"
                         label="Register Name in Arabic"
                         class="direction"
                       ></v-text-field>
@@ -102,14 +106,16 @@
                     <v-col cols="12" sm="6" md="6">
                       <v-text-field
                         v-model="editedItem.en_type_of_business"
-                        :readonly="view"
+                        :disabled="view"
+                        :filled="view"
                         label="En type of business"
                       ></v-text-field>
                     </v-col>
                     <v-col cols="12" sm="6" md="6">
                       <v-text-field
                         v-model="editedItem.ar_type_of_business"
-                        :readonly="view"
+                        :disabled="view"
+                        :filled="view"
                         label="Ar type of business"
                         class="direction"
                       ></v-text-field>
@@ -117,7 +123,8 @@
                     <v-col cols="12" sm="6" md="6">
                       <v-text-field
                         v-model="editedItem.incorporation_date"
-                        :readonly="view"
+                        :disabled="view"
+                        :filled="view"
                         label="Incorporation Date"
                         type="date"
                         :rules="[value => !!value || 'This  field is required']"
@@ -127,7 +134,8 @@
                       <v-text-field
                         id="file"
                         label="Logo"
-                        :readonly="view"
+                        :disabled="view"
+                        :filled="view"
                         type="file"
                       ></v-text-field>
 

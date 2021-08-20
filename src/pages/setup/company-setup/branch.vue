@@ -73,7 +73,8 @@
                         :items="companies"
                         :item-text="companies.text"
                         :item-value="companies.value"
-                        :readonly="view"
+                        :disabled="view"
+                        :filled="view"
                         label="Select Company"
                         :rules="[ (value) => !!value || 'This  field is required']"
                       ></v-select>
@@ -88,7 +89,8 @@
                         :items="countries"
                         :item-text="countries.text"
                         :item-value="countries.value"
-                        :readonly="view"
+                        :disabled="view"
+                        :filled="view"
                         label="Select Country"
                         :rules="[ (value) => !!value || 'This  field is required']"
                         @change="getCountyCites"
@@ -101,7 +103,8 @@
                     >
                       <v-text-field
                         v-model="editedItem.en_name"
-                        :readonly="view"
+                        :disabled="view"
+                        :filled="view"
                         label="Branch Name in English"
                         :rules="[ (value) => !!value || 'This  field is required',
                                   (value) => (value && value.length <= 50) || 'maximum 50 characters',]"
@@ -114,7 +117,8 @@
                     >
                       <v-text-field
                         v-model="editedItem.ar_name"
-                        :readonly="view"
+                        :disabled="view"
+                        :filled="view"
                         label="Branch Name in Arabic"
                         class="direction"
                         :rules="[ (value) => !!value || 'This  field is required',
@@ -128,7 +132,8 @@
                     >
                       <v-text-field
                         v-model="editedItem.en_manager_name"
-                        :readonly="view"
+                        :disabled="view"
+                        :filled="view"
                         label="Manager Name in English"
                         :rules="[ (value) => !!value || 'This  field is required',
                                   (value) => (value && value.length <= 50) || 'maximum 50 characters',]"
@@ -141,7 +146,8 @@
                     >
                       <v-text-field
                         v-model="editedItem.ar_manager_name"
-                        :readonly="view"
+                        :disabled="view"
+                        :filled="view"
                         label="Manager Name in Arabic"
                         class="direction"
                         :rules="[ (value) => !!value || 'This  field is required',
@@ -155,7 +161,8 @@
                     >
                       <v-select
                         v-model="editedItem.city_id"
-                        :readonly="view"
+                        :disabled="view"
+                        :filled="view"
                         :items="cities"
                         :item-text="cities.text"
                         :item-value="cities.value"
@@ -170,7 +177,8 @@
                     >
                       <v-text-field
                         v-model="editedItem.address_1"
-                        :readonly="view"
+                        :disabled="view"
+                        :filled="view"
                         label="Address_1"
                       ></v-text-field>
                     </v-col>
@@ -181,7 +189,8 @@
                     >
                       <v-text-field
                         v-model="editedItem.address_2"
-                        :readonly="view"
+                        :disabled="view"
+                        :filled="view"
                         label="Address_2"
                       ></v-text-field>
                     </v-col>
@@ -192,7 +201,8 @@
                     >
                       <v-text-field
                         v-model="editedItem.address_3"
-                        :readonly="view"
+                        :disabled="view"
+                        :filled="view"
                         label="Address_3"
                       ></v-text-field>
                     </v-col>
@@ -203,7 +213,8 @@
                     >
                       <v-text-field
                         v-model="editedItem.address_4"
-                        :readonly="view"
+                        :disabled="view"
+                        :filled="view"
                         label="Address_4"
                       ></v-text-field>
                     </v-col>
@@ -214,7 +225,8 @@
                     >
                       <v-text-field
                         v-model="editedItem.postal_code"
-                        :readonly="view"
+                        :disabled="view"
+                        :filled="view"
                         label="postal_code"
                         type="number"
                       ></v-text-field>
@@ -226,7 +238,8 @@
                     >
                       <v-text-field
                         v-model="editedItem.state_region"
-                        :readonly="view"
+                        :disabled="view"
+                        :filled="view"
                         label="state_region"
                       ></v-text-field>
                     </v-col>
@@ -237,7 +250,8 @@
                     >
                       <v-text-field
                         v-model="editedItem.phone_1"
-                        :readonly="view"
+                        :disabled="view"
+                        :filled="view"
                         label="phone_1"
                       ></v-text-field>
                     </v-col>
@@ -248,7 +262,8 @@
                     >
                       <v-text-field
                         v-model="editedItem.phone_2"
-                        :readonly="view"
+                        :disabled="view"
+                        :filled="view"
                         label="phone_2"
                       ></v-text-field>
                     </v-col>
@@ -259,7 +274,8 @@
                     >
                       <v-text-field
                         v-model="editedItem.phone_3"
-                        :readonly="view"
+                        :disabled="view"
+                        :filled="view"
                         label="phone_3"
                       ></v-text-field>
                     </v-col>
@@ -270,7 +286,8 @@
                     >
                       <v-text-field
                         v-model="editedItem.fax_1"
-                        :readonly="view"
+                        :disabled="view"
+                        :filled="view"
                         label="fax_1"
                       ></v-text-field>
                     </v-col>
@@ -281,7 +298,8 @@
                     >
                       <v-text-field
                         v-model="editedItem.fax_2"
-                        :readonly="view"
+                        :disabled="view"
+                        :filled="view"
                         label="fax_2"
                       ></v-text-field>
                     </v-col>
@@ -292,7 +310,8 @@
                     >
                       <v-text-field
                         v-model="editedItem.fax_3"
-                        :readonly="view"
+                        :disabled="view"
+                        :filled="view"
                         label="fax_3"
                       ></v-text-field>
                     </v-col>
@@ -303,7 +322,8 @@
                     >
                       <v-text-field
                         v-model="editedItem.email"
-                        :readonly="view"
+                        :disabled="view"
+                        :filled="view"
                         label="email"
                       ></v-text-field>
                     </v-col>
@@ -314,7 +334,8 @@
                     >
                       <v-text-field
                         v-model="editedItem.website"
-                        :readonly="view"
+                        :disabled="view"
+                        :filled="view"
                         label="website"
                       ></v-text-field>
                     </v-col>
@@ -325,7 +346,8 @@
                     >
                       <v-text-field
                         v-model="editedItem.status"
-                        :readonly="view"
+                        :disabled="view"
+                        :filled="view"
                         label="status"
                       ></v-text-field>
                     </v-col>
@@ -336,7 +358,8 @@
                     >
                       <v-text-field
                         v-model="editedItem.remarks_1"
-                        :readonly="view"
+                        :disabled="view"
+                        :filled="view"
                         label="remarks_1"
                       ></v-text-field>
                     </v-col>
@@ -347,7 +370,8 @@
                     >
                       <v-text-field
                         v-model="editedItem.remarks_2"
-                        :readonly="view"
+                        :disabled="view"
+                        :filled="view"
                         label="remarks_2"
                       ></v-text-field>
                     </v-col>
@@ -358,7 +382,8 @@
                     >
                       <v-text-field
                         v-model="editedItem.remarks_3"
-                        :readonly="view"
+                        :disabled="view"
+                        :filled="view"
                         label="remarks_3"
                       ></v-text-field>
                     </v-col>

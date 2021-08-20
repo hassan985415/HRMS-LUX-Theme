@@ -73,7 +73,8 @@
                         :items="companies"
                         :item-text="companies.text"
                         :item-value="companies.value"
-                        :readonly="view"
+                        :disabled="view"
+                        :filled="view"
                         label="Select Company"
                         :rules="[ (value) => !!value || 'This  field is required']"
                       ></v-select>
@@ -88,7 +89,8 @@
                         :items="branches"
                         :item-text="branches.text"
                         :item-value="branches.value"
-                        :readonly="view"
+                        :disabled="view"
+                        :filled="view"
                         label="Select Branch"
                         :rules="[ (value) => !!value || 'This  field is required']"
                       ></v-select>
@@ -100,7 +102,8 @@
                     >
                       <v-text-field
                         v-model="editedItem.en_name"
-                        :readonly="view"
+                        :disabled="view"
+                        :filled="view"
                         label="Name in English"
                         :rules="[ (value) => !!value || 'This  field is required',
                                   (value) => (value && value.length <= 50) || 'maximum 50 characters',]"
@@ -113,7 +116,8 @@
                     >
                       <v-text-field
                         v-model="editedItem.ar_name"
-                        :readonly="view"
+                        :disabled="view"
+                        :filled="view"
                         label="Name in Arabic"
                         class="direction"
                         :rules="[ (value) => !!value || 'This  field is required',
@@ -127,7 +131,8 @@
                     >
                       <v-text-field
                         v-model="editedItem.en_manager_name"
-                        :readonly="view"
+                        :disabled="view"
+                        :filled="view"
                         label="Manager Name in English"
                         :rules="[ (value) => !!value || 'This  field is required',
                                   (value) => (value && value.length <= 50) || 'maximum 50 characters',]"
@@ -140,7 +145,8 @@
                     >
                       <v-text-field
                         v-model="editedItem.ar_manager_name"
-                        :readonly="view"
+                        :disabled="view"
+                        :filled="view"
                         label="Manager Name in Arabic"
                         :rules="[ (value) => !!value || 'This  field is required',
                                   (value) => (value && value.length <= 50) || 'maximum 50 characters',]"
@@ -153,7 +159,8 @@
                     >
                       <v-text-field
                         v-model="editedItem.acctgbranch"
-                        :readonly="view"
+                        :disabled="view"
+                        :filled="view"
                         label="Acctgbranch"
                       ></v-text-field>
                     </v-col>
@@ -164,7 +171,8 @@
                     >
                       <v-text-field
                         v-model="editedItem.fabranch"
-                        :readonly="view"
+                        :disabled="view"
+                        :filled="view"
                         label="Fabranch"
                       ></v-text-field>
                     </v-col>
