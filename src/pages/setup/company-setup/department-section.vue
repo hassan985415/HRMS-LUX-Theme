@@ -71,7 +71,7 @@
                         :items="companies"
                         :item-text="companies.text"
                         :item-value="companies.value"
-                        label="Select Company"
+                        :label="$t('departmentSection.selectCompany')"
                         :rules="[ (value) => !!value || 'This  field is required']"
                       ></v-select>
                     </v-col>
@@ -85,7 +85,7 @@
                         :items="departments"
                         :item-text="departments.text"
                         :item-value="departments.value"
-                        label="Select Department"
+                        :label="$t('departmentSection.selectDepartment')"
                         :rules="[ (value) => !!value || 'This  field is required']"
                       ></v-select>
                     </v-col>
@@ -96,7 +96,7 @@
                     >
                       <v-text-field
                         v-model="editedItem.en_name"
-                        label="Name in English"
+                        :label="$t('departmentSection.nameEnglish')"
                         :rules="[ (value) => !!value || 'This  field is required',
                                             (value) => (value && value.length <= 50) || 'maximum 50 characters',]"
                       ></v-text-field>
@@ -108,7 +108,7 @@
                     >
                       <v-text-field
                         v-model="editedItem.ar_name"
-                        label="Name in Arabic"
+                        :label="$t('departmentSection.nameArabic')"
                         class="direction"
                         :rules="[ (value) => !!value || 'This  field is required',
                                             (value) => (value && value.length <= 50) || 'maximum 50 characters',]"
@@ -121,7 +121,7 @@
                     >
                       <v-text-field
                         v-model="editedItem.status"
-                        label="status"
+                        :label="$t('departmentSection.status')"
                       ></v-text-field>
                     </v-col>
                   </v-row>
@@ -139,7 +139,7 @@
               rounded
               @click="dialog = false"
             >
-              Cancel
+              {{ $t("common.cancel") }}
             </v-btn>
             <v-btn
               color="blue darken-1"
@@ -147,17 +147,17 @@
               rounded
               @click="save"
             >
-              Save
+             {{ $t("common.save") }}
             </v-btn>
           </v-card-actions>
         </v-card>
         <v-dialog v-model="dialogDelete" max-width="390px" persistent>
           <v-card>
-            <v-card-title class="headline">Are you sure you want to delete this record?</v-card-title>
+            <v-card-title class="headline">{{ $t("common.deleteRecord") }}</v-card-title>
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn color="blue darken-1" text @click="dialogDelete=false">Cancel</v-btn>
-              <v-btn color="blue darken-1" text @click="deleteItemConfirm">OK</v-btn>
+              <v-btn color="blue darken-1" text @click="dialogDelete=false">{{ $t("common.cancel") }}</v-btn>
+              <v-btn color="blue darken-1" text @click="deleteItemConfirm">{{ $t("common.ok") }}</v-btn>
               <v-spacer></v-spacer>
             </v-card-actions>
           </v-card>
@@ -208,14 +208,14 @@ export default {
       view: false,
       headers: [
         {
-          text: 'ID',
+          text: this.$i18n.t("common.id"),
           align: 'start',
           value: 'id'
         },
-        { text: 'En Name', value: 'en_name' },
-        { text: 'Ar Name', value: 'ar_name' },
-        { text: 'Status', value: 'status' },
-        { text: 'Actions', value: 'actions', sortable: false }
+        { text: this.$i18n.t("departmentSection.nameEnglish"), value: 'en_name' },
+        { text: this.$i18n.t("departmentSection.nameArabic"), value: 'ar_name' },
+        { text: this.$i18n.t("departmentSection.status"), value: 'status' },
+        { text: this.$i18n.t("common.action"), value: 'actions', sortable: false }
       ],
       desserts: [],
       editedIndex: -1,
@@ -242,7 +242,7 @@ export default {
   },
   computed: {
     formTitle () {
-      return this.editedIndex === -1 ? 'New Department Section' : 'Edit Department Section'
+      return this.editedIndex === -1 ? this.$t('departmentSection.new') : this.$t('departmentSection.edit')
     }
   },
   created () {

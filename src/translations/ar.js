@@ -15,6 +15,7 @@ export default {
     deleteRecord:"هل أنت متأكد أنك تريد حذف هذا السجل؟",
     action:"عمل",
     view:"رأي",
+    id:"بطاقة تعريف",
   },
   board: {
     titlePlaceholder: "أدخل عنوانًا لهذه البطاقة",
@@ -201,15 +202,57 @@ export default {
   },
   department: {
     title: " الإدارات",
-    create: "إنشاء الإدارات "
+    create: "إنشاء الإدارات ",
+    nameArabic:"اسم القسم بالعربية",
+    nameEnglish:"اسم القسم بالانجليزية",
+    managerEnglish:"اسم مدير القسم بالانجليزية",
+    managerArabic:"اسم مدير القسم بالعربية",
+
+    new:"قسم جديد",
+    edit:"تحرير القسم",
+
+    selectCompany:"حدد شركة",
+    selectBranch:"حدد الفرع",
   },
   departmentSection: {
     title: " قسم القسم",
-    create: "إنشاء قسم القسم "
+    create: "إنشاء قسم القسم ",
+    nameEnglish:"الاسم بالانجليزية",
+    nameArabic:"الاسم بالعربية",
+    status:"حالة",
+
+    new:"قسم جديد",
+    edit:"قسم تحرير القسم",
+
+    selectCompany:"حدد شركة",
+    selectDepartment:"حدد القسم",
   },
   bank: {
     title: " مصرف",
-    create: "إنشاء مصرف "
+    create: "إنشاء مصرف ",
+    nameEnglish:"اسم البنك بالانجليزية",
+    nameArabic:"اسم البنك بالعربية",
+    accountType:"نوع الحساب",
+    accountNo:"رقم الحساب",
+    address1:"العنوان 1",
+    address2:"العنوان 2",
+    address3:"العنوان 3",
+    address4:"العنوان 4",
+    bankFile:"ملف البنك",
+    bankCode:"رمز بنكي",
+    paymentType:"نوع الدفع",
+    glAccountCode:"كود حساب GL",
+    
+
+    new:"بنك جديد",
+    edit:"تحرير البنك",
+
+    selectCompany:"حدد شركة",
+    selectBranch:"حدد الفرع",
+    selectDepartment:"حدد القسم",
+    selectCity:"اختر مدينة",
+    selectCountry:"حدد الدولة",
+    selectCurrency:"اختر العملة",
   },
   countryNationality: {
     title: " الدولة / الجنسية",

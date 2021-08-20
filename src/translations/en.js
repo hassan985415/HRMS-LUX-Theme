@@ -14,6 +14,7 @@ export default {
     ok:"Ok",
     deleteRecord:"Are you sure you want to delete this record?",
     action:"Action",
+    id:"ID",
   },
   board: {
     titlePlaceholder: "Enter a title for this card",
@@ -83,14 +84,54 @@ export default {
   department:{
     title: "Departments",
     create: "Create Department",
+    nameArabic:"Department Name in Arabic",
+    nameEnglish:"Department Name in English",
+    managerEnglish:"Department Manager Name in English",
+    managerArabic:"Department Manager Name in Arabic",
+
+    new:"New Department",
+    edit:"Edit Department",
+
+    selectCompany:"Select Company",
+    selectBranch:"Select Branch",
   },
   departmentSection:{
     title: "Department Section",
     create: "Create Department Section",
+    nameEnglish:"Name in English",
+    nameArabic:"Name in Arabic",
+    status:"Status",
+
+    new:"New Department Section",
+    edit:"Edit Department Section",
+
+    selectCompany:"Select Company",
+    selectDepartment:"Select Department",
   },
   bank:{
     title: "Bank",
     create: "Create Bank",
+    nameEnglish:"Bank Name in English",
+    nameArabic:"Bank Name in Arabic",
+    accountType:"Account Type",
+    accountNo:"Account No",
+    address1:"Address 1",
+    address2:"Address 2",
+    address3:"Address 3",
+    address4:"Address 4",
+    bankFile:"Bank File",
+    bankCode:"Bank Code",
+    paymentType:"Pament Type",
+    glAccountCode:"GL Account Code",
+
+    new:"New Bank",
+    edit:"Edit Bank",
+
+    selectCurrency:"Select Currency",
+    selectCity:"Select City",
+    selectCountry:"Select Country",
+    selectBranch:"Select Branch",
+    selectCompany:"Select Company",
   },
   countryNationality:{
     title: "Country Nationality",
