@@ -9,39 +9,39 @@
         cols="12"
         md="12"
       >
-<!--        <MaterialCard-->
-<!--          color="success"-->
-<!--          title="Department Section"-->
-<!--          class="px-5 py-3"-->
-<!--        >-->
-          <v-data-table
-            :headers="headers"
-            :items="allData"
-            sort-by="en_name"
-            v-if="!dialog && !view"
-            @click:row.self="viewItem"
-          >
-            <template v-slot:top>
-              <v-toolbar
-                flat
-              >
-                <v-toolbar-title><h3>Department Section</h3></v-toolbar-title>
-                <v-spacer></v-spacer>
-                  <template>
-                    <v-btn
-                      color="primary"
-                      dark
-                      class="mb-2"
-                      rounded
-                      @click="dialog = true"
-                    >
-                      Create Department Section
-                    </v-btn>
-                  </template>
-              </v-toolbar>
-            </template>
+        <!--        <MaterialCard-->
+        <!--          color="success"-->
+        <!--          title="Department Section"-->
+        <!--          class="px-5 py-3"-->
+        <!--        >-->
+        <v-data-table
+          v-if="!dialog && !view"
+          :headers="headers"
+          :items="allData"
+          sort-by="en_name"
+          @click:row.self="viewItem"
+        >
+          <template v-slot:top>
+            <v-toolbar
+              flat
+            >
+              <v-toolbar-title><h3>Department Section</h3></v-toolbar-title>
+              <v-spacer></v-spacer>
+              <template>
+                <v-btn
+                  color="primary"
+                  dark
+                  class="mb-2"
+                  rounded
+                  @click="dialog = true"
+                >
+                  Create Department Section
+                </v-btn>
+              </template>
+            </v-toolbar>
+          </template>
 
-             <template v-slot:item.actions="{ item }">
+          <template v-slot:item.actions="{ item }">
             <div class="d-flex">
               <v-icon small class="mr-2" @click="editItem(item)">
                 mdi-pencil
@@ -51,7 +51,7 @@
               </v-icon>
             </div>
           </template>
-          </v-data-table>
+        </v-data-table>
         <v-card v-if="dialog">
           <v-card-title>
             <span class="headline">{{ formTitle }}</span>
@@ -71,6 +71,7 @@
                         :items="companies"
                         :item-text="companies.text"
                         :item-value="companies.value"
+                        :readonly="view"
                         label="Select Company"
                         :rules="[ (value) => !!value || 'This  field is required']"
                       ></v-select>
@@ -85,6 +86,7 @@
                         :items="departments"
                         :item-text="departments.text"
                         :item-value="departments.value"
+                        :readonly="view"
                         label="Select Department"
                         :rules="[ (value) => !!value || 'This  field is required']"
                       ></v-select>
@@ -96,9 +98,10 @@
                     >
                       <v-text-field
                         v-model="editedItem.en_name"
+                        :readonly="view"
                         label="Name in English"
                         :rules="[ (value) => !!value || 'This  field is required',
-                                            (value) => (value && value.length <= 50) || 'maximum 50 characters',]"
+                                  (value) => (value && value.length <= 50) || 'maximum 50 characters',]"
                       ></v-text-field>
                     </v-col>
                     <v-col
@@ -108,10 +111,11 @@
                     >
                       <v-text-field
                         v-model="editedItem.ar_name"
+                        :readonly="view"
                         label="Name in Arabic"
                         class="direction"
                         :rules="[ (value) => !!value || 'This  field is required',
-                                            (value) => (value && value.length <= 50) || 'maximum 50 characters',]"
+                                  (value) => (value && value.length <= 50) || 'maximum 50 characters',]"
                       ></v-text-field>
                     </v-col>
                     <v-col
@@ -121,6 +125,7 @@
                     >
                       <v-text-field
                         v-model="editedItem.status"
+                        :readonly="view"
                         label="status"
                       ></v-text-field>
                     </v-col>
@@ -131,23 +136,22 @@
             </v-container>
           </v-card-text>
 
-          <v-card-actions>
+          <v-card-actions v-if="!view">
             <v-spacer></v-spacer>
-            <v-btn
-              color="blue darken-1"
-              text
-              rounded
-              @click="dialog = false"
-            >
+            <v-btn color="blue darken-1" text rounded @click="dialog = false">
               Cancel
             </v-btn>
-            <v-btn
-              color="blue darken-1"
-              text
-              rounded
-              @click="save"
-            >
+            <v-btn color="blue darken-1" text rounded @click="save">
               Save
+            </v-btn>
+          </v-card-actions>
+          <v-card-actions v-else>
+            <v-spacer></v-spacer>
+            <v-btn color="blue darken-1" text rounded @click="view = false; editedItem = {}; editedIndex = -1">
+              Cancel
+            </v-btn>
+            <v-btn color="blue darken-1" text rounded @click="view = false">
+              Edit
             </v-btn>
           </v-card-actions>
         </v-card>
@@ -162,32 +166,32 @@
             </v-card-actions>
           </v-card>
         </v-dialog>
-<!--        </MaterialCard>-->
+        <!--        </MaterialCard>-->
         <!--        view single record-->
-        <v-card v-if="view">
-          <v-card-title>
-            <span class="headline"> View </span>
-          </v-card-title>
-          <v-card-text>
-            <v-row>
-              <v-col cols="12" sm="6" md="6"><h3> En Name </h3> </v-col>
-              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.en_name}} </span> </v-col>
-              <v-col cols="12" sm="6" md="6"><h3> Ar Name </h3> </v-col>
-              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.ar_name}} </span> </v-col>
-              <v-col cols="12" sm="6" md="6"><h3> Status </h3> </v-col>
-              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.status}} </span> </v-col>
-            </v-row>
-          </v-card-text>
-          <v-card-actions>
-            <v-spacer></v-spacer>
-            <v-btn color="blue darken-1" text rounded @click="view = false; editedItem = {}; editedIndex = -1">
-              Cancel
-            </v-btn>
-            <v-btn color="blue darken-1" text rounded @click="dialog = true; view = false">
-              Edit
-            </v-btn>
-          </v-card-actions>
-        </v-card>
+        <!--        <v-card v-if="view">-->
+        <!--          <v-card-title>-->
+        <!--            <span class="headline"> View </span>-->
+        <!--          </v-card-title>-->
+        <!--          <v-card-text>-->
+        <!--            <v-row>-->
+        <!--              <v-col cols="12" sm="6" md="6"><h3> En Name </h3> </v-col>-->
+        <!--              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.en_name}} </span> </v-col>-->
+        <!--              <v-col cols="12" sm="6" md="6"><h3> Ar Name </h3> </v-col>-->
+        <!--              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.ar_name}} </span> </v-col>-->
+        <!--              <v-col cols="12" sm="6" md="6"><h3> Status </h3> </v-col>-->
+        <!--              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.status}} </span> </v-col>-->
+        <!--            </v-row>-->
+        <!--          </v-card-text>-->
+        <!--          <v-card-actions>-->
+        <!--            <v-spacer></v-spacer>-->
+        <!--            <v-btn color="blue darken-1" text rounded @click="view = false; editedItem = {}; editedIndex = -1">-->
+        <!--              Cancel-->
+        <!--            </v-btn>-->
+        <!--            <v-btn color="blue darken-1" text rounded @click="dialog = true; view = false">-->
+        <!--              Edit-->
+        <!--            </v-btn>-->
+        <!--          </v-card-actions>-->
+        <!--        </v-card>-->
       </v-col>
     </v-row>
   </v-container>
@@ -232,17 +236,17 @@ export default {
       departments: []
     }
   },
-  watch: {
-    dialog: function (val) {
-      if(!val){
-        this.$refs.form.reset()
-        this.editedIndex = -1
-      }
-    }
-  },
   computed: {
     formTitle () {
       return this.editedIndex === -1 ? 'New Department Section' : 'Edit Department Section'
+    }
+  },
+  watch: {
+    dialog: function (val) {
+      if (!val) {
+        this.$refs.form.reset()
+        this.editedIndex = -1
+      }
     }
   },
   created () {
@@ -365,6 +369,7 @@ export default {
       this.editedItem.company_id = item.company_id.id
       this.editedItem.department_id = item.department_id.id
       this.view = true
+      this.dialog = true
     },
     deleteItem (id) {
       this.countryId[0] = id
