@@ -59,7 +59,8 @@
                         :items="companies"
                         :item-text="companies.text"
                         :item-value="companies.value"
-                        :readonly="view"
+                        :disabled="view"
+                        :filled="view"
                         label="Select Company"
                         :rules="[
                           value => !!value || 'This  field is required'
@@ -72,7 +73,8 @@
                         :items="countries"
                         :item-text="countries.text"
                         :item-value="countries.value"
-                        :readonly="view"
+                        :disabled="view"
+                        :filled="view"
                         label="Select Country"
                         :rules="[
                           value => !!value || 'This  field is required'
@@ -86,7 +88,8 @@
                         :items="cities"
                         :item-text="cities.text"
                         :item-value="cities.value"
-                        :readonly="view"
+                        :disabled="view"
+                        :filled="view"
                         label="Select City"
                         :rules="[
                           value => !!value || 'This  field is required'
@@ -99,7 +102,8 @@
                         :items="branches"
                         :item-text="branches.text"
                         :item-value="branches.value"
-                        :readonly="view"
+                        :disabled="view"
+                        :filled="view"
                         label="Select branch"
                         :rules="[
                           value => !!value || 'This  field is required'
@@ -112,7 +116,8 @@
                         :items="currencies"
                         :item-text="currencies.text"
                         :item-value="currencies.value"
-                        :readonly="view"
+                        :disabled="view"
+                        :filled="view"
                         label="Select currency"
                         :rules="[
                           value => !!value || 'This  field is required'
@@ -124,7 +129,8 @@
                         v-model="editedItem.ar_name"
                         class="direction"
                         label="Name in Arabic"
-                        :readonly="view"
+                        :disabled="view"
+                        :filled="view"
                         :rules="[
                           value => !!value || 'This  field is required',
                           value =>
@@ -137,7 +143,8 @@
                       <v-text-field
                         v-model="editedItem.en_name"
                         label="Name in English"
-                        :readonly="view"
+                        :disabled="view"
+                        :filled="view"
                         :rules="[
                           value => !!value || 'This  field is required',
                           value =>
@@ -149,7 +156,8 @@
                     <v-col cols="12" sm="6" md="6">
                       <v-text-field
                         v-model="editedItem.account_type"
-                        :readonly="view"
+                        :disabled="view"
+                        :filled="view"
                         label="Account Type"
                         :rules="[
                           value => !!value || 'This  field is required',
@@ -162,7 +170,8 @@
                     <v-col cols="12" sm="6" md="6">
                       <v-text-field
                         v-model="editedItem.account_no"
-                        :readonly="view"
+                        :disabled="view"
+                        :filled="view"
                         label="Account No"
                         type="number"
                         :rules="[
@@ -176,35 +185,40 @@
                     <v-col cols="12" sm="6" md="6">
                       <v-text-field
                         v-model="editedItem.address_1"
-                        :readonly="view"
+                        :disabled="view"
+                        :filled="view"
                         label="Address_1"
                       ></v-text-field>
                     </v-col>
                     <v-col cols="12" sm="6" md="6">
                       <v-text-field
                         v-model="editedItem.address_2"
-                        :readonly="view"
+                        :disabled="view"
+                        :filled="view"
                         label="Address_2"
                       ></v-text-field>
                     </v-col>
                     <v-col cols="12" sm="6" md="6">
                       <v-text-field
                         v-model="editedItem.address_3"
-                        :readonly="view"
+                        :disabled="view"
+                        :filled="view"
                         label="Address_3"
                       ></v-text-field>
                     </v-col>
                     <v-col cols="12" sm="6" md="6">
                       <v-text-field
                         v-model="editedItem.address_4"
-                        :readonly="view"
+                        :disabled="view"
+                        :filled="view"
                         label="Address_4"
                       ></v-text-field>
                     </v-col>
                     <v-col cols="12" sm="6" md="6">
                       <v-text-field
                         v-model="editedItem.gl_acct_code"
-                        :readonly="view"
+                        :disabled="view"
+                        :filled="view"
                         label="gl_acct_code"
                         type="number"
                       ></v-text-field>
@@ -212,7 +226,8 @@
                     <v-col cols="12" sm="6" md="6">
                       <v-text-field
                         v-model="editedItem.bank_code"
-                        :readonly="view"
+                        :disabled="view"
+                        :filled="view"
                         label="bank_code"
                         type="number"
                       ></v-text-field>
@@ -220,14 +235,16 @@
                     <v-col cols="12" sm="6" md="6">
                       <v-text-field
                         v-model="editedItem.bank_file"
-                        :readonly="view"
+                        :disabled="view"
+                        :filled="view"
                         label="bank_file"
                       ></v-text-field>
                     </v-col>
                     <v-col cols="12" sm="6" md="6">
                       <v-text-field
                         v-model="editedItem.payment_type"
-                        :readonly="view"
+                        :disabled="view"
+                        :filled="view"
                         label="payment_type"
                       ></v-text-field>
                     </v-col>

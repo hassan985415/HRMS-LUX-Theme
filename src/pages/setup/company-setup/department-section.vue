@@ -72,7 +72,8 @@
                         :items="companies"
                         :item-text="companies.text"
                         :item-value="companies.value"
-                        :readonly="view"
+                        :disabled="view"
+                        :filled="view"
                         label="Select Company"
                         :rules="[ (value) => !!value || 'This  field is required']"
                       ></v-select>
@@ -87,7 +88,8 @@
                         :items="departments"
                         :item-text="departments.text"
                         :item-value="departments.value"
-                        :readonly="view"
+                        :disabled="view"
+                        :filled="view"
                         label="Select Department"
                         :rules="[ (value) => !!value || 'This  field is required']"
                       ></v-select>
@@ -99,7 +101,8 @@
                     >
                       <v-text-field
                         v-model="editedItem.en_name"
-                        :readonly="view"
+                        :disabled="view"
+                        :filled="view"
                         label="Name in English"
                         :rules="[ (value) => !!value || 'This  field is required',
                                   (value) => (value && value.length <= 50) || 'maximum 50 characters',]"
@@ -112,7 +115,8 @@
                     >
                       <v-text-field
                         v-model="editedItem.ar_name"
-                        :readonly="view"
+                        :disabled="view"
+                        :filled="view"
                         label="Name in Arabic"
                         class="direction"
                         :rules="[ (value) => !!value || 'This  field is required',
@@ -126,7 +130,8 @@
                     >
                       <v-text-field
                         v-model="editedItem.status"
-                        :readonly="view"
+                        :disabled="view"
+                        :filled="view"
                         label="status"
                       ></v-text-field>
                     </v-col>
