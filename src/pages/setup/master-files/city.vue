@@ -9,6 +9,7 @@
         <!--        >-->
         <v-data-table
           v-if="!dialog && !view"
+          class="row-pointer"
           :headers="headers"
           :items="cityData"
           sort-by="en_name"
@@ -51,7 +52,8 @@
         </v-data-table>
         <v-card v-if="dialog">
           <v-card-title>
-            <span class="headline">{{ formTitle }}</span>
+            <span v-if="view" class="headline">View City </span>
+            <span v-else class="headline">{{ formTitle }}</span>
           </v-card-title>
           <v-card-text>
             <v-container>
@@ -60,6 +62,8 @@
                   <v-col cols="12" sm="6" md="6">
                     <v-select
                       v-model="editedItem.country_id"
+                      :disabled="view"
+                      :filled="view"
                       :items="countryData"
                       label="Country"
                       required
@@ -71,6 +75,8 @@
                   <v-col cols="12" sm="6" md="6">
                     <v-text-field
                       v-model="editedItem.region"
+                      :disabled="view"
+                      :filled="view"
                       label="Region"
                       required
                       :rules="[
@@ -81,6 +87,8 @@
                   <v-col cols="12" sm="6" md="6">
                     <v-text-field
                       v-model="editedItem.en_name"
+                      :disabled="view"
+                      :filled="view"
                       label="CityName(EN)"
                       required
                       :rules="[
@@ -91,6 +99,8 @@
                   <v-col cols="12" sm="6" md="6">
                     <v-text-field
                       v-model="editedItem.ar_name"
+                      :disabled="view"
+                      :filled="view"
                       class="direction"
                       label="City Name(AR)"
                       required
@@ -102,6 +112,8 @@
                   <v-col cols="12" sm="6" md="6">
                     <v-text-field
                       v-model="editedItem.ticket_value"
+                      :disabled="view"
+                      :filled="view"
                       label="Ticket Value"
                     ></v-text-field>
                   </v-col>
@@ -110,18 +122,22 @@
             </v-container>
           </v-card-text>
 
-          <v-card-actions>
+          <v-card-actions v-if="!view">
             <v-spacer></v-spacer>
-            <v-btn
-              color="blue darken-1"
-              text
-              rounded
-              @click="dialog = false"
-            >
+            <v-btn color="blue darken-1" text rounded @click="dialog = false">
               Cancel
             </v-btn>
             <v-btn color="blue darken-1" text rounded @click="save">
               Save
+            </v-btn>
+          </v-card-actions>
+          <v-card-actions v-else>
+            <v-spacer></v-spacer>
+            <v-btn color="blue darken-1" text rounded @click="view = false; dialog = false; editedItem = {}; editedIndex = -1">
+              Cancel
+            </v-btn>
+            <v-btn color="blue darken-1" text rounded @click="view = false">
+              Edit
             </v-btn>
           </v-card-actions>
         </v-card>
@@ -148,32 +164,32 @@
         </v-dialog>
         <!--        </MaterialCard>-->
 
-        <v-card v-if="view">
-          <v-card-title>
-            <span class="headline"> View </span>
-          </v-card-title>
-          <v-card-text>
-            <v-row>
-              <v-col cols="12" sm="6" md="6"><h3> En Name </h3> </v-col>
-              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.en_name}} </span> </v-col>
-              <v-col cols="12" sm="6" md="6"><h3> Ar Name </h3> </v-col>
-              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.ar_name}} </span> </v-col>
-              <v-col cols="12" sm="6" md="6"><h3> Region </h3> </v-col>
-              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.region}} </span> </v-col>
-              <v-col cols="12" sm="6" md="6"><h3> Ticket Value </h3> </v-col>
-              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.ticket_value}} </span> </v-col>
-            </v-row>
-          </v-card-text>
-          <v-card-actions>
-            <v-spacer></v-spacer>
-            <v-btn color="blue darken-1" text rounded @click="view = false; editedItem = {}; editedIndex = -1">
-              Cancel
-            </v-btn>
-            <v-btn color="blue darken-1" text rounded @click="dialog = true; view = false">
-              Edit
-            </v-btn>
-          </v-card-actions>
-        </v-card>
+        <!--        <v-card v-if="view">-->
+        <!--          <v-card-title>-->
+        <!--            <span class="headline"> View </span>-->
+        <!--          </v-card-title>-->
+        <!--          <v-card-text>-->
+        <!--            <v-row>-->
+        <!--              <v-col cols="12" sm="6" md="6"><h3> En Name </h3> </v-col>-->
+        <!--              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.en_name}} </span> </v-col>-->
+        <!--              <v-col cols="12" sm="6" md="6"><h3> Ar Name </h3> </v-col>-->
+        <!--              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.ar_name}} </span> </v-col>-->
+        <!--              <v-col cols="12" sm="6" md="6"><h3> Region </h3> </v-col>-->
+        <!--              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.region}} </span> </v-col>-->
+        <!--              <v-col cols="12" sm="6" md="6"><h3> Ticket Value </h3> </v-col>-->
+        <!--              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.ticket_value}} </span> </v-col>-->
+        <!--            </v-row>-->
+        <!--          </v-card-text>-->
+        <!--          <v-card-actions>-->
+        <!--            <v-spacer></v-spacer>-->
+        <!--            <v-btn color="blue darken-1" text rounded @click="view = false; editedItem = {}; editedIndex = -1">-->
+        <!--              Cancel-->
+        <!--            </v-btn>-->
+        <!--            <v-btn color="blue darken-1" text rounded @click="dialog = true; view = false">-->
+        <!--              Edit-->
+        <!--            </v-btn>-->
+        <!--          </v-card-actions>-->
+        <!--        </v-card>-->
       </v-col>
     </v-row>
   </v-container>
@@ -285,6 +301,7 @@ export default {
       // console.log('item',this.editedItem)
 
       this.view = true
+      this.dialog = true
     },
     async save() {
       if (this.$refs.form.validate()) {
@@ -395,5 +412,8 @@ export default {
 }
 .direction {
   direction: rtl;
+}
+.row-pointer >>> tbody tr :hover {
+  cursor: pointer;
 }
 </style>

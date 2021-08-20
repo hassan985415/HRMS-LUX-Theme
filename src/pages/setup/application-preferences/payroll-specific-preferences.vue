@@ -16,6 +16,7 @@
         <!--        >-->
         <v-data-table
           v-if="!dialog && !view"
+          class="row-pointer"
           :headers="headers"
           :items="allData"
           sort-by="en_name"
@@ -54,7 +55,8 @@
         </v-data-table>
         <v-card v-if="dialog">
           <v-card-title>
-            <span class="headline">{{ formTitle }}</span>
+            <span v-if="view" class="headline">View Payroll Specific Preferences </span>
+            <span v-else class="headline">{{ formTitle }}</span>
           </v-card-title>
           <v-card-text>
             <v-container>
@@ -68,6 +70,8 @@
                     >
                       <v-select
                         v-model="editedItem.company_id"
+                        :disabled="view"
+                        :filled="view"
                         :items="companies"
                         :item-text="companies.text"
                         :item-value="companies.value"
@@ -81,6 +85,8 @@
                     >
                       <v-select
                         v-model="editedItem.branch_id"
+                        :disabled="view"
+                        :filled="view"
                         :items="branches"
                         :item-text="branches.text"
                         :item-value="branches.value"
@@ -94,6 +100,8 @@
                     >
                       <v-checkbox
                         v-model="editedItem.sub_ledger_id"
+                        :disabled="view"
+                        :filled="view"
                         :false-value="0"
                         :true-value="1"
                         label="sub ledger id"
@@ -108,6 +116,8 @@
                     >
                       <v-checkbox
                         v-model="editedItem.monthly_pay"
+                        :disabled="view"
+                        :filled="view"
                         :false-value="0"
                         :true-value="1"
                         label="Monthly pay"
@@ -122,6 +132,8 @@
                     >
                       <v-checkbox
                         v-model="editedItem.post_to_account"
+                        :disabled="view"
+                        :filled="view"
                         :false-value="0"
                         :true-value="1"
                         label="Post to account"
@@ -136,6 +148,8 @@
                     >
                       <v-checkbox
                         v-model="editedItem.return_date"
+                        :disabled="view"
+                        :filled="view"
                         :false-value="0"
                         :true-value="1"
                         label="Return date"
@@ -150,6 +164,8 @@
                     >
                       <v-checkbox
                         v-model="editedItem.calculate_extraleave"
+                        :disabled="view"
+                        :filled="view"
                         :false-value="0"
                         :true-value="1"
                         label="Calculate extraleave"
@@ -164,6 +180,8 @@
                     >
                       <v-checkbox
                         v-model="editedItem.use_twoglacct_inbenefits"
+                        :disabled="view"
+                        :filled="view"
                         :false-value="0"
                         :true-value="1"
                         label="Use twoglacct inbenefits"
@@ -178,6 +196,8 @@
                     >
                       <v-checkbox
                         v-model="editedItem.payroll_rounding"
+                        :disabled="view"
+                        :filled="view"
                         :false-value="0"
                         :true-value="1"
                         label="Payroll rounding"
@@ -192,6 +212,8 @@
                     >
                       <v-checkbox
                         v-model="editedItem.map_to_acctg_branch"
+                        :disabled="view"
+                        :filled="view"
                         :false-value="0"
                         :true-value="1"
                         label="Map to branch"
@@ -206,6 +228,8 @@
                     >
                       <v-checkbox
                         v-model="editedItem.attendance_mc"
+                        :disabled="view"
+                        :filled="view"
                         :false-value="0"
                         :true-value="1"
                         label="Attendance mc"
@@ -220,6 +244,8 @@
                     >
                       <v-checkbox
                         v-model="editedItem.costcenter_based_attendance"
+                        :disabled="view"
+                        :filled="view"
                         :false-value="0"
                         :true-value="1"
                         label="Cost center based attendance"
@@ -234,6 +260,8 @@
                     >
                       <v-checkbox
                         v-model="editedItem.entry_overtime"
+                        :disabled="view"
+                        :filled="view"
                         :false-value="0"
                         :true-value="1"
                         label="Entry overtime"
@@ -248,6 +276,8 @@
                     >
                       <v-checkbox
                         v-model="editedItem.split_payroll"
+                        :disabled="view"
+                        :filled="view"
                         :false-value="0"
                         :true-value="1"
                         label="Split payroll"
@@ -262,6 +292,8 @@
                     >
                       <v-checkbox
                         v-model="editedItem.auto_gosi_calculate"
+                        :disabled="view"
+                        :filled="view"
                         :false-value="0"
                         :true-value="1"
                         label="Auto gosi calculate"
@@ -276,6 +308,8 @@
                     >
                       <v-text-field
                         v-model="editedItem.gosi_alert_days"
+                        :disabled="view"
+                        :filled="view"
                         label="Gosi alert days"
                         :rules="[ (value) => !!value || 'This  field is required',
                                   (value) => (value && value.length <= 50) || 'maximum 50 characters',]"
@@ -288,23 +322,22 @@
             </v-container>
           </v-card-text>
 
-          <v-card-actions>
+          <v-card-actions v-if="!view">
             <v-spacer></v-spacer>
-            <v-btn
-              color="blue darken-1"
-              text
-              rounded
-              @click="dialog = false"
-            >
+            <v-btn color="blue darken-1" text rounded @click="dialog = false">
               Cancel
             </v-btn>
-            <v-btn
-              color="blue darken-1"
-              text
-              rounded
-              @click="save"
-            >
+            <v-btn color="blue darken-1" text rounded @click="save">
               Save
+            </v-btn>
+          </v-card-actions>
+          <v-card-actions v-else>
+            <v-spacer></v-spacer>
+            <v-btn color="blue darken-1" text rounded @click="view = false; dialog = false; editedItem = {}; editedIndex = -1">
+              Cancel
+            </v-btn>
+            <v-btn color="blue darken-1" text rounded @click="view = false">
+              Edit
             </v-btn>
           </v-card-actions>
         </v-card>
@@ -320,52 +353,52 @@
           </v-card>
         </v-dialog>
         <!--        </MaterialCard>-->
-        <v-card v-if="view">
-          <v-card-title>
-            <span class="headline"> View </span>
-          </v-card-title>
-          <v-card-text>
-            <v-row>
-              <v-col cols="12" sm="6" md="6"><h3> Sub ledger id </h3> </v-col>
-              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.sub_ledger_id }} </span> </v-col>
-              <v-col cols="12" sm="6" md="6"><h3> Monthly pay </h3> </v-col>
-              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.monthly_pay }} </span> </v-col>
-              <v-col cols="12" sm="6" md="6"><h3> Post to account </h3> </v-col>
-              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.post_to_account }} </span> </v-col>
-              <v-col cols="12" sm="6" md="6"><h3> Return date </h3> </v-col>
-              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.return_date }} </span> </v-col>
-              <v-col cols="12" sm="6" md="6"><h3> Calculate extra leave </h3> </v-col>
-              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.calculate_extraleave }} </span> </v-col>
-              <v-col cols="12" sm="6" md="6"><h3> Use two glacct in benefits </h3> </v-col>
-              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.use_twoglacct_inbenefits }} </span> </v-col>
-              <v-col cols="12" sm="6" md="6"><h3> Payroll rounding </h3> </v-col>
-              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.payroll_rounding }} </span> </v-col>
-              <v-col cols="12" sm="6" md="6"><h3> Map to acctg branch </h3> </v-col>
-              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.map_to_acctg_branch }} </span> </v-col>
-              <v-col cols="12" sm="6" md="6"><h3> Attendance mc </h3> </v-col>
-              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.attendance_mc }} </span> </v-col>
-              <v-col cols="12" sm="6" md="6"><h3> Costcenter based attendance </h3> </v-col>
-              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.costcenter_based_attendance }} </span> </v-col>
-              <v-col cols="12" sm="6" md="6"><h3> Entry overtime </h3> </v-col>
-              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.entry_overtime }} </span> </v-col>
-              <v-col cols="12" sm="6" md="6"><h3> Split payroll </h3> </v-col>
-              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.split_payroll }} </span> </v-col>
-              <v-col cols="12" sm="6" md="6"><h3> Auto gosi calculate </h3> </v-col>
-              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.auto_gosi_calculate }} </span> </v-col>
-              <v-col cols="12" sm="6" md="6"><h3> Gosi alert days </h3> </v-col>
-              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.gosi_alert_days }} </span> </v-col>
-            </v-row>
-          </v-card-text>
-          <v-card-actions>
-            <v-spacer></v-spacer>
-            <v-btn color="blue darken-1" text rounded @click="view = false; editedItem = {}; editedIndex = -1">
-              Cancel
-            </v-btn>
-            <v-btn color="blue darken-1" text rounded @click="dialog = true; view = false">
-              Edit
-            </v-btn>
-          </v-card-actions>
-        </v-card>
+<!--        <v-card v-if="view">-->
+<!--          <v-card-title>-->
+<!--            <span class="headline"> View </span>-->
+<!--          </v-card-title>-->
+<!--          <v-card-text>-->
+<!--            <v-row>-->
+<!--              <v-col cols="12" sm="6" md="6"><h3> Sub ledger id </h3> </v-col>-->
+<!--              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.sub_ledger_id }} </span> </v-col>-->
+<!--              <v-col cols="12" sm="6" md="6"><h3> Monthly pay </h3> </v-col>-->
+<!--              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.monthly_pay }} </span> </v-col>-->
+<!--              <v-col cols="12" sm="6" md="6"><h3> Post to account </h3> </v-col>-->
+<!--              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.post_to_account }} </span> </v-col>-->
+<!--              <v-col cols="12" sm="6" md="6"><h3> Return date </h3> </v-col>-->
+<!--              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.return_date }} </span> </v-col>-->
+<!--              <v-col cols="12" sm="6" md="6"><h3> Calculate extra leave </h3> </v-col>-->
+<!--              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.calculate_extraleave }} </span> </v-col>-->
+<!--              <v-col cols="12" sm="6" md="6"><h3> Use two glacct in benefits </h3> </v-col>-->
+<!--              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.use_twoglacct_inbenefits }} </span> </v-col>-->
+<!--              <v-col cols="12" sm="6" md="6"><h3> Payroll rounding </h3> </v-col>-->
+<!--              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.payroll_rounding }} </span> </v-col>-->
+<!--              <v-col cols="12" sm="6" md="6"><h3> Map to acctg branch </h3> </v-col>-->
+<!--              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.map_to_acctg_branch }} </span> </v-col>-->
+<!--              <v-col cols="12" sm="6" md="6"><h3> Attendance mc </h3> </v-col>-->
+<!--              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.attendance_mc }} </span> </v-col>-->
+<!--              <v-col cols="12" sm="6" md="6"><h3> Costcenter based attendance </h3> </v-col>-->
+<!--              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.costcenter_based_attendance }} </span> </v-col>-->
+<!--              <v-col cols="12" sm="6" md="6"><h3> Entry overtime </h3> </v-col>-->
+<!--              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.entry_overtime }} </span> </v-col>-->
+<!--              <v-col cols="12" sm="6" md="6"><h3> Split payroll </h3> </v-col>-->
+<!--              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.split_payroll }} </span> </v-col>-->
+<!--              <v-col cols="12" sm="6" md="6"><h3> Auto gosi calculate </h3> </v-col>-->
+<!--              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.auto_gosi_calculate }} </span> </v-col>-->
+<!--              <v-col cols="12" sm="6" md="6"><h3> Gosi alert days </h3> </v-col>-->
+<!--              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.gosi_alert_days }} </span> </v-col>-->
+<!--            </v-row>-->
+<!--          </v-card-text>-->
+<!--          <v-card-actions>-->
+<!--            <v-spacer></v-spacer>-->
+<!--            <v-btn color="blue darken-1" text rounded @click="view = false; editedItem = {}; editedIndex = -1">-->
+<!--              Cancel-->
+<!--            </v-btn>-->
+<!--            <v-btn color="blue darken-1" text rounded @click="dialog = true; view = false">-->
+<!--              Edit-->
+<!--            </v-btn>-->
+<!--          </v-card-actions>-->
+<!--        </v-card>-->
       </v-col>
     </v-row>
   </v-container>
@@ -558,6 +591,7 @@ export default {
       this.editedItem.company_id = item.company_id.id
       this.editedItem.branch_id = item.branch_id.id
       this.view = true
+      this.dialog = true
     },
     deleteItem (id) {
       this.countryId[0] = id
@@ -615,5 +649,7 @@ export default {
 </script>
 
 <style scoped>
-
+.row-pointer >>> tbody tr :hover {
+  cursor: pointer;
+}
 </style>

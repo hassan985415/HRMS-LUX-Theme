@@ -9,6 +9,7 @@
         <!--        >-->
         <v-data-table
           v-if="!dialog && !view"
+          class="row-pointer"
           :headers="headers"
           :items="allData"
           sort-by="en_name"
@@ -671,5 +672,8 @@ export default {
 <style scoped>
 .direction {
   direction: rtl;
+}
+.row-pointer >>> tbody tr :hover {
+  cursor: pointer;
 }
 </style>

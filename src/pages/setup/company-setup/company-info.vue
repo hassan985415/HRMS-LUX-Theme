@@ -8,7 +8,7 @@
           :headers="headers"
           :items="allData"
           sort-by="en_name"
-          class="data-table-custom"
+          class="data-table-custom row-pointer"
           @click:row.self="viewItem"
         >
           <template v-slot:item.logo="{ item }">
@@ -495,5 +495,8 @@ export default {
 .data-table-custom >>> th,
 .data-table-custom >>> td {
   padding: 2px 4px !important;
+}
+.row-pointer >>> tbody tr :hover {
+  cursor: pointer;
 }
 </style>

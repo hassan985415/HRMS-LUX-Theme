@@ -16,6 +16,7 @@
         <!--        >-->
         <v-data-table
           v-if="!dialog && !view"
+          class="row-pointer"
           :headers="headers"
           :items="allData"
           sort-by="en_name"
@@ -54,7 +55,8 @@
         </v-data-table>
         <v-card v-if="dialog">
           <v-card-title>
-            <span class="headline">{{ formTitle }}</span>
+            <span v-if="view" class="headline">View Effectivity Preferences </span>
+            <span v-else class="headline">{{ formTitle }}</span>
           </v-card-title>
           <v-card-text>
             <v-container>
@@ -68,6 +70,8 @@
                     >
                       <v-select
                         v-model="editedItem.company_id"
+                        :disabled="view"
+                        :filled="view"
                         :items="companies"
                         :item-text="companies.text"
                         :item-value="companies.value"
@@ -81,6 +85,8 @@
                     >
                       <v-select
                         v-model="editedItem.branch_id"
+                        :disabled="view"
+                        :filled="view"
                         :items="branches"
                         :item-text="branches.text"
                         :item-value="branches.value"
@@ -94,6 +100,8 @@
                     >
                       <v-text-field
                         v-model="editedItem.start_date"
+                        :disabled="view"
+                        :filled="view"
                         label="Start Date"
                         type="date"
                         :rules="[ (value) => !!value || 'This  field is required']"
@@ -106,6 +114,8 @@
                     >
                       <v-checkbox
                         v-model="editedItem.update_ticket_benefit"
+                        :disabled="view"
+                        :filled="view"
                         :false-value="0"
                         :true-value="1"
                         label="Update ticket benefit"
@@ -120,6 +130,8 @@
                     >
                       <v-checkbox
                         v-model="editedItem.fix_asset"
+                        :disabled="view"
+                        :filled="view"
                         :false-value="0"
                         :true-value="1"
                         label="Fix asset"
@@ -134,6 +146,8 @@
                     >
                       <v-checkbox
                         v-model="editedItem.accumulated"
+                        :disabled="view"
+                        :filled="view"
                         :false-value="0"
                         :true-value="1"
                         label="Accumulated"
@@ -148,23 +162,22 @@
             </v-container>
           </v-card-text>
 
-          <v-card-actions>
+          <v-card-actions v-if="!view">
             <v-spacer></v-spacer>
-            <v-btn
-              color="blue darken-1"
-              text
-              rounded
-              @click="dialog = false"
-            >
+            <v-btn color="blue darken-1" text rounded @click="dialog = false">
               Cancel
             </v-btn>
-            <v-btn
-              color="blue darken-1"
-              text
-              rounded
-              @click="save"
-            >
+            <v-btn color="blue darken-1" text rounded @click="save">
               Save
+            </v-btn>
+          </v-card-actions>
+          <v-card-actions v-else>
+            <v-spacer></v-spacer>
+            <v-btn color="blue darken-1" text rounded @click="view = false; dialog = false; editedItem = {}; editedIndex = -1">
+              Cancel
+            </v-btn>
+            <v-btn color="blue darken-1" text rounded @click="view = false">
+              Edit
             </v-btn>
           </v-card-actions>
         </v-card>
@@ -180,32 +193,32 @@
           </v-card>
         </v-dialog>
         <!--        </MaterialCard>-->
-        <v-card v-if="view">
-          <v-card-title>
-            <span class="headline"> View </span>
-          </v-card-title>
-          <v-card-text>
-            <v-row>
-              <v-col cols="12" sm="6" md="6"><h3> Update ticket benefit </h3> </v-col>
-              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.update_ticket_benefit }} </span> </v-col>
-              <v-col cols="12" sm="6" md="6"><h3> Fix asset </h3> </v-col>
-              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.fix_asset }} </span> </v-col>
-              <v-col cols="12" sm="6" md="6"><h3> Accumulated </h3> </v-col>
-              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.accumulated }} </span> </v-col>
-              <v-col cols="12" sm="6" md="6"><h3> Start date </h3> </v-col>
-              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.start_date }} </span> </v-col>
-            </v-row>
-          </v-card-text>
-          <v-card-actions>
-            <v-spacer></v-spacer>
-            <v-btn color="blue darken-1" text rounded @click="view = false; editedItem = {}; editedIndex = -1">
-              Cancel
-            </v-btn>
-            <v-btn color="blue darken-1" text rounded @click="dialog = true; view = false">
-              Edit
-            </v-btn>
-          </v-card-actions>
-        </v-card>
+<!--        <v-card v-if="view">-->
+<!--          <v-card-title>-->
+<!--            <span class="headline"> View </span>-->
+<!--          </v-card-title>-->
+<!--          <v-card-text>-->
+<!--            <v-row>-->
+<!--              <v-col cols="12" sm="6" md="6"><h3> Update ticket benefit </h3> </v-col>-->
+<!--              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.update_ticket_benefit }} </span> </v-col>-->
+<!--              <v-col cols="12" sm="6" md="6"><h3> Fix asset </h3> </v-col>-->
+<!--              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.fix_asset }} </span> </v-col>-->
+<!--              <v-col cols="12" sm="6" md="6"><h3> Accumulated </h3> </v-col>-->
+<!--              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.accumulated }} </span> </v-col>-->
+<!--              <v-col cols="12" sm="6" md="6"><h3> Start date </h3> </v-col>-->
+<!--              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.start_date }} </span> </v-col>-->
+<!--            </v-row>-->
+<!--          </v-card-text>-->
+<!--          <v-card-actions>-->
+<!--            <v-spacer></v-spacer>-->
+<!--            <v-btn color="blue darken-1" text rounded @click="view = false; editedItem = {}; editedIndex = -1">-->
+<!--              Cancel-->
+<!--            </v-btn>-->
+<!--            <v-btn color="blue darken-1" text rounded @click="dialog = true; view = false">-->
+<!--              Edit-->
+<!--            </v-btn>-->
+<!--          </v-card-actions>-->
+<!--        </v-card>-->
       </v-col>
     </v-row>
   </v-container>
@@ -378,6 +391,7 @@ export default {
       this.editedItem.company_id = item.company_id.id
       this.editedItem.branch_id = item.branch_id.id
       this.view = true
+      this.dialog = true
     },
     deleteItem (id) {
       this.countryId[0] = id
@@ -425,5 +439,7 @@ export default {
 </script>
 
 <style scoped>
-
+.row-pointer >>> tbody tr :hover {
+  cursor: pointer;
+}
 </style>
