@@ -9,6 +9,7 @@
         <!--        >-->
         <v-data-table
           v-if="!dialog && !view"
+          class="row-pointer"
           :headers="headers"
           :items="allData"
           sort-by="en_name"
@@ -45,7 +46,8 @@
         </v-data-table>
         <v-card v-if="dialog">
           <v-card-title>
-            <span class="headline">{{ formTitle }}</span>
+            <span v-if="view" class="headline">View Bank </span>
+            <span v-else class="headline">{{ formTitle }}</span>
           </v-card-title>
           <v-card-text>
             <v-container>
@@ -58,6 +60,8 @@
                         :items="companies"
                         :item-text="companies.text"
                         :item-value="companies.value"
+                        :disabled="view"
+                        :filled="view"
                         label="Select Company"
                         :rules="[
                           value => !!value || 'This  field is required'
@@ -70,6 +74,8 @@
                         :items="countries"
                         :item-text="countries.text"
                         :item-value="countries.value"
+                        :disabled="view"
+                        :filled="view"
                         label="Select Country"
                         :rules="[
                           value => !!value || 'This  field is required'
@@ -83,6 +89,8 @@
                         :items="cities"
                         :item-text="cities.text"
                         :item-value="cities.value"
+                        :disabled="view"
+                        :filled="view"
                         label="Select City"
                         :rules="[
                           value => !!value || 'This  field is required'
@@ -95,6 +103,8 @@
                         :items="branches"
                         :item-text="branches.text"
                         :item-value="branches.value"
+                        :disabled="view"
+                        :filled="view"
                         label="Select branch"
                         :rules="[
                           value => !!value || 'This  field is required'
@@ -107,6 +117,8 @@
                         :items="currencies"
                         :item-text="currencies.text"
                         :item-value="currencies.value"
+                        :disabled="view"
+                        :filled="view"
                         label="Select currency"
                         :rules="[
                           value => !!value || 'This  field is required'
@@ -118,7 +130,8 @@
                         v-model="editedItem.ar_name"
                         class="direction"
                         label="Name in Arabic"
-
+                        :disabled="view"
+                        :filled="view"
                         :rules="[
                           value => !!value || 'This  field is required',
                           value =>
@@ -131,6 +144,8 @@
                       <v-text-field
                         v-model="editedItem.en_name"
                         label="Name in English"
+                        :disabled="view"
+                        :filled="view"
                         :rules="[
                           value => !!value || 'This  field is required',
                           value =>
@@ -142,6 +157,8 @@
                     <v-col cols="12" sm="6" md="6">
                       <v-text-field
                         v-model="editedItem.account_type"
+                        :disabled="view"
+                        :filled="view"
                         label="Account Type"
                         :rules="[
                           value => !!value || 'This  field is required',
@@ -154,6 +171,8 @@
                     <v-col cols="12" sm="6" md="6">
                       <v-text-field
                         v-model="editedItem.account_no"
+                        :disabled="view"
+                        :filled="view"
                         label="Account No"
                         type="number"
                         :rules="[
@@ -167,30 +186,40 @@
                     <v-col cols="12" sm="6" md="6">
                       <v-text-field
                         v-model="editedItem.address_1"
+                        :disabled="view"
+                        :filled="view"
                         label="Address_1"
                       ></v-text-field>
                     </v-col>
                     <v-col cols="12" sm="6" md="6">
                       <v-text-field
                         v-model="editedItem.address_2"
+                        :disabled="view"
+                        :filled="view"
                         label="Address_2"
                       ></v-text-field>
                     </v-col>
                     <v-col cols="12" sm="6" md="6">
                       <v-text-field
                         v-model="editedItem.address_3"
+                        :disabled="view"
+                        :filled="view"
                         label="Address_3"
                       ></v-text-field>
                     </v-col>
                     <v-col cols="12" sm="6" md="6">
                       <v-text-field
                         v-model="editedItem.address_4"
+                        :disabled="view"
+                        :filled="view"
                         label="Address_4"
                       ></v-text-field>
                     </v-col>
                     <v-col cols="12" sm="6" md="6">
                       <v-text-field
                         v-model="editedItem.gl_acct_code"
+                        :disabled="view"
+                        :filled="view"
                         label="gl_acct_code"
                         type="number"
                       ></v-text-field>
@@ -198,6 +227,8 @@
                     <v-col cols="12" sm="6" md="6">
                       <v-text-field
                         v-model="editedItem.bank_code"
+                        :disabled="view"
+                        :filled="view"
                         label="bank_code"
                         type="number"
                       ></v-text-field>
@@ -205,12 +236,16 @@
                     <v-col cols="12" sm="6" md="6">
                       <v-text-field
                         v-model="editedItem.bank_file"
+                        :disabled="view"
+                        :filled="view"
                         label="bank_file"
                       ></v-text-field>
                     </v-col>
                     <v-col cols="12" sm="6" md="6">
                       <v-text-field
                         v-model="editedItem.payment_type"
+                        :disabled="view"
+                        :filled="view"
                         label="payment_type"
                       ></v-text-field>
                     </v-col>
@@ -220,18 +255,22 @@
             </v-container>
           </v-card-text>
 
-          <v-card-actions>
+          <v-card-actions v-if="!view">
             <v-spacer></v-spacer>
-            <v-btn
-              color="blue darken-1"
-              text
-              rounded
-              @click="dialog = false"
-            >
+            <v-btn color="blue darken-1" text rounded @click="dialog = false">
               Cancel
             </v-btn>
             <v-btn color="blue darken-1" text rounded @click="save">
               Save
+            </v-btn>
+          </v-card-actions>
+          <v-card-actions v-else>
+            <v-spacer></v-spacer>
+            <v-btn color="blue darken-1" text rounded @click="view = false; dialog = false; editedItem = {}; editedIndex = -1">
+              Cancel
+            </v-btn>
+            <v-btn color="blue darken-1" text rounded @click="view = false">
+              Edit
             </v-btn>
           </v-card-actions>
         </v-card>
@@ -258,48 +297,48 @@
           </v-card>
         </v-dialog>
         <!--        </MaterialCard>-->
-        <v-card v-if="view">
-          <v-card-title>
-            <span class="headline"> View </span>
-          </v-card-title>
-          <v-card-text>
-            <v-row>
-              <v-col cols="12" sm="6" md="6"><h3> En Name </h3> </v-col>
-              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.en_name}} </span> </v-col>
-              <v-col cols="12" sm="6" md="6"><h3> Ar Name </h3> </v-col>
-              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.ar_name}} </span> </v-col>
-              <v-col cols="12" sm="6" md="6"><h3> Account Type </h3> </v-col>
-              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.account_type}} </span> </v-col>
-              <v-col cols="12" sm="6" md="6"><h3> Account Number </h3> </v-col>
-              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.account_no}} </span> </v-col>
-              <v-col cols="12" sm="6" md="6"><h3> Address 1 </h3> </v-col>
-              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.address_1}} </span> </v-col>
-              <v-col cols="12" sm="6" md="6"><h3> Address 2 </h3> </v-col>
-              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.address_2}} </span> </v-col>
-              <v-col cols="12" sm="6" md="6"><h3> Address 3 </h3> </v-col>
-              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.address_3}} </span> </v-col>
-              <v-col cols="12" sm="6" md="6"><h3> Address 4 </h3> </v-col>
-              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.address_4}} </span> </v-col>
-              <v-col cols="12" sm="6" md="6"><h3> Gl_acct_code </h3> </v-col>
-              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.gl_acct_code}} </span> </v-col>
-              <v-col cols="12" sm="6" md="6"><h3> Bank Code </h3> </v-col>
-              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.bank_code}} </span> </v-col>
-              <v-col cols="12" sm="6" md="6"><h3> Bank File </h3> </v-col>
-              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.bank_file}} </span> </v-col>
-              <v-col cols="12" sm="6" md="6"><h3> Payment Type </h3> </v-col>
-              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.payment_type}} </span> </v-col>
-            </v-row>
-          </v-card-text>
-          <v-card-actions>
-            <v-spacer></v-spacer>
-            <v-btn color="blue darken-1" text rounded @click="view = false; editedItem = {}; editedIndex = -1">
-              Cancel
-            </v-btn>
-            <v-btn color="blue darken-1" text rounded @click="dialog = true; view = false">
-              Edit
-            </v-btn>
-          </v-card-actions>
-        </v-card>
+        <!--        <v-card v-if="view">-->
+        <!--          <v-card-title>-->
+        <!--            <span class="headline"> View </span>-->
+        <!--          </v-card-title>-->
+        <!--          <v-card-text>-->
+        <!--            <v-row>-->
+        <!--              <v-col cols="12" sm="6" md="6"><h3> En Name </h3> </v-col>-->
+        <!--              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.en_name}} </span> </v-col>-->
+        <!--              <v-col cols="12" sm="6" md="6"><h3> Ar Name </h3> </v-col>-->
+        <!--              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.ar_name}} </span> </v-col>-->
+        <!--              <v-col cols="12" sm="6" md="6"><h3> Account Type </h3> </v-col>-->
+        <!--              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.account_type}} </span> </v-col>-->
+        <!--              <v-col cols="12" sm="6" md="6"><h3> Account Number </h3> </v-col>-->
+        <!--              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.account_no}} </span> </v-col>-->
+        <!--              <v-col cols="12" sm="6" md="6"><h3> Address 1 </h3> </v-col>-->
+        <!--              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.address_1}} </span> </v-col>-->
+        <!--              <v-col cols="12" sm="6" md="6"><h3> Address 2 </h3> </v-col>-->
+        <!--              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.address_2}} </span> </v-col>-->
+        <!--              <v-col cols="12" sm="6" md="6"><h3> Address 3 </h3> </v-col>-->
+        <!--              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.address_3}} </span> </v-col>-->
+        <!--              <v-col cols="12" sm="6" md="6"><h3> Address 4 </h3> </v-col>-->
+        <!--              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.address_4}} </span> </v-col>-->
+        <!--              <v-col cols="12" sm="6" md="6"><h3> Gl_acct_code </h3> </v-col>-->
+        <!--              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.gl_acct_code}} </span> </v-col>-->
+        <!--              <v-col cols="12" sm="6" md="6"><h3> Bank Code </h3> </v-col>-->
+        <!--              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.bank_code}} </span> </v-col>-->
+        <!--              <v-col cols="12" sm="6" md="6"><h3> Bank File </h3> </v-col>-->
+        <!--              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.bank_file}} </span> </v-col>-->
+        <!--              <v-col cols="12" sm="6" md="6"><h3> Payment Type </h3> </v-col>-->
+        <!--              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.payment_type}} </span> </v-col>-->
+        <!--            </v-row>-->
+        <!--          </v-card-text>-->
+        <!--          <v-card-actions>-->
+        <!--            <v-spacer></v-spacer>-->
+        <!--            <v-btn color="blue darken-1" text rounded @click="view = false; editedItem = {}; editedIndex = -1">-->
+        <!--              Cancel-->
+        <!--            </v-btn>-->
+        <!--            <v-btn color="blue darken-1" text rounded @click="dialog = true; view = false">-->
+        <!--              Edit-->
+        <!--            </v-btn>-->
+        <!--          </v-card-actions>-->
+        <!--        </v-card>-->
       </v-col>
     </v-row>
   </v-container>
@@ -379,7 +418,7 @@ export default {
         this.$refs.form.reset()
         this.editedIndex = -1
       }
-    },
+    }
   },
   created() {
     this.getCompanies()
@@ -570,6 +609,7 @@ export default {
       this.editedItem.branch_id = item.branch_id.id
       this.editedItem.currency_id = item.currency_id.id
       this.view = true
+      this.dialog = true
     },
     deleteItem(id) {
       this.countryId[0] = id
@@ -632,5 +672,8 @@ export default {
 <style scoped>
 .direction {
   direction: rtl;
+}
+.row-pointer >>> tbody tr :hover {
+  cursor: pointer;
 }
 </style>

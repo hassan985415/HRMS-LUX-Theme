@@ -20,6 +20,7 @@
             :items="allData"
             sort-by="en_name"
             v-if="!dialog && !view"
+          class="row-pointer"
             @click:row.self="viewItem"
           >
             <template v-slot:top>
@@ -55,7 +56,8 @@
           </v-data-table>
         <v-card v-if="dialog">
           <v-card-title>
-            <span class="headline">{{ formTitle }}</span>
+            <span v-if="view" class="headline">View Cost Center </span>
+            <span v-else class="headline">{{ formTitle }}</span>
           </v-card-title>
           <v-card-text>
             <v-container>
@@ -71,6 +73,8 @@
                         label="Competence Name in Arabic"
                         class="direction"
                         v-model="editedItem.ar_name"
+                        :disabled="view"
+                        :filled="view"
                         :rules="[ (value) => !!value || 'This  field is required',
                                 (value) => (value && value.length <= 50) || 'maximum 50 characters',]"
                       ></v-text-field>
@@ -83,6 +87,8 @@
                       <v-text-field
                         label="Competence Name in English"
                         v-model="editedItem.en_name"
+                        :disabled="view"
+                        :filled="view"
                         :rules="[ (value) => !!value || 'This  field is required',
                                 (value) => (value && value.length <= 50) || 'maximum 50 characters',]"
                       ></v-text-field>
@@ -94,6 +100,8 @@
                     >
                       <v-checkbox
                         v-model="editedItem.is_active"
+                        :disabled="view"
+                        :filled="view"
                         :false-value="0"
                         :true-value="1"
                         label="Is Active"
@@ -108,6 +116,8 @@
                     >
                       <v-checkbox
                         v-model="editedItem.storecc"
+                        :disabled="view"
+                        :filled="view"
                         :false-value="0"
                         :true-value="1"
                         label="Store cc"
@@ -122,6 +132,8 @@
                     >
                       <v-checkbox
                         v-model="editedItem.status"
+                        :disabled="view"
+                        :filled="view"
                         :false-value="0"
                         :true-value="1"
                         label="Status"
@@ -136,6 +148,8 @@
                     >
                       <v-checkbox
                         v-model="editedItem.update_status"
+                        :disabled="view"
+                        :filled="view"
                         :false-value="0"
                         :true-value="1"
                         label="Update Status"
@@ -150,23 +164,22 @@
             </v-container>
           </v-card-text>
 
-          <v-card-actions>
+          <v-card-actions v-if="!view">
             <v-spacer></v-spacer>
-            <v-btn
-              color="blue darken-1"
-              text
-              @click="dialog=false"
-              rounded
-            >
+            <v-btn color="blue darken-1" text rounded @click="dialog = false">
               Cancel
             </v-btn>
-            <v-btn
-              color="blue darken-1"
-              text
-              @click="save"
-              rounded
-            >
+            <v-btn color="blue darken-1" text rounded @click="save">
               Save
+            </v-btn>
+          </v-card-actions>
+          <v-card-actions v-else>
+            <v-spacer></v-spacer>
+            <v-btn color="blue darken-1" text rounded @click="view = false; dialog = false; editedItem = {}; editedIndex = -1">
+              Cancel
+            </v-btn>
+            <v-btn color="blue darken-1" text rounded @click="view = false">
+              Edit
             </v-btn>
           </v-card-actions>
         </v-card>
@@ -182,36 +195,36 @@
           </v-card>
         </v-dialog>
 <!--        </MaterialCard>-->
-        <v-card v-if="view">
-          <v-card-title>
-            <span class="headline"> View </span>
-          </v-card-title>
-          <v-card-text>
-            <v-row>
-              <v-col cols="12" sm="6" md="6"><h3> En Name </h3> </v-col>
-              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.en_name}} </span> </v-col>
-              <v-col cols="12" sm="6" md="6"><h3> Ar Name </h3> </v-col>
-              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.ar_name}} </span> </v-col>
-              <v-col cols="12" sm="6" md="6"><h3> Is Active </h3> </v-col>
-              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.is_active}} </span> </v-col>
-              <v-col cols="12" sm="6" md="6"><h3> Store cc </h3> </v-col>
-              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.storecc}} </span> </v-col>
-              <v-col cols="12" sm="6" md="6"><h3> Status </h3> </v-col>
-              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.status}} </span> </v-col>
-              <v-col cols="12" sm="6" md="6"><h3> Update Status </h3> </v-col>
-              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.update_status}} </span> </v-col>
-            </v-row>
-          </v-card-text>
-          <v-card-actions>
-            <v-spacer></v-spacer>
-            <v-btn color="blue darken-1" text rounded @click="view = false; editedItem = {}; editedIndex = -1">
-              Cancel
-            </v-btn>
-            <v-btn color="blue darken-1" text rounded @click="dialog = true; view = false">
-              Edit
-            </v-btn>
-          </v-card-actions>
-        </v-card>
+<!--        <v-card v-if="view">-->
+<!--          <v-card-title>-->
+<!--            <span class="headline"> View </span>-->
+<!--          </v-card-title>-->
+<!--          <v-card-text>-->
+<!--            <v-row>-->
+<!--              <v-col cols="12" sm="6" md="6"><h3> En Name </h3> </v-col>-->
+<!--              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.en_name}} </span> </v-col>-->
+<!--              <v-col cols="12" sm="6" md="6"><h3> Ar Name </h3> </v-col>-->
+<!--              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.ar_name}} </span> </v-col>-->
+<!--              <v-col cols="12" sm="6" md="6"><h3> Is Active </h3> </v-col>-->
+<!--              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.is_active}} </span> </v-col>-->
+<!--              <v-col cols="12" sm="6" md="6"><h3> Store cc </h3> </v-col>-->
+<!--              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.storecc}} </span> </v-col>-->
+<!--              <v-col cols="12" sm="6" md="6"><h3> Status </h3> </v-col>-->
+<!--              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.status}} </span> </v-col>-->
+<!--              <v-col cols="12" sm="6" md="6"><h3> Update Status </h3> </v-col>-->
+<!--              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.update_status}} </span> </v-col>-->
+<!--            </v-row>-->
+<!--          </v-card-text>-->
+<!--          <v-card-actions>-->
+<!--            <v-spacer></v-spacer>-->
+<!--            <v-btn color="blue darken-1" text rounded @click="view = false; editedItem = {}; editedIndex = -1">-->
+<!--              Cancel-->
+<!--            </v-btn>-->
+<!--            <v-btn color="blue darken-1" text rounded @click="dialog = true; view = false">-->
+<!--              Edit-->
+<!--            </v-btn>-->
+<!--          </v-card-actions>-->
+<!--        </v-card>-->
       </v-col>
     </v-row>
   </v-container>
@@ -355,6 +368,7 @@ export default {
       // console.log('index',this.desserts.indexOf(item))
       this.editedItem = Vue.util.extend({}, item);
       this.view = true
+      this.dialog = true
     },
     deleteItem (id) {
       this.countryId[0]=id
@@ -401,5 +415,7 @@ export default {
 </script>
 
 <style scoped>
-
+.row-pointer >>> tbody tr :hover {
+  cursor: pointer;
+}
 </style>

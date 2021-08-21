@@ -8,7 +8,7 @@
           :headers="headers"
           :items="allData"
           sort-by="en_name"
-          class="data-table-custom"
+          class="data-table-custom row-pointer"
           @click:row.self="viewItem"
         >
           <template v-slot:item.logo="{ item }">
@@ -49,7 +49,8 @@
         </v-data-table>
         <v-card v-if="dialog">
           <v-card-title>
-            <span class="headline">{{ formTitle }}</span>
+            <span v-if="view" class="headline">View Company Info </span>
+            <span v-else class="headline">{{ formTitle }}</span>
           </v-card-title>
           <v-card-text>
             <v-container>
@@ -60,6 +61,8 @@
                       <v-text-field
                         v-model="editedItem.en_name"
                         label="Name in English"
+                        :disabled="view"
+                        :filled="view"
                         :rules="[
                           value => !!value || 'This  field is required',
                           value =>
@@ -71,6 +74,8 @@
                     <v-col cols="12" sm="6" md="6">
                       <v-text-field
                         v-model="editedItem.ar_name"
+                        :disabled="view"
+                        :filled="view"
                         label="Name in Arabic"
                         class="direction"
                         :rules="[
@@ -85,11 +90,15 @@
                       <v-text-field
                         v-model="editedItem.en_register_name"
                         label="Register Name in English"
+                        :disabled="view"
+                        :filled="view"
                       ></v-text-field>
                     </v-col>
                     <v-col cols="12" sm="6" md="6">
                       <v-text-field
                         v-model="editedItem.er_register_name"
+                        :disabled="view"
+                        :filled="view"
                         label="Register Name in Arabic"
                         class="direction"
                       ></v-text-field>
@@ -97,12 +106,16 @@
                     <v-col cols="12" sm="6" md="6">
                       <v-text-field
                         v-model="editedItem.en_type_of_business"
+                        :disabled="view"
+                        :filled="view"
                         label="En type of business"
                       ></v-text-field>
                     </v-col>
                     <v-col cols="12" sm="6" md="6">
                       <v-text-field
                         v-model="editedItem.ar_type_of_business"
+                        :disabled="view"
+                        :filled="view"
                         label="Ar type of business"
                         class="direction"
                       ></v-text-field>
@@ -110,6 +123,8 @@
                     <v-col cols="12" sm="6" md="6">
                       <v-text-field
                         v-model="editedItem.incorporation_date"
+                        :disabled="view"
+                        :filled="view"
                         label="Incorporation Date"
                         type="date"
                         :rules="[value => !!value || 'This  field is required']"
@@ -119,6 +134,8 @@
                       <v-text-field
                         id="file"
                         label="Logo"
+                        :disabled="view"
+                        :filled="view"
                         type="file"
                       ></v-text-field>
 
@@ -148,13 +165,22 @@
               </v-form>
             </v-container>
           </v-card-text>
-          <v-card-actions>
+          <v-card-actions v-if="!view">
             <v-spacer></v-spacer>
             <v-btn color="blue darken-1" text rounded @click="dialog = false">
               Cancel
             </v-btn>
             <v-btn color="blue darken-1" text rounded @click="save">
               Save
+            </v-btn>
+          </v-card-actions>
+          <v-card-actions v-else>
+            <v-spacer></v-spacer>
+            <v-btn color="blue darken-1" text rounded @click="view = false; dialog = false; editedItem = {}; editedIndex = -1">
+              Cancel
+            </v-btn>
+            <v-btn color="blue darken-1" text rounded @click="view = false">
+              Edit
             </v-btn>
           </v-card-actions>
         </v-card>
@@ -181,48 +207,48 @@
         </v-dialog>
         <!--        </MaterialCard>-->
 
-<!--        view single record-->
-        <v-card v-if="view">
-          <v-card-title>
-            <span class="headline"> View </span>
-          </v-card-title>
-          <v-card-text>
-            <v-row>
-              <v-col cols="12" sm="6" md="6"><h3> Logo </h3> </v-col>
-              <v-col cols="12" sm="6" md="6"> <img
-                v-if="editedItem.logo"
-                :src="fileUrl + editedItem.logo"
-                alt=""
-                style="display: flex;border-radius: 50%;"
-                width="38"
-                height="38"
-              /> </v-col>
-              <v-col cols="12" sm="6" md="6"><h3> En Name </h3> </v-col>
-              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.en_name}} </span> </v-col>
-              <v-col cols="12" sm="6" md="6"><h3> Ar Name </h3> </v-col>
-              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.ar_name}} </span> </v-col>
-              <v-col cols="12" sm="6" md="6"><h3> En Register Name </h3> </v-col>
-              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.er_register_name}} </span> </v-col>
-              <v-col cols="12" sm="6" md="6"><h3> Ar Register Name </h3> </v-col>
-              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.er_register_name}} </span> </v-col>
-              <v-col cols="12" sm="6" md="6"><h3> Incorporation Date </h3> </v-col>
-              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.incorporation_date}} </span> </v-col>
-              <v-col cols="12" sm="6" md="6"><h3> En Type of Business </h3> </v-col>
-              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.en_type_of_business}} </span> </v-col>
-              <v-col cols="12" sm="6" md="6"><h3> Ar Type of Business </h3> </v-col>
-              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.ar_type_of_business}} </span> </v-col>
-            </v-row>
-          </v-card-text>
-          <v-card-actions>
-            <v-spacer></v-spacer>
-            <v-btn color="blue darken-1" text rounded @click="view = false; editedItem = {}; editedIndex = -1">
-              Cancel
-            </v-btn>
-            <v-btn color="blue darken-1" text rounded @click="dialog = true; view = false">
-              Edit
-            </v-btn>
-          </v-card-actions>
-        </v-card>
+        <!--        view single record-->
+        <!--        <v-card v-if="view">-->
+        <!--          <v-card-title>-->
+        <!--            <span class="headline"> View </span>-->
+        <!--          </v-card-title>-->
+        <!--          <v-card-text>-->
+        <!--            <v-row>-->
+        <!--              <v-col cols="12" sm="6" md="6"><h3> Logo </h3> </v-col>-->
+        <!--              <v-col cols="12" sm="6" md="6"> <img-->
+        <!--                v-if="editedItem.logo"-->
+        <!--                :src="fileUrl + editedItem.logo"-->
+        <!--                alt=""-->
+        <!--                style="display: flex;border-radius: 50%;"-->
+        <!--                width="38"-->
+        <!--                height="38"-->
+        <!--              /> </v-col>-->
+        <!--              <v-col cols="12" sm="6" md="6"><h3> En Name </h3> </v-col>-->
+        <!--              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.en_name}} </span> </v-col>-->
+        <!--              <v-col cols="12" sm="6" md="6"><h3> Ar Name </h3> </v-col>-->
+        <!--              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.ar_name}} </span> </v-col>-->
+        <!--              <v-col cols="12" sm="6" md="6"><h3> En Register Name </h3> </v-col>-->
+        <!--              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.er_register_name}} </span> </v-col>-->
+        <!--              <v-col cols="12" sm="6" md="6"><h3> Ar Register Name </h3> </v-col>-->
+        <!--              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.er_register_name}} </span> </v-col>-->
+        <!--              <v-col cols="12" sm="6" md="6"><h3> Incorporation Date </h3> </v-col>-->
+        <!--              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.incorporation_date}} </span> </v-col>-->
+        <!--              <v-col cols="12" sm="6" md="6"><h3> En Type of Business </h3> </v-col>-->
+        <!--              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.en_type_of_business}} </span> </v-col>-->
+        <!--              <v-col cols="12" sm="6" md="6"><h3> Ar Type of Business </h3> </v-col>-->
+        <!--              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.ar_type_of_business}} </span> </v-col>-->
+        <!--            </v-row>-->
+        <!--          </v-card-text>-->
+        <!--          <v-card-actions>-->
+        <!--            <v-spacer></v-spacer>-->
+        <!--            <v-btn color="blue darken-1" text rounded @click="view = false; editedItem = {}; editedIndex = -1">-->
+        <!--              Cancel-->
+        <!--            </v-btn>-->
+        <!--            <v-btn color="blue darken-1" text rounded @click="dialog = true; view = false">-->
+        <!--              Edit-->
+        <!--            </v-btn>-->
+        <!--          </v-card-actions>-->
+        <!--        </v-card>-->
       </v-col>
     </v-row>
   </v-container>
@@ -409,6 +435,7 @@ export default {
       // console.log('index',this.desserts.indexOf(item))
       this.editedItem = Vue.util.extend({}, item)
       this.view = true
+      this.dialog = true
     },
     deleteItem(id) {
       this.countryId[0] = id
@@ -468,5 +495,8 @@ export default {
 .data-table-custom >>> th,
 .data-table-custom >>> td {
   padding: 2px 4px !important;
+}
+.row-pointer >>> tbody tr :hover {
+  cursor: pointer;
 }
 </style>
