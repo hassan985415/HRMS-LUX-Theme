@@ -16,6 +16,7 @@
         <!--        >-->
         <v-data-table
           v-if="!dialog && !view"
+          class="row-pointer"
           :headers="headers"
           :items="allData"
           sort-by="en_name"
@@ -54,7 +55,8 @@
         </v-data-table>
         <v-card v-if="dialog">
           <v-card-title>
-            <span class="headline">{{ formTitle }}</span>
+            <span v-if="view" class="headline">View Payroll Preferences </span>
+            <span v-else class="headline">{{ formTitle }}</span>
           </v-card-title>
           <v-card-text>
             <v-container>
@@ -68,6 +70,8 @@
                     >
                       <v-select
                         v-model="editedItem.company_id"
+                        :disabled="view"
+                        :filled="view"
                         :items="companies"
                         :item-text="companies.text"
                         :item-value="companies.value"
@@ -81,6 +85,8 @@
                     >
                       <v-select
                         v-model="editedItem.branch_id"
+                        :disabled="view"
+                        :filled="view"
                         :items="branches"
                         :item-text="branches.text"
                         :item-value="branches.value"
@@ -94,6 +100,8 @@
                     >
                       <v-text-field
                         v-model="editedItem.hours_per_month"
+                        :disabled="view"
+                        :filled="view"
                         label="Hours per month"
                         type="number"
                         :rules="[ (value) => !!value || 'This  field is required']"
@@ -106,6 +114,8 @@
                     >
                       <v-text-field
                         v-model="editedItem.days_per_month"
+                        :disabled="view"
+                        :filled="view"
                         label="Days per month"
                         type="number"
                         :rules="[ (value) => !!value || 'This  field is required']"
@@ -118,6 +128,8 @@
                     >
                       <v-text-field
                         v-model="editedItem.ot"
+                        :disabled="view"
+                        :filled="view"
                         label="ot"
                         type="number"
                         :rules="[ (value) => !!value || 'This  field is required']"
@@ -130,6 +142,8 @@
                     >
                       <v-text-field
                         v-model="editedItem.tardiness_factor"
+                        :disabled="view"
+                        :filled="view"
                         label="Tardiness Factor"
                         type="number"
                         :rules="[ (value) => !!value || 'This  field is required',
@@ -143,6 +157,8 @@
                     >
                       <v-text-field
                         v-model="editedItem.absent_factor"
+                        :disabled="view"
+                        :filled="view"
                         label="Absent Factor"
                         type="number"
                         :rules="[ (value) => !!value || 'This  field is required',
@@ -156,6 +172,8 @@
                     >
                       <v-checkbox
                         v-model="editedItem.calc_outside_payroll"
+                        :disabled="view"
+                        :filled="view"
                         :false-value="0"
                         :true-value="1"
                         label="Calc_outside_payroll"
@@ -170,6 +188,8 @@
                     >
                       <v-checkbox
                         v-model="editedItem.posttoacct_ot_outside_payroll"
+                        :disabled="view"
+                        :filled="view"
                         :false-value="0"
                         :true-value="1"
                         label="Post_outside_payroll"
@@ -184,6 +204,8 @@
                     >
                       <v-checkbox
                         v-model="editedItem.calc_overtime_payroll"
+                        :disabled="view"
+                        :filled="view"
                         :false-value="0"
                         :true-value="1"
                         label="Calc_overtime_payroll"
@@ -198,6 +220,8 @@
                     >
                       <v-checkbox
                         v-model="editedItem.days_only"
+                        :disabled="view"
+                        :filled="view"
                         :false-value="0"
                         :true-value="1"
                         label="Days_only"
@@ -212,6 +236,8 @@
                     >
                       <v-checkbox
                         v-model="editedItem.full_housing"
+                        :disabled="view"
+                        :filled="view"
                         :false-value="0"
                         :true-value="1"
                         label="Full_housing"
@@ -226,23 +252,22 @@
             </v-container>
           </v-card-text>
 
-          <v-card-actions>
+          <v-card-actions v-if="!view">
             <v-spacer></v-spacer>
-            <v-btn
-              color="blue darken-1"
-              text
-              rounded
-              @click="dialog = false"
-            >
+            <v-btn color="blue darken-1" text rounded @click="dialog = false">
               Cancel
             </v-btn>
-            <v-btn
-              color="blue darken-1"
-              text
-              rounded
-              @click="save"
-            >
+            <v-btn color="blue darken-1" text rounded @click="save">
               Save
+            </v-btn>
+          </v-card-actions>
+          <v-card-actions v-else>
+            <v-spacer></v-spacer>
+            <v-btn color="blue darken-1" text rounded @click="view = false; dialog = false; editedItem = {}; editedIndex = -1">
+              Cancel
+            </v-btn>
+            <v-btn color="blue darken-1" text rounded @click="view = false">
+              Edit
             </v-btn>
           </v-card-actions>
         </v-card>
@@ -258,44 +283,44 @@
           </v-card>
         </v-dialog>
         <!--        </MaterialCard>-->
-        <v-card v-if="view">
-          <v-card-title>
-            <span class="headline"> View </span>
-          </v-card-title>
-          <v-card-text>
-            <v-row>
-              <v-col cols="12" sm="6" md="6"><h3> Hours per month </h3> </v-col>
-              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.hours_per_month }} </span> </v-col>
-              <v-col cols="12" sm="6" md="6"><h3> Days per month </h3> </v-col>
-              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.days_per_month }} </span> </v-col>
-              <v-col cols="12" sm="6" md="6"><h3> Ot </h3> </v-col>
-              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.ot }} </span> </v-col>
-              <v-col cols="12" sm="6" md="6"><h3> Tardiness factor </h3> </v-col>
-              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.tardiness_factor }} </span> </v-col>
-              <v-col cols="12" sm="6" md="6"><h3> Absent factor </h3> </v-col>
-              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.absent_factor }} </span> </v-col>
-              <v-col cols="12" sm="6" md="6"><h3> Calc outside payroll </h3> </v-col>
-              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.calc_outside_payroll }} </span> </v-col>
-              <v-col cols="12" sm="6" md="6"><h3> Post to acct ot outside payroll </h3> </v-col>
-              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.posttoacct_ot_outside_payroll }} </span></v-col>
-              <v-col cols="12" sm="6" md="6"><h3> Calc overtime payroll </h3> </v-col>
-              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.calc_overtime_payroll }} </span> </v-col>
-              <v-col cols="12" sm="6" md="6"><h3> Days only </h3> </v-col>
-              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.days_only }} </span> </v-col>
-              <v-col cols="12" sm="6" md="6"><h3> Full housing </h3> </v-col>
-              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.full_housing }} </span> </v-col>
-            </v-row>
-          </v-card-text>
-          <v-card-actions>
-            <v-spacer></v-spacer>
-            <v-btn color="blue darken-1" text rounded @click="view = false; editedItem = {}; editedIndex = -1">
-              Cancel
-            </v-btn>
-            <v-btn color="blue darken-1" text rounded @click="dialog = true; view = false">
-              Edit
-            </v-btn>
-          </v-card-actions>
-        </v-card>
+<!--        <v-card v-if="view">-->
+<!--          <v-card-title>-->
+<!--            <span class="headline"> View </span>-->
+<!--          </v-card-title>-->
+<!--          <v-card-text>-->
+<!--            <v-row>-->
+<!--              <v-col cols="12" sm="6" md="6"><h3> Hours per month </h3> </v-col>-->
+<!--              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.hours_per_month }} </span> </v-col>-->
+<!--              <v-col cols="12" sm="6" md="6"><h3> Days per month </h3> </v-col>-->
+<!--              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.days_per_month }} </span> </v-col>-->
+<!--              <v-col cols="12" sm="6" md="6"><h3> Ot </h3> </v-col>-->
+<!--              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.ot }} </span> </v-col>-->
+<!--              <v-col cols="12" sm="6" md="6"><h3> Tardiness factor </h3> </v-col>-->
+<!--              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.tardiness_factor }} </span> </v-col>-->
+<!--              <v-col cols="12" sm="6" md="6"><h3> Absent factor </h3> </v-col>-->
+<!--              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.absent_factor }} </span> </v-col>-->
+<!--              <v-col cols="12" sm="6" md="6"><h3> Calc outside payroll </h3> </v-col>-->
+<!--              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.calc_outside_payroll }} </span> </v-col>-->
+<!--              <v-col cols="12" sm="6" md="6"><h3> Post to acct ot outside payroll </h3> </v-col>-->
+<!--              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.posttoacct_ot_outside_payroll }} </span></v-col>-->
+<!--              <v-col cols="12" sm="6" md="6"><h3> Calc overtime payroll </h3> </v-col>-->
+<!--              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.calc_overtime_payroll }} </span> </v-col>-->
+<!--              <v-col cols="12" sm="6" md="6"><h3> Days only </h3> </v-col>-->
+<!--              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.days_only }} </span> </v-col>-->
+<!--              <v-col cols="12" sm="6" md="6"><h3> Full housing </h3> </v-col>-->
+<!--              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.full_housing }} </span> </v-col>-->
+<!--            </v-row>-->
+<!--          </v-card-text>-->
+<!--          <v-card-actions>-->
+<!--            <v-spacer></v-spacer>-->
+<!--            <v-btn color="blue darken-1" text rounded @click="view = false; editedItem = {}; editedIndex = -1">-->
+<!--              Cancel-->
+<!--            </v-btn>-->
+<!--            <v-btn color="blue darken-1" text rounded @click="dialog = true; view = false">-->
+<!--              Edit-->
+<!--            </v-btn>-->
+<!--          </v-card-actions>-->
+<!--        </v-card>-->
       </v-col>
     </v-row>
   </v-container>
@@ -480,6 +505,7 @@ export default {
       this.editedItem.company_id = item.company_id.id
       this.editedItem.branch_id = item.branch_id.id
       this.view = true
+      this.dialog = true
     },
     deleteItem (id) {
       this.countryId[0] = id
@@ -533,5 +559,7 @@ export default {
 </script>
 
 <style scoped>
-
+.row-pointer >>> tbody tr :hover {
+  cursor: pointer;
+}
 </style>
