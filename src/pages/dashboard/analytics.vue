@@ -64,7 +64,7 @@
 
     <v-row class="flex-grow-0" dense>
       <v-col cols="12" xl="6">
-        <todo-card style="min-height: 380px"/>
+        <!-- <todo-card style="min-height: 380px"/> -->
       </v-col>
       <v-col cols="12" xl="6">
         <tickets-card
