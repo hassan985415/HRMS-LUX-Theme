@@ -32,7 +32,7 @@
               <!--                  inset-->
               <!--                  vertical-->
               <!--                ></v-divider>-->
-              <v-toolbar-title><h3>Country Nationality</h3></v-toolbar-title>
+              <v-toolbar-title><h3>{{ $t("countryNationality.title") }}</h3></v-toolbar-title>
               <v-spacer></v-spacer>
               <template>
                 <v-btn
@@ -42,7 +42,7 @@
                   rounded
                   @click="dialog = true"
                 >
-                  Create Country
+                  {{ $t("countryNationality.create") }}
                 </v-btn>
               </template>
             </v-toolbar>
@@ -77,7 +77,7 @@
                       v-model="editedItem.en_name"
                       :disabled="view"
                       :filled="view"
-                      label="Country Name(EN)"
+                      :label="$t('countryNationality.nameEnglish')"
                       required
                       :rules="[ (value) => !!value || 'This  field is required']"
                     ></v-text-field>
@@ -91,7 +91,7 @@
                       v-model="editedItem.ar_name"
                       :disabled="view"
                       :filled="view"
-                      label="Country Name(AR)"
+                       :label="$t('countryNationality.nameArabic')"
                       required
                       :rules="[ (value) => !!value || 'This  field is required']"
                     ></v-text-field>
@@ -105,7 +105,7 @@
                       v-model="editedItem.en_nationality"
                       :disabled="view"
                       :filled="view"
-                      label="Country Nationality(EN)"
+                       :label="$t('countryNationality.nationalityEnglish')"
                       required
                       :rules="[ (value) => !!value || 'This  field is required']"
                     ></v-text-field>
@@ -119,7 +119,7 @@
                       v-model="editedItem.ar_nationality"
                       :disabled="view"
                       :filled="view"
-                      label="Country Nationality(AR)"
+                      :label="$t('countryNationality.nationalityArabic')"
                       required
                       :rules="[ (value) => !!value || 'This  field is required']"
                     ></v-text-field>
@@ -133,7 +133,7 @@
                       v-model="editedItem.code"
                       :disabled="view"
                       :filled="view"
-                      label="Code"
+                      :label="$t('countryNationality.code')"
                       required
                       :rules="[ (value) => !!value || 'This  field is required',
                                 (value) => (value && value.length <= 3) || 'maximum 3 characters',]"
@@ -148,7 +148,7 @@
                       v-model="editedItem.phonecode"
                       :disabled="view"
                       :filled="view"
-                      label="Phone Code"
+                       :label="$t('countryNationality.phoneCode')"
                       required
                       :rules="[ (value) => !!value || 'This  field is required',
                                 (value) => (value && value.length <= 3) || 'maximum 3 characters',]"
@@ -162,29 +162,29 @@
           <v-card-actions v-if="!view">
             <v-spacer></v-spacer>
             <v-btn color="blue darken-1" text rounded @click="dialog = false">
-              Cancel
+             {{ $t("common.cancel") }}
             </v-btn>
             <v-btn color="blue darken-1" text rounded @click="save">
-              Save
+              {{ $t("common.save") }}
             </v-btn>
           </v-card-actions>
           <v-card-actions v-else>
             <v-spacer></v-spacer>
             <v-btn color="blue darken-1" text rounded @click="view = false; dialog = false; editedItem = {}; editedIndex = -1">
-              Cancel
+              {{ $t("common.cancel") }}
             </v-btn>
             <v-btn color="blue darken-1" text rounded @click="view = false">
-              Edit
+              {{ $t("common.edit") }}
             </v-btn>
           </v-card-actions>
         </v-card>
         <v-dialog v-model="dialogDelete" max-width="390px" persistent>
           <v-card>
-            <v-card-title class="headline">Are you sure you want to delete this country?</v-card-title>
+            <v-card-title class="headline">{{ $t("common.deleteRecord") }}</v-card-title>
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn color="blue darken-1" text @click="dialogDelete=false">Cancel</v-btn>
-              <v-btn color="blue darken-1" text @click="deleteItemConfirm">OK</v-btn>
+              <v-btn color="blue darken-1" text @click="dialogDelete=false">{{ $t("common.cancel") }}</v-btn>
+              <v-btn color="blue darken-1" text @click="deleteItemConfirm">{{ $t("common.ok") }}</v-btn>
               <v-spacer></v-spacer>
             </v-card-actions>
           </v-card>
@@ -240,18 +240,18 @@ export default {
       view: false,
       headers: [
         {
-          text: 'ID',
+          text: this.$i18n.t("common.id"),
           align: 'start',
           // sortable: false,
           value: 'id'
         },
-        { text: 'En Name', value: 'en_name' },
-        { text: 'En Nationality', value: 'en_nationality' },
-        { text: 'Ar Name', value: 'ar_name' },
-        { text: 'Ar Nationality', value: 'ar_nationality' },
-        { text: 'Code', value: 'code' },
-        { text: 'Phone Code', value: 'phonecode' },
-        { text: 'Actions', value: 'actions', sortable: false }
+        { text: this.$i18n.t("countryNationality.nameEnglish"), value: 'en_name' },
+        { text: this.$i18n.t("countryNationality.nationalityEnglish"), value: 'en_nationality' },
+        { text: this.$i18n.t("countryNationality.nameArabic"), value: 'ar_name' },
+        { text: this.$i18n.t("countryNationality.nationalityArabic"), value: 'ar_nationality' },
+        { text: this.$i18n.t("countryNationality.code"), value: 'code' },
+        { text: this.$i18n.t("countryNationality.phoneCode"), value: 'phonecode' },
+        { text: this.$i18n.t("common.action"), value: 'actions', sortable: false }
       ],
       desserts: [],
       editedIndex: -1,
@@ -278,7 +278,7 @@ export default {
   computed: {
     ...mapState('app', ['countries']),
     formTitle () {
-      return this.editedIndex === -1 ? 'New Country' : 'Edit Country'
+      return this.editedIndex === -1 ? this.$t('countryNationality.new') : this.$t('countryNationality.edit')
     }
   },
   watch: {

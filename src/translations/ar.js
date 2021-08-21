@@ -256,27 +256,72 @@ export default {
   },
   countryNationality: {
     title: " الدولة / الجنسية",
-    create: "إنشاء الدولة / الجنسية "
+    create: "إنشاء الدولة ",
+    nameEnglish:"اسم الدولة باللغة الإنجليزية",
+    nameArabic:"اسم الدولة باللغة بالعربية",
+    nationalityEnglish:"الجنسية بالانجليزية",
+    nationalityArabic:"الجنسية بالعربية",
+    code:"الشفرة",
+    phoneCode:"رمز الهاتف",
+
+    new:"بلد جديد",
+    edit:"تحرير الدولة",
   },
   city: {
     title: "مدينة",
-    create: "إنشاء مدينة "
+    create: "إنشاء مدينة ",
+    nameEnglish:"اسم المدينة باللغة الإنجليزية",
+    nameArabic:"اسم المدينة بالعربي",
+    ticketValue:"قيمة التذكرة",
+    country:"بلد",
+    region:"منطقة",
+
+    new:"مدينة جديدة",
+    edit:"تحرير المدينة",
   },
   religion: {
     title: "دين",
-    create: "إنشاء دين "
+    create: "إنشاء دين ",
+    nameEnglish:"اسم الدين باللغة الإنجليزية",
+    nameArabic:"اسم الدين بالعربي",
+
+    new:"ديانة جديدة",
+    edit:"تحرير الدين",
   },
   evaluationCompetencies: {
     title: "تقييم",
-    create: "إنشاء تقييم "
+    create: "إنشاء تقييم ",
+    nameEnglish:"اسم الاختصاص باللغة الإنجليزية",
+    nameArabic:"اسم الاختصاص باللغة العربية",
+    group:"مجموعة",
+    // evalCycle:"دورة التقييم",
+    // maxMark:"ماكس مارك",
+
+    new:"تقييم جديد",
+    edit:"تحرير التقييم",
   },
   evaluationType: {
     title: "أنواع التقييم",
-    create: "إنشاء تقييم "
+    create: "إنشاء تقييم ",
+    nameEnglish:"نوع التقييم باللغة الإنجليزية",
+    nameArabic:"نوع التقييم باللغة العربية",
+
+    new:"نوع التقييم الجديد",
+    edit:"تحرير نوع التقييم",
   },
   document: {
     title: "أنواع المستندات",
-    create: "إنشاء المستندات "
+    create: "إنشاء المستندات ",
+    nameEnglish:"نوع الوثيقة باللغة الإنجليزية",
+    nameArabic:"نوع الوثيقة باللغة العربية",
+    expDays:"أيام إكسب",
+    company:"شركة",
+    substitution:"الاستبدال بـ",
+    inHijri:"بالهجري",
+    renewable:"قابل للتجديد",
+
+    new:"نوع مستند جديد",
+    edit:"تحرير نوع المستند",
   },
   beneficiary: {
     title: "أنواع المستفيدين",

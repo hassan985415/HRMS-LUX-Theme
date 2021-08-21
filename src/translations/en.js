@@ -135,27 +135,70 @@ export default {
   },
   countryNationality:{
     title: "Country Nationality",
-    create: "Create Country Nationality",
+    create: "Create Country",
+    nameEnglish:"Country Name in English",
+    nameArabic:"Country Name in Arabic",
+    nationalityArabic:"Nationality in Arabic",
+    nationalityEnglish:"Nationality in English",
+    code:"Code",
+    phoneCode:"Phone Code",
+
+    new:"New Country",
+    edit:"Edit Country",
   },
   city:{
     title: "City",
     create: "Create City",
+    nameEnglish:"City Name in English",
+    nameArabic:"City Name in Arabic",
+    ticketValue:"Ticket Value",
+    country:"Country",
+    region:"Region",
+
+    new:"New City",
+    edit:"Edit City",
   },
   religion:{
     title: "Religion",
     create: "Create Religion",
+    nameEnglish:"Religion Name in English",
+    nameArabic:"Religion Name in Arabic",
+
+    new:"New Religion",
+    edit:"Edit Religion",
   },
   evaluationCompetencies:{
     title: "Evaluation",
     create: "Create Evaluation",
+    nameEnglish:"Compentence Name in English",
+    nameArabic:"Compentence Name in Arabic",
+    group:"Group",
+
+    new:"New Evaluation",
+    edit:"Edit Evaluation",
   },
   evaluationType:{
     title: "Evaluation Type",
     create: "Create Evaluation",
+    nameEnglish:"Evaluation Type in English",
+    nameArabic:"Evaluation Type in Arabic",
+
+    new:"New Evaluation Type",
+    edit:"Edit Evaluation Type",
   },
   document:{
     title: "Document Type",
     create: "Create Document",
+    nameEnglish:"Document Type in English",
+    nameArabic:"Document Type in Arabic",
+    expDays:"Days to Exp",
+    company:"Company",
+    renewable:"Renewable",
+    substitution:"Substitution For",
+    inHijri:"In Hijri",
+
+    new:"New Document Type",
+    edit:"Edit Document Type",
   },
   beneficiary:{
     title: "Beneficary Type",
