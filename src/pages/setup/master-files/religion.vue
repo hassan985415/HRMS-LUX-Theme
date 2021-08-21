@@ -26,7 +26,7 @@
               <v-toolbar
                 flat
               >
-                <v-toolbar-title><h3>Religion</h3></v-toolbar-title>
+                <v-toolbar-title><h3>{{ $t("religion.title") }}</h3></v-toolbar-title>
                 <v-spacer></v-spacer>
                   <template>
                     <v-btn
@@ -37,7 +37,7 @@
                       @click="dialog =true"
 
                     >
-                      Create Religion
+                     {{ $t("religion.create") }}
                     </v-btn>
                   </template>
               </v-toolbar>

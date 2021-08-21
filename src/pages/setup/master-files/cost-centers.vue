@@ -27,7 +27,7 @@
               <v-toolbar
                 flat
               >
-                <v-toolbar-title><h3>Cost Centers</h3></v-toolbar-title>
+                <v-toolbar-title><h3>{{ $t("costCenter.title") }}</h3></v-toolbar-title>
                 <v-spacer></v-spacer>
                   <template>
                     <v-btn
@@ -37,7 +37,7 @@
                       rounded
                       @click="dialog = true"
                     >
-                      Create Cost Center
+                      {{ $t("costCenter.create") }}
                     </v-btn>
                   </template>
               </v-toolbar>

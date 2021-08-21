@@ -26,7 +26,7 @@
               <v-toolbar
                 flat
               >
-                <v-toolbar-title><h3>Deductions</h3></v-toolbar-title>
+                <v-toolbar-title><h3>{{ $t("deduction.title") }}</h3></v-toolbar-title>
                 <v-spacer></v-spacer>
                   <template>
                     <v-btn
@@ -36,7 +36,7 @@
                       rounded
                       @click="dialog = true"
                     >
-                      Create Deduction
+                      {{ $t("deduction.create") }}
                     </v-btn>
                   </template>
               </v-toolbar>

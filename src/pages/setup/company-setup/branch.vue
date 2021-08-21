@@ -27,7 +27,7 @@
             <v-toolbar
               flat
             >
-              <v-toolbar-title><h3>Branch</h3></v-toolbar-title>
+              <v-toolbar-title><h3>{{ $t("branch.title") }}</h3></v-toolbar-title>
               <v-spacer></v-spacer>
               <template>
                 <v-btn
@@ -37,7 +37,7 @@
                   rounded
                   @click="dialog= true"
                 >
-                  Create Branch
+                     {{ $t("branch.create") }}
                 </v-btn>
               </template>
             </v-toolbar>
@@ -76,7 +76,7 @@
                         :item-value="companies.value"
                         :disabled="view"
                         :filled="view"
-                        label="Select Company"
+                        :label="$t('branch.company')"
                         :rules="[ (value) => !!value || 'This  field is required']"
                       ></v-select>
                     </v-col>
@@ -92,7 +92,8 @@
                         :item-value="countries.value"
                         :disabled="view"
                         :filled="view"
-                        label="Select Country"
+                        :label="$t('branch.country')"
+                        @change="getCountyCites"
                         :rules="[ (value) => !!value || 'This  field is required']"
                         @change="getCountyCites"
                       ></v-select>
@@ -106,7 +107,7 @@
                         v-model="editedItem.en_name"
                         :disabled="view"
                         :filled="view"
-                        label="Branch Name in English"
+                        :label="$t('branch.englishName')"
                         :rules="[ (value) => !!value || 'This  field is required',
                                   (value) => (value && value.length <= 50) || 'maximum 50 characters',]"
                       ></v-text-field>
@@ -120,7 +121,7 @@
                         v-model="editedItem.ar_name"
                         :disabled="view"
                         :filled="view"
-                        label="Branch Name in Arabic"
+                        :label="$t('branch.arabicName')"
                         class="direction"
                         :rules="[ (value) => !!value || 'This  field is required',
                                   (value) => (value && value.length <= 50) || 'maximum 50 characters',]"
@@ -135,7 +136,7 @@
                         v-model="editedItem.en_manager_name"
                         :disabled="view"
                         :filled="view"
-                        label="Manager Name in English"
+                        :label="$t('branch.managerEnglish')"
                         :rules="[ (value) => !!value || 'This  field is required',
                                   (value) => (value && value.length <= 50) || 'maximum 50 characters',]"
                       ></v-text-field>
@@ -149,7 +150,7 @@
                         v-model="editedItem.ar_manager_name"
                         :disabled="view"
                         :filled="view"
-                        label="Manager Name in Arabic"
+                        :label="$t('branch.managerArabic')"
                         class="direction"
                         :rules="[ (value) => !!value || 'This  field is required',
                                   (value) => (value && value.length <= 50) || 'maximum 50 characters',]"
@@ -167,7 +168,7 @@
                         :items="cities"
                         :item-text="cities.text"
                         :item-value="cities.value"
-                        label="Select City"
+                        :label="$t('branch.city')"
                         :rules="[ (value) => !!value || 'This  field is required']"
                       ></v-select>
                     </v-col>
@@ -180,7 +181,7 @@
                         v-model="editedItem.address_1"
                         :disabled="view"
                         :filled="view"
-                        label="Address_1"
+                       :label="$t('branch.address1')"
                       ></v-text-field>
                     </v-col>
                     <v-col
@@ -192,7 +193,7 @@
                         v-model="editedItem.address_2"
                         :disabled="view"
                         :filled="view"
-                        label="Address_2"
+                        :label="$t('branch.address2')"
                       ></v-text-field>
                     </v-col>
                     <v-col
@@ -204,7 +205,7 @@
                         v-model="editedItem.address_3"
                         :disabled="view"
                         :filled="view"
-                        label="Address_3"
+                        :label="$t('branch.address3')"
                       ></v-text-field>
                     </v-col>
                     <v-col
@@ -216,7 +217,7 @@
                         v-model="editedItem.address_4"
                         :disabled="view"
                         :filled="view"
-                        label="Address_4"
+                        :label="$t('branch.address4')"
                       ></v-text-field>
                     </v-col>
                     <v-col
@@ -228,7 +229,7 @@
                         v-model="editedItem.postal_code"
                         :disabled="view"
                         :filled="view"
-                        label="postal_code"
+                        :label="$t('branch.postalCode')"
                         type="number"
                       ></v-text-field>
                     </v-col>
@@ -241,7 +242,7 @@
                         v-model="editedItem.state_region"
                         :disabled="view"
                         :filled="view"
-                        label="state_region"
+                        :label="$t('branch.stateRegion')"
                       ></v-text-field>
                     </v-col>
                     <v-col
@@ -253,7 +254,7 @@
                         v-model="editedItem.phone_1"
                         :disabled="view"
                         :filled="view"
-                        label="phone_1"
+                        :label="$t('branch.telephone1')"
                       ></v-text-field>
                     </v-col>
                     <v-col
@@ -265,7 +266,7 @@
                         v-model="editedItem.phone_2"
                         :disabled="view"
                         :filled="view"
-                        label="phone_2"
+                        :label="$t('branch.telephone2')"
                       ></v-text-field>
                     </v-col>
                     <v-col
@@ -277,7 +278,7 @@
                         v-model="editedItem.phone_3"
                         :disabled="view"
                         :filled="view"
-                        label="phone_3"
+                        :label="$t('branch.telephone3')"
                       ></v-text-field>
                     </v-col>
                     <v-col
@@ -289,7 +290,7 @@
                         v-model="editedItem.fax_1"
                         :disabled="view"
                         :filled="view"
-                        label="fax_1"
+                        :label="$t('branch.faxno1')"
                       ></v-text-field>
                     </v-col>
                     <v-col
@@ -301,10 +302,10 @@
                         v-model="editedItem.fax_2"
                         :disabled="view"
                         :filled="view"
-                        label="fax_2"
+                        :label="$t('branch.faxno2')"
                       ></v-text-field>
                     </v-col>
-                    <v-col
+                    <!-- <v-col
                       cols="12"
                       sm="6"
                       md="6"
@@ -315,7 +316,7 @@
                         :filled="view"
                         label="fax_3"
                       ></v-text-field>
-                    </v-col>
+                    </v-col> -->
                     <v-col
                       cols="12"
                       sm="6"
@@ -325,7 +326,7 @@
                         v-model="editedItem.email"
                         :disabled="view"
                         :filled="view"
-                        label="email"
+                        :label="$t('branch.email')"
                       ></v-text-field>
                     </v-col>
                     <v-col
@@ -337,7 +338,7 @@
                         v-model="editedItem.website"
                         :disabled="view"
                         :filled="view"
-                        label="website"
+                        :label="$t('branch.website')"
                       ></v-text-field>
                     </v-col>
                     <v-col
@@ -349,10 +350,10 @@
                         v-model="editedItem.status"
                         :disabled="view"
                         :filled="view"
-                        label="status"
+                        :label="$t('branch.status')"
                       ></v-text-field>
                     </v-col>
-                    <v-col
+                    <!-- <v-col
                       cols="12"
                       sm="6"
                       md="6"
@@ -363,8 +364,8 @@
                         :filled="view"
                         label="remarks_1"
                       ></v-text-field>
-                    </v-col>
-                    <v-col
+                    </v-col> -->
+                    <!-- <v-col
                       cols="12"
                       sm="6"
                       md="6"
@@ -374,8 +375,8 @@
                         :disabled="view"
                         :filled="view"
                         label="remarks_2"
-                      ></v-text-field>
-                    </v-col>
+                      ></v-text-field> -->
+                    <!-- </v-col>
                     <v-col
                       cols="12"
                       sm="6"
@@ -387,7 +388,7 @@
                         :filled="view"
                         label="remarks_3"
                       ></v-text-field>
-                    </v-col>
+                    </v-col> -->
 
                   </v-row>
                 </v-container>
@@ -398,11 +399,21 @@
 
           <v-card-actions v-if="!view">
             <v-spacer></v-spacer>
-            <v-btn color="blue darken-1" text rounded @click="dialog = false">
-              Cancel
+            <v-btn
+              color="blue darken-1"
+              text
+              rounded
+              @click="dialog = false"
+            >
+              {{ $t("common.cancel") }}
             </v-btn>
-            <v-btn color="blue darken-1" text rounded @click="save">
-              Save
+            <v-btn
+              color="blue darken-1"
+              text
+              rounded
+              @click="save"
+            >
+              {{ $t("common.save") }}
             </v-btn>
           </v-card-actions>
           <v-card-actions v-else>
@@ -417,16 +428,16 @@
         </v-card>
         <v-dialog v-model="dialogDelete" max-width="390px" persistent>
           <v-card>
-            <v-card-title class="headline">Are you sure you want to delete this record?</v-card-title>
+            <v-card-title class="headline">{{ $t("common.deleteRecord") }}</v-card-title>
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn color="blue darken-1" text @click="dialogDelete=false">Cancel</v-btn>
-              <v-btn color="blue darken-1" text @click="deleteItemConfirm">OK</v-btn>
+              <v-btn color="blue darken-1" text @click="dialogDelete=false">{{ $t("common.cancel") }}</v-btn>
+              <v-btn color="blue darken-1" text @click="deleteItemConfirm">{{ $t("common.ok") }}</v-btn>
               <v-spacer></v-spacer>
             </v-card-actions>
           </v-card>
         </v-dialog>
-        <!--        </MaterialCard>-->
+               <!-- </MaterialCard> -->
         <!--        <v-card v-if="view">-->
         <!--          <v-card-title>-->
         <!--            <span class="headline"> View </span>-->
@@ -510,33 +521,33 @@ export default {
       view: false,
       headers: [
         {
-          text: 'ID',
+          text: this.$i18n.t("branch.id"),
           align: 'start',
           value: 'id'
         },
-        { text: 'En Name', value: 'en_name' },
-        { text: 'Ar Name', value: 'ar_name' },
-        { text: 'En Manager Name', value: 'en_manager_name' },
-        { text: 'Ar Manager Name', value: 'ar_manager_name' },
-        { text: 'Address 1', value: 'address_1' },
-        { text: 'Address 2', value: 'address_2' },
-        { text: 'Address 3', value: 'address_3' },
-        { text: 'Address 4', value: 'address_4' },
-        { text: 'postal code', value: 'postal_code' },
-        { text: 'state region', value: 'state_region' },
-        { text: 'phone 1', value: 'phone_1' },
-        { text: 'phone 2', value: 'phone_2' },
-        { text: 'phone 3', value: 'phone_3' },
-        { text: 'fax 1', value: 'fax_1' },
-        { text: 'fax 2', value: 'fax_2' },
-        { text: 'fax 3', value: 'fax_3' },
-        { text: 'email', value: 'email' },
-        { text: 'website', value: 'website' },
-        { text: 'status', value: 'status' },
-        { text: 'remarks 1', value: 'remarks_1' },
-        { text: 'remarks 2', value: 'remarks_2' },
-        { text: 'remarks 3', value: 'remarks_3' },
-        { text: 'Actions', value: 'actions', sortable: false }
+        { text: this.$i18n.t("branch.arabicName"), value: 'en_name' },
+        { text: this.$i18n.t("branch.englishName"), value: 'ar_name' },
+        { text: this.$i18n.t("branch.managerArabic"), value: 'en_manager_name' },
+        { text: this.$i18n.t("branch.managerEnglish"), value: 'ar_manager_name' },
+        { text: this.$i18n.t("branch.address1"), value: 'address_1' },
+        { text: this.$i18n.t("branch.address2"), value: 'address_2' },
+        { text: this.$i18n.t("branch.address3"), value: 'address_3' },
+        { text: this.$i18n.t("branch.address4"), value: 'address_4' },
+        { text: this.$i18n.t("branch.postalCode"), value: 'postal_code' },
+        { text: this.$i18n.t("branch.stateRegion"), value: 'state_region' },
+        { text: this.$i18n.t("branch.telephone1"), value: 'phone_1' },
+        { text: this.$i18n.t("branch.telephone2"), value: 'phone_2' },
+        { text: this.$i18n.t("branch.telephone3"), value: 'phone_3' },
+        { text: this.$i18n.t("branch.faxno1"), value: 'fax_1' },
+        { text: this.$i18n.t("branch.faxno2"), value: 'fax_2' },
+        // { text: 'fax 3', value: 'fax_3' },
+        { text: this.$i18n.t("branch.email"), value: 'email' },
+        { text: this.$i18n.t("branch.website"), value: 'website' },
+        { text: this.$i18n.t("branch.status"), value: 'status' },
+        { text: this.$i18n.t("branch.country"), value: 'country' },
+        { text: this.$i18n.t("branch.city"), value: 'city' },
+        // { text: 'remarks 3', value: 'remarks_3' },
+        { text: this.$i18n.t("common.action"), value: 'actions', sortable: false }
       ],
       desserts: [],
       editedIndex: -1,
@@ -576,7 +587,7 @@ export default {
   },
   computed: {
     formTitle () {
-      return this.editedIndex === -1 ? 'New Branch' : 'Edit Branch'
+      return this.editedIndex === -1 ? this.$t('branch.new') : this.$t('branch.edit')
     }
   },
   watch: {

@@ -26,7 +26,7 @@
               <v-toolbar
                 flat
               >
-                <v-toolbar-title><h3>Evaluation</h3></v-toolbar-title>
+                <v-toolbar-title><h3>{{ $t("evaluationCompetencies.title") }}</h3></v-toolbar-title>
                 <v-spacer></v-spacer>
                   <template >
                     <v-btn
@@ -36,7 +36,7 @@
                       rounded
                       @click="dialog = true"
                     >
-                      Create Evaluation
+                      {{ $t("evaluationCompetencies.create") }}
                     </v-btn>
                   </template>
               </v-toolbar>

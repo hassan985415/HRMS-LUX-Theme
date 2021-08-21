@@ -9,7 +9,12 @@ export default {
     faq: "FAQ",
     contact: "Contact Us",
     tos: "Terms of Service",
-    policy: "Privacy Policy"
+    policy: "Privacy Policy",
+    edit:"Cancel",
+    ok:"Ok",
+    deleteRecord:"Are you sure you want to delete this record?",
+    action:"Action",
+    id:"ID",
   },
   board: {
     titlePlaceholder: "Enter a title for this card",
@@ -30,8 +35,187 @@ export default {
     message: "Message"
   },
   companyInfo: {
-    title: "Company Info",
-    create: "Create Company Info"
+    title:   "Company Info",
+    create:  "Create Company Info",
+    actions: "Action",
+    logo:    "COMPANY LOGO",
+    id:      "ID",
+    view:    "View",
+    englishName:    "Company Name in English",
+    arabicName:    "Company Name in Arabic",
+    englishRegisterName:"Legal Company Name in English",
+    arabicRegisterName:"Legal Company Name in Arabic",
+    dateOfIncorporation:"Date Of Incorporation",
+    typeOfBussinessInEnglish:"Type Of Bussiness In English",
+    typeOfBussinessInArabic:"Type Of Bussiness In Arabic",
+
+    new:"New Company Info",
+    edit:"Edit Company Info"
+  },
+  branch: {
+    title: "Branch",
+    create: "Create Branch",
+    id:"ID",
+    arabicName:"Branch Name in Arabic",
+    englishName:"Branch Name in English",
+    managerEnglish:"Manager Name in English",
+    managerArabic:"Manager Name in Arabic",
+    address1:"Address 1",
+    address2:"Address 2",
+    address3:"Address 3",
+    address4:"Address 4",
+    postalCode:"Postal Code",
+    stateRegion:"State Region",
+    telephone1:"Telephone Number 1",
+    telephone2:"Telephone Number 2",
+    telephone3:"Telephone Number 3",
+    faxno1:"Fax Number 1",
+    faxno2:"Fax Number 2",
+    email:"E-mail Address",
+    website:"Web Site/URL",
+    status:"Branch Status",
+    country:"Country",
+    city:"City",
+    company:"Select Company",
+
+    new:"New Branch",
+    edit:"Edit Branch",
+  },
+  department:{
+    title: "Departments",
+    create: "Create Department",
+    nameArabic:"Department Name in Arabic",
+    nameEnglish:"Department Name in English",
+    managerEnglish:"Department Manager Name in English",
+    managerArabic:"Department Manager Name in Arabic",
+
+    new:"New Department",
+    edit:"Edit Department",
+
+    selectCompany:"Select Company",
+    selectBranch:"Select Branch",
+  },
+  departmentSection:{
+    title: "Department Section",
+    create: "Create Department Section",
+    nameEnglish:"Name in English",
+    nameArabic:"Name in Arabic",
+    status:"Status",
+
+    new:"New Department Section",
+    edit:"Edit Department Section",
+
+    selectCompany:"Select Company",
+    selectDepartment:"Select Department",
+  },
+  bank:{
+    title: "Bank",
+    create: "Create Bank",
+    nameEnglish:"Bank Name in English",
+    nameArabic:"Bank Name in Arabic",
+    accountType:"Account Type",
+    accountNo:"Account No",
+    address1:"Address 1",
+    address2:"Address 2",
+    address3:"Address 3",
+    address4:"Address 4",
+    bankFile:"Bank File",
+    bankCode:"Bank Code",
+    paymentType:"Pament Type",
+    glAccountCode:"GL Account Code",
+
+    new:"New Bank",
+    edit:"Edit Bank",
+
+    selectCurrency:"Select Currency",
+    selectCity:"Select City",
+    selectCountry:"Select Country",
+    selectBranch:"Select Branch",
+    selectCompany:"Select Company",
+  },
+  countryNationality:{
+    title: "Country Nationality",
+    create: "Create Country Nationality",
+  },
+  city:{
+    title: "City",
+    create: "Create City",
+  },
+  religion:{
+    title: "Religion",
+    create: "Create Religion",
+  },
+  evaluationCompetencies:{
+    title: "Evaluation",
+    create: "Create Evaluation",
+  },
+  evaluationType:{
+    title: "Evaluation Type",
+    create: "Create Evaluation",
+  },
+  document:{
+    title: "Document Type",
+    create: "Create Document",
+  },
+  beneficiary:{
+    title: "Beneficary Type",
+    create: "Create Beneficary Type",
+  },
+  leave:{
+    title: "Leave/Vocation Type",
+    create: "Create Leave/Vocation Type",
+  },
+  position:{
+    title: "Position/Designation",
+    create: "Create Position",
+  },
+  sponsor:{
+    title: "Sponsor",
+    create: "Create Sponsor",
+  },
+  earning:{
+    title: "Earnings",
+    create: "Create Earnings",
+  },
+  deduction:{
+    title: "Deductions",
+    create: "Create Deductions",
+  },
+  modification:{
+    title: "Modification",
+    create: "Create Modification",
+  },
+  currency:{
+    title: "Currency Type",
+    create: "Create Currency",
+  },
+  section:{
+    title: "Section",
+    create: "Create Section",
+  },
+  costCenter:{
+    title: "Cost Centers",
+    create: "Create Cost Center",
+  },
+  percentage:{
+    title: "Percentage",
+    create: "Create Percentage",
+  },
+  education:{
+    title: "Education Types",
+    create: "Create Education",
+  },
+  session:{
+    title: "Sessions",
+    create: "Create Session",
+  },
+  companySchedule:{
+    title: "Company Schedules",
+    create: "Create Company Schedule",
+  },
+  gosiSubscription:{
+    title: "Gosi Subscription",
+    create: "Create Gosi Subscription",
   },
   email: {
     compose: "Compose Email",

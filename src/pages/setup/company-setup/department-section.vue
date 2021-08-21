@@ -1,14 +1,7 @@
 <template>
-  <v-container
-    id="user-profile"
-    fluid
-    tag="section"
-  >
+  <v-container id="user-profile" fluid tag="section">
     <v-row justify="center">
-      <v-col
-        cols="12"
-        md="12"
-      >
+      <v-col cols="12" md="12">
         <!--        <MaterialCard-->
         <!--          color="success"-->
         <!--          title="Department Section"-->
@@ -23,10 +16,10 @@
           @click:row.self="viewItem"
         >
           <template v-slot:top>
-            <v-toolbar
-              flat
-            >
-              <v-toolbar-title><h3>Department Section</h3></v-toolbar-title>
+            <v-toolbar flat>
+              <v-toolbar-title
+                ><h3>{{ $t("departmentSection.title") }}</h3></v-toolbar-title
+              >
               <v-spacer></v-spacer>
               <template>
                 <v-btn
@@ -36,7 +29,7 @@
                   rounded
                   @click="dialog = true"
                 >
-                  Create Department Section
+                  {{ $t("departmentSection.create") }}
                 </v-btn>
               </template>
             </v-toolbar>
@@ -63,11 +56,7 @@
               <v-form ref="form">
                 <v-container class="py-0">
                   <v-row>
-                    <v-col
-                      cols="12"
-                      sm="6"
-                      md="6"
-                    >
+                    <v-col cols="12" sm="6" md="6">
                       <v-select
                         v-model="editedItem.company_id"
                         :items="companies"
@@ -75,15 +64,11 @@
                         :item-value="companies.value"
                         :disabled="view"
                         :filled="view"
-                        label="Select Company"
-                        :rules="[ (value) => !!value || 'This  field is required']"
+                        :label="$t('departmentSection.selectCompany')"
+                        :rules="[value => !!value || 'This  field is required']"
                       ></v-select>
                     </v-col>
-                    <v-col
-                      cols="12"
-                      sm="6"
-                      md="6"
-                    >
+                    <v-col cols="12" sm="6" md="6">
                       <v-select
                         v-model="editedItem.department_id"
                         :items="departments"
@@ -91,70 +76,75 @@
                         :item-value="departments.value"
                         :disabled="view"
                         :filled="view"
-                        label="Select Department"
-                        :rules="[ (value) => !!value || 'This  field is required']"
+                        :label="$t('departmentSection.selectDepartment')"
+                        :rules="[value => !!value || 'This  field is required']"
                       ></v-select>
                     </v-col>
-                    <v-col
-                      cols="12"
-                      sm="6"
-                      md="6"
-                    >
+                    <v-col cols="12" sm="6" md="6">
                       <v-text-field
                         v-model="editedItem.en_name"
                         :disabled="view"
                         :filled="view"
-                        label="Name in English"
-                        :rules="[ (value) => !!value || 'This  field is required',
-                                  (value) => (value && value.length <= 50) || 'maximum 50 characters',]"
+                        :label="$t('departmentSection.nameEnglish')"
+                        :rules="[
+                          value => !!value || 'This  field is required',
+                          value =>
+                            (value && value.length <= 50) ||
+                            'maximum 50 characters'
+                        ]"
                       ></v-text-field>
                     </v-col>
-                    <v-col
-                      cols="12"
-                      sm="6"
-                      md="6"
-                    >
+                    <v-col cols="12" sm="6" md="6">
                       <v-text-field
                         v-model="editedItem.ar_name"
                         :disabled="view"
                         :filled="view"
-                        label="Name in Arabic"
+                        :label="$t('departmentSection.nameArabic')"
                         class="direction"
-                        :rules="[ (value) => !!value || 'This  field is required',
-                                  (value) => (value && value.length <= 50) || 'maximum 50 characters',]"
+                        :rules="[
+                          value => !!value || 'This  field is required',
+                          value =>
+                            (value && value.length <= 50) ||
+                            'maximum 50 characters'
+                        ]"
                       ></v-text-field>
                     </v-col>
-                    <v-col
-                      cols="12"
-                      sm="6"
-                      md="6"
-                    >
+                    <v-col cols="12" sm="6" md="6">
                       <v-text-field
                         v-model="editedItem.status"
                         :disabled="view"
                         :filled="view"
-                        label="status"
+                        :label="$t('departmentSection.status')"
                       ></v-text-field>
                     </v-col>
                   </v-row>
                 </v-container>
               </v-form>
-
             </v-container>
           </v-card-text>
 
           <v-card-actions v-if="!view">
             <v-spacer></v-spacer>
             <v-btn color="blue darken-1" text rounded @click="dialog = false">
-              Cancel
+              {{ $t("common.cancel") }}
             </v-btn>
             <v-btn color="blue darken-1" text rounded @click="save">
-              Save
+              {{ $t("common.save") }}
             </v-btn>
           </v-card-actions>
           <v-card-actions v-else>
             <v-spacer></v-spacer>
-            <v-btn color="blue darken-1" text rounded @click="view = false; dialog = false; editedItem = {}; editedIndex = -1">
+            <v-btn
+              color="blue darken-1"
+              text
+              rounded
+              @click="
+                view = false;
+                dialog = false;
+                editedItem = {};
+                editedIndex = -1;
+              "
+            >
               Cancel
             </v-btn>
             <v-btn color="blue darken-1" text rounded @click="view = false">
@@ -164,11 +154,17 @@
         </v-card>
         <v-dialog v-model="dialogDelete" max-width="390px" persistent>
           <v-card>
-            <v-card-title class="headline">Are you sure you want to delete this record?</v-card-title>
+            <v-card-title class="headline">{{
+              $t("common.deleteRecord")
+            }}</v-card-title>
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn color="blue darken-1" text @click="dialogDelete=false">Cancel</v-btn>
-              <v-btn color="blue darken-1" text @click="deleteItemConfirm">OK</v-btn>
+              <v-btn color="blue darken-1" text @click="dialogDelete = false">{{
+                $t("common.cancel")
+              }}</v-btn>
+              <v-btn color="blue darken-1" text @click="deleteItemConfirm">{{
+                $t("common.ok")
+              }}</v-btn>
               <v-spacer></v-spacer>
             </v-card-actions>
           </v-card>
@@ -205,12 +201,12 @@
 </template>
 
 <script>
-import MaterialCard from '../../../components/base/MaterialCard'
-import Vue from 'vue'
-import { mapActions, mapMutations } from 'vuex'
+import MaterialCard from "../../../components/base/MaterialCard";
+import Vue from "vue";
+import { mapActions, mapMutations } from "vuex";
 export default {
-  name: 'LegalDocuments',
-  middleware: ['auth'],
+  name: "LegalDocuments",
+  middleware: ["auth"],
   components: { MaterialCard },
   data() {
     return {
@@ -219,207 +215,224 @@ export default {
       view: false,
       headers: [
         {
-          text: 'ID',
-          align: 'start',
-          value: 'id'
+          text: this.$i18n.t("common.id"),
+          align: "start",
+          value: "id"
         },
-        { text: 'En Name', value: 'en_name' },
-        { text: 'Ar Name', value: 'ar_name' },
-        { text: 'Status', value: 'status' },
-        { text: 'Actions', value: 'actions', sortable: false }
+        {
+          text: this.$i18n.t("departmentSection.nameEnglish"),
+          value: "en_name"
+        },
+        {
+          text: this.$i18n.t("departmentSection.nameArabic"),
+          value: "ar_name"
+        },
+        { text: this.$i18n.t("departmentSection.status"), value: "status" },
+        {
+          text: this.$i18n.t("common.action"),
+          value: "actions",
+          sortable: false
+        }
       ],
       desserts: [],
       editedIndex: -1,
       editedItem: {
-        company_id: '',
-        department_id: '',
-        en_name: '',
-        ar_name: '',
-        status: ''
+        company_id: "",
+        department_id: "",
+        en_name: "",
+        ar_name: "",
+        status: ""
       },
-      countryId:[],
+      countryId: [],
       allData: [],
       companies: [],
       departments: []
-    }
+    };
   },
   computed: {
-    formTitle () {
-      return this.editedIndex === -1 ? 'New Department Section' : 'Edit Department Section'
+    formTitle() {
+      return this.editedIndex === -1
+        ? this.$t("departmentSection.new")
+        : this.$t("departmentSection.edit");
     }
   },
   watch: {
-    dialog: function (val) {
+    dialog: function(val) {
       if (!val) {
-        this.$refs.form.reset()
-        this.editedIndex = -1
+        this.$refs.form.reset();
+        this.editedIndex = -1;
       }
     }
   },
-  created () {
-    this.getCompanies()
-    this.getDepartments()
-    this.getList()
+  created() {
+    this.getCompanies();
+    this.getDepartments();
+    this.getList();
   },
   methods: {
-    ...mapActions('app', ['list', 'update', 'create', 'delete']),
-    ...mapMutations('app', ['SHOW_LOADER','SHOW_SNACKBAR']),
-    getCompanies () {
-      const arr = []
-      const data = { path: '/companies' }
+    ...mapActions("app", ["list", "update", "create", "delete"]),
+    ...mapMutations("app", ["SHOW_LOADER", "SHOW_SNACKBAR"]),
+    getCompanies() {
+      const arr = [];
+      const data = { path: "/companies" };
 
-      this.list (data).then((response) => {
-        response.data.data.forEach((data) => {
+      this.list(data).then(response => {
+        response.data.data.forEach(data => {
           arr.push({
-            text : data.en_name,
+            text: data.en_name,
             value: data.id
-          })
-        })
-        this.companies = arr
-      })
+          });
+        });
+        this.companies = arr;
+      });
     },
-    getDepartments () {
-      const arr = []
-      const data = { path: '/company_departments' }
+    getDepartments() {
+      const arr = [];
+      const data = { path: "/company_departments" };
 
-      this.list(data).then((response) => {
-        response.data.data.forEach((data) => {
+      this.list(data).then(response => {
+        response.data.data.forEach(data => {
           arr.push({
-            text : data.en_name,
+            text: data.en_name,
             value: data.id
-          })
-        })
-        this.departments = arr
-      })
+          });
+        });
+        this.departments = arr;
+      });
     },
     getList() {
-      const data = { path: '/department_sections' }
+      const data = { path: "/department_sections" };
 
-      this.list(data).then((response) => {
-        this.allData = response.data.data
-        this.SHOW_LOADER ( false)
-        this.SHOW_SNACKBAR ( {
+      this.list(data).then(response => {
+        this.allData = response.data.data;
+        this.SHOW_LOADER(false);
+        this.SHOW_SNACKBAR({
           snackbar: true,
-          color: 'green',
+          color: "green",
           message: response.data.message
-        })
-      })
+        });
+      });
     },
-    async save () {
+    async save() {
       if (this.$refs.form.validate()) {
         if (this.editedIndex > -1) {
           const data = {
-            path:'/department_section/' + this.editedItem.id,
-            data:this.editedItem
-          }
+            path: "/department_section/" + this.editedItem.id,
+            data: this.editedItem
+          };
 
-          this.SHOW_LOADER ( true)
-          await this.update (data).then((response) => {
-            this.dialog = false
-            this.SHOW_LOADER ( false)
-            this.SHOW_SNACKBAR ( {
-              snackbar: true,
-              color: 'green',
-              message: response.data.message
+          this.SHOW_LOADER(true);
+          await this.update(data)
+            .then(response => {
+              this.dialog = false;
+              this.SHOW_LOADER(false);
+              this.SHOW_SNACKBAR({
+                snackbar: true,
+                color: "green",
+                message: response.data.message
+              });
+              this.getList();
             })
-            this.getList()
-          }).catch((error) => {
-            this.SHOW_LOADER ( false)
-            this.SHOW_SNACKBAR ( {
-              snackbar: true,
-              color: 'error',
-              message: error.response.data.message
-            })
-          })
-        }
-        else {
+            .catch(error => {
+              this.SHOW_LOADER(false);
+              this.SHOW_SNACKBAR({
+                snackbar: true,
+                color: "error",
+                message: error.response.data.message
+              });
+            });
+        } else {
           const data = {
-            path:'/department_sections',
-            data:this.editedItem
-          }
+            path: "/department_sections",
+            data: this.editedItem
+          };
 
-          this.SHOW_LOADER ( true)
-          await this.create (data).then((response) => {
-            this.dialog = false
-            this.SHOW_LOADER ( false)
-            this.SHOW_SNACKBAR ( {
-              snackbar: true,
-              color: 'green',
-              message: response.data.message
+          this.SHOW_LOADER(true);
+          await this.create(data)
+            .then(response => {
+              this.dialog = false;
+              this.SHOW_LOADER(false);
+              this.SHOW_SNACKBAR({
+                snackbar: true,
+                color: "green",
+                message: response.data.message
+              });
+              this.getList();
             })
-            this.getList()
-          }).catch((error) => {
-            this.SHOW_LOADER ( false)
-            this.SHOW_SNACKBAR ( {
-              snackbar: true,
-              color: 'error',
-              message: error.response.data.message
-            })
-          })
+            .catch(error => {
+              this.SHOW_LOADER(false);
+              this.SHOW_SNACKBAR({
+                snackbar: true,
+                color: "error",
+                message: error.response.data.message
+              });
+            });
         }
       }
     },
-    editItem (item) {
-      this.editedIndex = 2
+    editItem(item) {
+      this.editedIndex = 2;
       // this.editedIndex =this.desserts.indexOf(item)
       // console.log('index',this.desserts.indexOf(item))
-      this.editedItem = Vue.util.extend({}, item)
-      this.editedItem.company_id = item.company_id.id
-      this.editedItem.department_id = item.department_id.id
-      this.dialog = true
+      this.editedItem = Vue.util.extend({}, item);
+      this.editedItem.company_id = item.company_id.id;
+      this.editedItem.department_id = item.department_id.id;
+      this.dialog = true;
     },
-    viewItem (item) {
-      this.editedIndex = 2
+    viewItem(item) {
+      this.editedIndex = 2;
       // this.editedIndex =this.desserts.indexOf(item)
       // console.log('index',this.desserts.indexOf(item))
-      this.editedItem = Vue.util.extend({}, item)
-      this.editedItem.company_id = item.company_id.id
-      this.editedItem.department_id = item.department_id.id
-      this.view = true
-      this.dialog = true
+      this.editedItem = Vue.util.extend({}, item);
+      this.editedItem.company_id = item.company_id.id;
+      this.editedItem.department_id = item.department_id.id;
+      this.view = true;
+      this.dialog = true;
     },
-    deleteItem (id) {
-      this.countryId[0] = id
+    deleteItem(id) {
+      this.countryId[0] = id;
       // this.editedIndex = this.desserts.indexOf(item)
       // this.editedItem = Object.assign({}, item)
-      this.dialogDelete = true
+      this.dialogDelete = true;
     },
     async deleteItemConfirm() {
-      this.dialogDelete = false
-      this.SHOW_LOADER ( true)
+      this.dialogDelete = false;
+      this.SHOW_LOADER(true);
       const data = {
-        'ids': this.countryId,
-        'path' : '/delete_department_sections'
-      }
+        ids: this.countryId,
+        path: "/delete_department_sections"
+      };
 
-      await this.delete (data).then((response) => {
-        this.SHOW_LOADER ( false)
-        this.SHOW_SNACKBAR ( {
-          snackbar: true,
-          color: 'green',
-          message: response.data.message
+      await this.delete(data)
+        .then(response => {
+          this.SHOW_LOADER(false);
+          this.SHOW_SNACKBAR({
+            snackbar: true,
+            color: "green",
+            message: response.data.message
+          });
+          this.getList();
         })
-        this.getList()
-      }).catch((error) => {
-        this.SHOW_LOADER ( false)
-        this.SHOW_SNACKBAR ( {
-          snackbar: true,
-          color: 'error',
-          message: error.response.data.message
-        })
-      })
+        .catch(error => {
+          this.SHOW_LOADER(false);
+          this.SHOW_SNACKBAR({
+            snackbar: true,
+            color: "error",
+            message: error.response.data.message
+          });
+        });
     },
     reset() {
-      this.editedItem.en_name = ''
-      this.editedItem.ar_name = ''
-      this.editedItem.company_id = ''
-      this.editedItem.department_id = ''
-      this.editedItem.status = ''
-      this.countryId = []
-      this.editedIndex = -1
+      this.editedItem.en_name = "";
+      this.editedItem.ar_name = "";
+      this.editedItem.company_id = "";
+      this.editedItem.department_id = "";
+      this.editedItem.status = "";
+      this.countryId = [];
+      this.editedIndex = -1;
     }
   }
-}
+};
 </script>
 
 <style scoped>

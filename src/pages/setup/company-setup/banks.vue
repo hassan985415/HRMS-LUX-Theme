@@ -17,7 +17,7 @@
         >
           <template v-slot:top>
             <v-toolbar flat>
-              <v-toolbar-title><h3>Banks</h3></v-toolbar-title>
+              <v-toolbar-title><h3>{{ $t("bank.title") }}</h3></v-toolbar-title>
               <v-spacer></v-spacer>
               <template>
                 <v-btn
@@ -27,7 +27,7 @@
                   rounded
                   @click="dialog= true"
                 >
-                  Create Bank
+                  {{ $t("bank.create") }}
                 </v-btn>
               </template>
             </v-toolbar>
@@ -62,7 +62,7 @@
                         :item-value="companies.value"
                         :disabled="view"
                         :filled="view"
-                        label="Select Company"
+                        :label="$t('bank.selectCompany')"
                         :rules="[
                           value => !!value || 'This  field is required'
                         ]"
@@ -76,7 +76,7 @@
                         :item-value="countries.value"
                         :disabled="view"
                         :filled="view"
-                        label="Select Country"
+                        :label="$t('bank.selectCountry')"
                         :rules="[
                           value => !!value || 'This  field is required'
                         ]"
@@ -91,7 +91,7 @@
                         :item-value="cities.value"
                         :disabled="view"
                         :filled="view"
-                        label="Select City"
+                        :label="$t('bank.selectCity')"
                         :rules="[
                           value => !!value || 'This  field is required'
                         ]"
@@ -105,7 +105,7 @@
                         :item-value="branches.value"
                         :disabled="view"
                         :filled="view"
-                        label="Select branch"
+                        :label="$t('bank.selectBranch')"
                         :rules="[
                           value => !!value || 'This  field is required'
                         ]"
@@ -119,7 +119,7 @@
                         :item-value="currencies.value"
                         :disabled="view"
                         :filled="view"
-                        label="Select currency"
+                        :label="$t('bank.selectCurrency')"
                         :rules="[
                           value => !!value || 'This  field is required'
                         ]"
@@ -129,9 +129,10 @@
                       <v-text-field
                         v-model="editedItem.ar_name"
                         class="direction"
-                        label="Name in Arabic"
                         :disabled="view"
                         :filled="view"
+                        :label="$t('bank.nameArabic')"
+
                         :rules="[
                           value => !!value || 'This  field is required',
                           value =>
@@ -143,9 +144,9 @@
                     <v-col cols="12" sm="6" md="6">
                       <v-text-field
                         v-model="editedItem.en_name"
-                        label="Name in English"
                         :disabled="view"
                         :filled="view"
+                        :label="$t('bank.nameEnglish')"
                         :rules="[
                           value => !!value || 'This  field is required',
                           value =>
@@ -159,7 +160,7 @@
                         v-model="editedItem.account_type"
                         :disabled="view"
                         :filled="view"
-                        label="Account Type"
+                        :label="$t('bank.accountType')"
                         :rules="[
                           value => !!value || 'This  field is required',
                           value =>
@@ -173,7 +174,7 @@
                         v-model="editedItem.account_no"
                         :disabled="view"
                         :filled="view"
-                        label="Account No"
+                        :label="$t('bank.accountNo')"
                         type="number"
                         :rules="[
                           value => !!value || 'This  field is required',
@@ -188,7 +189,7 @@
                         v-model="editedItem.address_1"
                         :disabled="view"
                         :filled="view"
-                        label="Address_1"
+                        :label="$t('bank.address1')"
                       ></v-text-field>
                     </v-col>
                     <v-col cols="12" sm="6" md="6">
@@ -196,7 +197,7 @@
                         v-model="editedItem.address_2"
                         :disabled="view"
                         :filled="view"
-                        label="Address_2"
+                        :label="$t('bank.address2')"
                       ></v-text-field>
                     </v-col>
                     <v-col cols="12" sm="6" md="6">
@@ -204,7 +205,7 @@
                         v-model="editedItem.address_3"
                         :disabled="view"
                         :filled="view"
-                        label="Address_3"
+                        :label="$t('bank.address3')"
                       ></v-text-field>
                     </v-col>
                     <v-col cols="12" sm="6" md="6">
@@ -212,7 +213,7 @@
                         v-model="editedItem.address_4"
                         :disabled="view"
                         :filled="view"
-                        label="Address_4"
+                        :label="$t('bank.address4')"
                       ></v-text-field>
                     </v-col>
                     <v-col cols="12" sm="6" md="6">
@@ -220,7 +221,7 @@
                         v-model="editedItem.gl_acct_code"
                         :disabled="view"
                         :filled="view"
-                        label="gl_acct_code"
+                        :label="$t('bank.glAccountCode')"
                         type="number"
                       ></v-text-field>
                     </v-col>
@@ -229,7 +230,7 @@
                         v-model="editedItem.bank_code"
                         :disabled="view"
                         :filled="view"
-                        label="bank_code"
+                        :label="$t('bank.bankCode')"
                         type="number"
                       ></v-text-field>
                     </v-col>
@@ -238,7 +239,7 @@
                         v-model="editedItem.bank_file"
                         :disabled="view"
                         :filled="view"
-                        label="bank_file"
+                        :label="$t('bank.bankFile')"
                       ></v-text-field>
                     </v-col>
                     <v-col cols="12" sm="6" md="6">
@@ -246,7 +247,7 @@
                         v-model="editedItem.payment_type"
                         :disabled="view"
                         :filled="view"
-                        label="payment_type"
+                        :label="$t('bank.paymentType')"
                       ></v-text-field>
                     </v-col>
                   </v-row>
@@ -257,11 +258,16 @@
 
           <v-card-actions v-if="!view">
             <v-spacer></v-spacer>
-            <v-btn color="blue darken-1" text rounded @click="dialog = false">
-              Cancel
+            <v-btn
+              color="blue darken-1"
+              text
+              rounded
+              @click="dialog = false"
+            >
+              {{ $t("common.cancel") }}
             </v-btn>
             <v-btn color="blue darken-1" text rounded @click="save">
-              Save
+              {{ $t("common.save") }}
             </v-btn>
           </v-card-actions>
           <v-card-actions v-else>
@@ -278,7 +284,7 @@
           <v-card>
             <v-card-title
               class="headline"
-            >Are you sure you want to delete this record?</v-card-title>
+            >{{ $t("common.deleteRecord") }}</v-card-title>
             <v-card-actions>
               <v-spacer></v-spacer>
 
@@ -286,12 +292,12 @@
                 color="blue darken-1"
                 text
                 @click="dialogDelete = false"
-              >Cancel</v-btn>
+              >{{ $t("common.cancel") }}</v-btn>
               <v-btn
                 color="blue darken-1"
                 text
                 @click="deleteItemConfirm"
-              >OK</v-btn>
+              >{{ $t("common.ok") }}</v-btn>
               <v-spacer></v-spacer>
             </v-card-actions>
           </v-card>
@@ -359,23 +365,23 @@ export default {
       view: false,
       headers: [
         {
-          text: 'ID',
+          text: this.$i18n.t("common.id"),
           align: 'start',
           value: 'id'
         },
-        { text: 'En Name', value: 'en_name' },
-        { text: 'Ar Name', value: 'ar_name' },
-        { text: 'Account Type', value: 'account_type' },
-        { text: 'Account No', value: 'account_no' },
-        { text: 'Address_1', value: 'address_1' },
-        { text: 'Address_2', value: 'address_2' },
-        { text: 'Address_3', value: 'address_3' },
-        { text: 'Address_4', value: 'address_4' },
+        { text: this.$i18n.t("bank.nameEnglish"), value: 'en_name' },
+        { text: this.$i18n.t("bank.nameArabic"), value: 'ar_name' },
+        { text: this.$i18n.t("bank.accountType"), value: 'account_type' },
+        { text: this.$i18n.t("bank.accountNo"), value: 'account_no' },
+        { text: this.$i18n.t("bank.address1"), value: 'address_1' },
+        { text: this.$i18n.t("bank.address2"), value: 'address_2' },
+        { text: this.$i18n.t("bank.address3"), value: 'address_3' },
+        { text: this.$i18n.t("bank.address4"), value: 'address_4' },
         { text: 'Gl_acct_code', value: 'gl_acct_code' },
-        { text: 'Bank Code', value: 'bank_code' },
-        { text: 'Bank File', value: 'bank_file' },
-        { text: 'Payment Type', value: 'payment_type' },
-        { text: 'Actions', value: 'actions', sortable: false }
+        { text: this.$i18n.t("bank.bankCode"), value: 'bank_code' },
+        { text: this.$i18n.t("bank.bankFile"), value: 'bank_file' },
+        { text: this.$i18n.t("bank.paymentType"), value: 'payment_type' },
+        { text: this.$i18n.t("common.action"), value: 'actions', sortable: false }
       ],
       desserts: [],
       editedIndex: -1,
@@ -409,7 +415,7 @@ export default {
   },
   computed: {
     formTitle() {
-      return this.editedIndex === -1 ? 'New Bank' : 'Edit Bank'
+      return this.editedIndex === -1 ? this.$t('bank.new') : this.$t('bank.edit')
     }
   },
   watch: {

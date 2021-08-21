@@ -1,14 +1,7 @@
 <template>
-  <v-container
-    id="user-profile"
-    fluid
-    tag="section"
-  >
+  <v-container id="user-profile" fluid tag="section">
     <v-row justify="center">
-      <v-col
-        cols="12"
-        md="12"
-      >
+      <v-col cols="12" md="12">
         <!--        <MaterialCard-->
         <!--          color="success"-->
         <!--          title="Currency Types"-->
@@ -23,10 +16,10 @@
           @click:row.self="viewItem"
         >
           <template v-slot:top>
-            <v-toolbar
-              flat
-            >
-              <v-toolbar-title><h3>Currency Types</h3></v-toolbar-title>
+            <v-toolbar flat>
+              <v-toolbar-title
+                ><h3>{{ $t("currency.title") }}</h3></v-toolbar-title
+              >
               <v-spacer></v-spacer>
               <template>
                 <v-btn
@@ -36,7 +29,7 @@
                   rounded
                   @click="dialog = true"
                 >
-                  Create Currency
+                  {{ $t("currency.create") }}
                 </v-btn>
               </template>
             </v-toolbar>
@@ -63,54 +56,53 @@
               <v-form ref="form">
                 <v-container class="py-0">
                   <v-row>
-                    <v-col
-                      cols="12"
-                      sm="6"
-                      md="4"
-                    >
+                    <v-col cols="12" sm="6" md="4">
                       <v-text-field
                         v-model="editedItem.ar_name"
                         label="Currency Name in Arabic"
                         class="direction"
                         :disabled="view"
                         :filled="view"
-                        :rules="[ (value) => !!value || 'This  field is required',
-                                  (value) => (value && value.length <= 50) || 'maximum 50 characters',]"
+                        :rules="[
+                          value => !!value || 'This  field is required',
+                          value =>
+                            (value && value.length <= 50) ||
+                            'maximum 50 characters'
+                        ]"
                       ></v-text-field>
                     </v-col>
-                    <v-col
-                      cols="12"
-                      sm="6"
-                      md="4"
-                    >
+                    <v-col cols="12" sm="6" md="4">
                       <v-text-field
                         v-model="editedItem.en_name"
                         label="Currency Name in English"
                         :disabled="view"
                         :filled="view"
-                        :rules="[ (value) => !!value || 'This  field is required',
-                                  (value) => (value && value.length <= 50) || 'maximum 50 characters',]"
+                        :rules="[
+                          value => !!value || 'This  field is required',
+                          value =>
+                            (value && value.length <= 50) ||
+                            'maximum 50 characters'
+                        ]"
                       ></v-text-field>
                     </v-col>
-                    <v-col
-                      cols="12"
-                      sm="6"
-                      md="4"
-                    >
+                    <v-col cols="12" sm="6" md="4">
                       <v-text-field
                         v-model="editedItem.exchange_rate"
                         label="Exchange Rate"
                         type="number"
                         :disabled="view"
                         :filled="view"
-                        :rules="[ (value) => !!value || 'This  field is required',
-                                  (value) => (value && value.length <= 50) || 'maximum 50 characters',]"
+                        :rules="[
+                          value => !!value || 'This  field is required',
+                          value =>
+                            (value && value.length <= 50) ||
+                            'maximum 50 characters'
+                        ]"
                       ></v-text-field>
                     </v-col>
                   </v-row>
                 </v-container>
               </v-form>
-
             </v-container>
           </v-card-text>
 
@@ -125,7 +117,17 @@
           </v-card-actions>
           <v-card-actions v-else>
             <v-spacer></v-spacer>
-            <v-btn color="blue darken-1" text rounded @click="view = false; dialog = false; editedItem = {}; editedIndex = -1">
+            <v-btn
+              color="blue darken-1"
+              text
+              rounded
+              @click="
+                view = false;
+                dialog = false;
+                editedItem = {};
+                editedIndex = -1;
+              "
+            >
               Cancel
             </v-btn>
             <v-btn color="blue darken-1" text rounded @click="view = false">
@@ -135,11 +137,17 @@
         </v-card>
         <v-dialog v-model="dialogDelete" max-width="390px" persistent>
           <v-card>
-            <v-card-title class="headline">Are you sure you want to delete this record?</v-card-title>
+            <v-card-title class="headline"
+              >Are you sure you want to delete this record?</v-card-title
+            >
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn color="blue darken-1" text @click="dialogDelete=false">Cancel</v-btn>
-              <v-btn color="blue darken-1" text @click="deleteItemConfirm">OK</v-btn>
+              <v-btn color="blue darken-1" text @click="dialogDelete = false"
+                >Cancel</v-btn
+              >
+              <v-btn color="blue darken-1" text @click="deleteItemConfirm"
+                >OK</v-btn
+              >
               <v-spacer></v-spacer>
             </v-card-actions>
           </v-card>
@@ -175,13 +183,13 @@
 </template>
 
 <script>
-import MaterialCard from '../../../components/base/MaterialCard'
-import Vue from 'vue'
-import { mapActions, mapMutations } from 'vuex'
+import MaterialCard from "../../../components/base/MaterialCard";
+import Vue from "vue";
+import { mapActions, mapMutations } from "vuex";
 export default {
-  name: 'CurrencyTypes',
+  name: "CurrencyTypes",
   components: { MaterialCard },
-  middleware: ['auth'],
+  middleware: ["auth"],
   data() {
     return {
       dialog: false,
@@ -189,170 +197,173 @@ export default {
       dialogDelete: false,
       headers: [
         {
-          text: 'ID',
-          align: 'start',
-          value: 'id'
+          text: "ID",
+          align: "start",
+          value: "id"
         },
-        { text: 'En Name', value: 'en_name' },
-        { text: 'Ar Name', value: 'ar_name' },
-        { text: 'Exchange Rate', value: 'exchange_rate' },
-        { text: 'Actions', value: 'actions', sortable: false }
+        { text: "En Name", value: "en_name" },
+        { text: "Ar Name", value: "ar_name" },
+        { text: "Exchange Rate", value: "exchange_rate" },
+        { text: "Actions", value: "actions", sortable: false }
       ],
       desserts: [],
       editedIndex: -1,
       editedItem: {
-        en_name: '',
-        ar_name: '',
-        exchange_rate: ''
+        en_name: "",
+        ar_name: "",
+        exchange_rate: ""
       },
-      countryId:[],
+      countryId: [],
       allData: []
-    }
+    };
   },
   computed: {
-    formTitle () {
-      return this.editedIndex === -1 ? 'New Currency' : 'Edit Currency'
+    formTitle() {
+      return this.editedIndex === -1 ? "New Currency" : "Edit Currency";
     }
   },
   watch: {
-    dialog: function (val) {
+    dialog: function(val) {
       if (!val) {
-        this.$refs.form.reset()
-        this.editedIndex = -1
+        this.$refs.form.reset();
+        this.editedIndex = -1;
       }
     }
   },
-  created () {
-    this.getList()
+  created() {
+    this.getList();
   },
 
   methods: {
-    ...mapActions('app', ['list', 'update', 'create', 'delete']),
-    ...mapMutations('app', ['SHOW_LOADER','SHOW_SNACKBAR']),
+    ...mapActions("app", ["list", "update", "create", "delete"]),
+    ...mapMutations("app", ["SHOW_LOADER", "SHOW_SNACKBAR"]),
     getList() {
-      const data = { path: '/currencies' }
+      const data = { path: "/currencies" };
 
-      this.list(data).then((response) => {
-        this.allData = response.data.data
-        this.SHOW_LOADER ( false)
-        this.SHOW_SNACKBAR( {
+      this.list(data).then(response => {
+        this.allData = response.data.data;
+        this.SHOW_LOADER(false);
+        this.SHOW_SNACKBAR({
           snackbar: true,
-          color: 'green',
+          color: "green",
           message: response.data.message
-        })
-      })
+        });
+      });
     },
-    async save () {
+    async save() {
       if (this.$refs.form.validate()) {
         if (this.editedIndex > -1) {
           const data = {
-            path:'/currency/' + this.editedItem.id,
-            data:this.editedItem
-          }
+            path: "/currency/" + this.editedItem.id,
+            data: this.editedItem
+          };
 
-          this.SHOW_LOADER ( true)
-          await this.update(data).then((response) => {
-            this.dialog = false
-            this.SHOW_LOADER ( false)
-            this.SHOW_SNACKBAR( {
-              snackbar: true,
-              color: 'green',
-              message: response.data.message
+          this.SHOW_LOADER(true);
+          await this.update(data)
+            .then(response => {
+              this.dialog = false;
+              this.SHOW_LOADER(false);
+              this.SHOW_SNACKBAR({
+                snackbar: true,
+                color: "green",
+                message: response.data.message
+              });
+              this.getList();
             })
-            this.getList()
-          }).catch((error) => {
-            this.SHOW_LOADER ( false)
-            this.SHOW_SNACKBAR( {
-              snackbar: true,
-              color: 'error',
-              message: error.response.data.message
-            })
-          })
-        }
-        else {
+            .catch(error => {
+              this.SHOW_LOADER(false);
+              this.SHOW_SNACKBAR({
+                snackbar: true,
+                color: "error",
+                message: error.response.data.message
+              });
+            });
+        } else {
           const data = {
-            path:'/currencies',
-            data:this.editedItem
-          }
+            path: "/currencies",
+            data: this.editedItem
+          };
 
-          this.SHOW_LOADER ( true)
-          await this.create(data).then((response) => {
-            this.dialog = false
-            this.SHOW_LOADER ( false)
-            this.SHOW_SNACKBAR( {
-              snackbar: true,
-              color: 'green',
-              message: response.data.message
+          this.SHOW_LOADER(true);
+          await this.create(data)
+            .then(response => {
+              this.dialog = false;
+              this.SHOW_LOADER(false);
+              this.SHOW_SNACKBAR({
+                snackbar: true,
+                color: "green",
+                message: response.data.message
+              });
+              this.getList();
             })
-            this.getList()
-          }).catch((error) => {
-            this.SHOW_LOADER ( false)
-            this.SHOW_SNACKBAR( {
-              snackbar: true,
-              color: 'error',
-              message: error.response.data.message
-            })
-          })
+            .catch(error => {
+              this.SHOW_LOADER(false);
+              this.SHOW_SNACKBAR({
+                snackbar: true,
+                color: "error",
+                message: error.response.data.message
+              });
+            });
         }
       }
-
     },
-    editItem (item) {
-      this.editedIndex = 2
+    editItem(item) {
+      this.editedIndex = 2;
       // this.editedIndex =this.desserts.indexOf(item)
       // console.log('index',this.desserts.indexOf(item))
-      this.editedItem = Vue.util.extend({}, item)
-      this.dialog = true
+      this.editedItem = Vue.util.extend({}, item);
+      this.dialog = true;
     },
-    viewItem (item) {
-      this.editedIndex = 2
+    viewItem(item) {
+      this.editedIndex = 2;
       // this.editedIndex =this.desserts.indexOf(item)
       // console.log('index',this.desserts.indexOf(item))
-      this.editedItem = Vue.util.extend({}, item)
-      this.view = true
-      this.dialog = true
+      this.editedItem = Vue.util.extend({}, item);
+      this.view = true;
+      this.dialog = true;
     },
-    deleteItem (id) {
-      this.countryId[0] = id
+    deleteItem(id) {
+      this.countryId[0] = id;
       // this.editedIndex = this.desserts.indexOf(item)
       // this.editedItem = Object.assign({}, item)
-      this.dialogDelete = true
+      this.dialogDelete = true;
     },
     async deleteItemConfirm() {
-      this.dialogDelete = false
-      this.SHOW_LOADER ( true)
+      this.dialogDelete = false;
+      this.SHOW_LOADER(true);
       const data = {
-        'ids': this.countryId,
-        'path' : '/delete_currencies'
-      }
+        ids: this.countryId,
+        path: "/delete_currencies"
+      };
 
-      await this.delete(data).then((response) => {
-        this.SHOW_LOADER ( false)
-        this.SHOW_SNACKBAR( {
-          snackbar: true,
-          color: 'green',
-          message: response.data.message
+      await this.delete(data)
+        .then(response => {
+          this.SHOW_LOADER(false);
+          this.SHOW_SNACKBAR({
+            snackbar: true,
+            color: "green",
+            message: response.data.message
+          });
+          this.getList();
         })
-        this.getList()
-      }).catch((error) => {
-        this.SHOW_LOADER ( false)
-        this.SHOW_SNACKBAR( {
-          snackbar: true,
-          color: 'error',
-          message: error.response.data.message
-        })
-      })
+        .catch(error => {
+          this.SHOW_LOADER(false);
+          this.SHOW_SNACKBAR({
+            snackbar: true,
+            color: "error",
+            message: error.response.data.message
+          });
+        });
     },
     reset() {
-      this.editedItem.en_name = ''
-      this.editedItem.ar_name = ''
-      this.editedItem.exchange_rate = ''
-      this.countryId = []
-      this.editedIndex = -1
+      this.editedItem.en_name = "";
+      this.editedItem.ar_name = "";
+      this.editedItem.exchange_rate = "";
+      this.countryId = [];
+      this.editedIndex = -1;
     }
-
   }
-}
+};
 </script>
 
 <style scoped>

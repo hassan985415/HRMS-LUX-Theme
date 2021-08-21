@@ -23,7 +23,7 @@
               <!--                  inset-->
               <!--                  vertical-->
               <!--                ></v-divider>-->
-              <v-toolbar-title><h3>City</h3></v-toolbar-title>
+              <v-toolbar-title><h3>{{ $t("city.title") }}</h3></v-toolbar-title>
               <v-spacer></v-spacer>
               <template>
                 <v-btn

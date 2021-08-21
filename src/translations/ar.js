@@ -9,7 +9,13 @@ export default {
     faq: "التعليمات",
     contact: "اتصل بنا",
     tos: "شروط الخدمة",
-    policy: "سياسة الخصوصية"
+    policy: "سياسة الخصوصية",
+    edit:"يحرر",
+    ok:"حسنا",
+    deleteRecord:"هل أنت متأكد أنك تريد حذف هذا السجل؟",
+    action:"عمل",
+    view:"رأي",
+    id:"بطاقة تعريف",
   },
   board: {
     titlePlaceholder: "أدخل عنوانًا لهذه البطاقة",
@@ -149,7 +155,188 @@ export default {
   },
   companyInfo: {
     title: "معلومات الشركة",
-    create: "إنشاء معلومات الشركة"
+    create: "إنشاء معلومات الشركة",
+    actions:"عمل",
+    logo:"شعار الشركة",
+    id:"بطاقة تعريف",
+    view:"رأي",
+    englishName:"اسم الشركة بالانجليزية",
+    arabicName:"اسم الشركة بالعربية",
+    englishRegisterName:"اسم الشركة القانوني باللغة الإنجليزية",
+    arabicRegisterName:"اسم الشركة القانوني باللغة العربية",
+    dateOfIncorporation:"تاريخ التأسيس",
+    typeOfBussinessInEnglish:"نوع العمل في اللغة الإنجليزية",
+    typeOfBussinessInArabic:"نوع العمل باللغة العربية",
+
+    new:"معلومات الشركة الجديدة",
+    edit:"تحرير معلومات الشركة",
+  },
+  branch: {
+    title: "فرع",
+    create: "إنشاء فرع",
+    id:"بطاقة تعريف",
+    arabicName:"اسم الفرع بالعربية",
+    englishName:"اسم الفرع بالانجليزية",
+    managerEnglish:"اسم المدير بالانجليزية",
+    managerArabic:"اسم المدير بالعربية",
+    address1:"العنوان 1",
+    address2:"العنوان 2",
+    address3:"العنوان 3",
+    address4:"العنوان 4",
+    postalCode:"رمز بريدي",
+    stateRegion:"منطقة الولاية",
+    telephone1:"رقم الهاتف 1",
+    telephone2:"رقم الهاتف 2",
+    telephone3:"رقم الهاتف 3",
+    faxno1:"رقم الفاكس 1",
+    faxno2:"رقم الفاكس 2",
+    email:"عنوان البريد الإلكتروني",
+    website:"رابط الموقع",
+    status:"حالة الفرع",
+    country:"دولة",
+    city:"مدينة",
+    company:"حدد شركة",
+
+    new:"فرع جديد",
+    edit:"تحرير الفرع",
+  },
+  department: {
+    title: " الإدارات",
+    create: "إنشاء الإدارات ",
+    nameArabic:"اسم القسم بالعربية",
+    nameEnglish:"اسم القسم بالانجليزية",
+    managerEnglish:"اسم مدير القسم بالانجليزية",
+    managerArabic:"اسم مدير القسم بالعربية",
+
+    new:"قسم جديد",
+    edit:"تحرير القسم",
+
+    selectCompany:"حدد شركة",
+    selectBranch:"حدد الفرع",
+  },
+  departmentSection: {
+    title: " قسم القسم",
+    create: "إنشاء قسم القسم ",
+    nameEnglish:"الاسم بالانجليزية",
+    nameArabic:"الاسم بالعربية",
+    status:"حالة",
+
+    new:"قسم جديد",
+    edit:"قسم تحرير القسم",
+
+    selectCompany:"حدد شركة",
+    selectDepartment:"حدد القسم",
+  },
+  bank: {
+    title: " مصرف",
+    create: "إنشاء مصرف ",
+    nameEnglish:"اسم البنك بالانجليزية",
+    nameArabic:"اسم البنك بالعربية",
+    accountType:"نوع الحساب",
+    accountNo:"رقم الحساب",
+    address1:"العنوان 1",
+    address2:"العنوان 2",
+    address3:"العنوان 3",
+    address4:"العنوان 4",
+    bankFile:"ملف البنك",
+    bankCode:"رمز بنكي",
+    paymentType:"نوع الدفع",
+    glAccountCode:"كود حساب GL",
+    
+
+    new:"بنك جديد",
+    edit:"تحرير البنك",
+
+    selectCompany:"حدد شركة",
+    selectBranch:"حدد الفرع",
+    selectDepartment:"حدد القسم",
+    selectCity:"اختر مدينة",
+    selectCountry:"حدد الدولة",
+    selectCurrency:"اختر العملة",
+  },
+  countryNationality: {
+    title: " الدولة / الجنسية",
+    create: "إنشاء الدولة / الجنسية "
+  },
+  city: {
+    title: "مدينة",
+    create: "إنشاء مدينة "
+  },
+  religion: {
+    title: "دين",
+    create: "إنشاء دين "
+  },
+  evaluationCompetencies: {
+    title: "تقييم",
+    create: "إنشاء تقييم "
+  },
+  evaluationType: {
+    title: "أنواع التقييم",
+    create: "إنشاء تقييم "
+  },
+  document: {
+    title: "أنواع المستندات",
+    create: "إنشاء المستندات "
+  },
+  beneficiary: {
+    title: "أنواع المستفيدين",
+    create: "إنشاء أنواع المستفيدين "
+  },
+  leave: {
+    title: "أنواع الإجازات / الإجازات",
+    create: "إنشاء أنواع الإجازات / الإجازات "
+  },
+  position: {
+    title: "المناصب / التعيينات",
+    create: "إنشاء المناصب "
+  },
+  sponsor: {
+    title: "الرعاة",
+    create: "إنشاء الرعاة "
+  },
+  earning: {
+    title: "الأرباح",
+    create: "إنشاء الأرباح "
+  },
+  deduction: {
+    title: "الخصومات",
+    create: "إنشاء الخصومات "
+  },
+  modification: {
+    title: "التعديل",
+    create: "إنشاء التعديل "
+  },
+  currency: {
+    title: "أنواع العملات",
+    create: "إنشاء العملات "
+  },
+  section: {
+    title: "الأقسام",
+    create: "إنشاء الأقسام "
+  },
+  costCenter: {
+    title: "مراكز التكلفة",
+    create: "إنشاء مركز التكلفة "
+  },
+  percentage: {
+    title: "النسبة المئوية",
+    create: "إنشاء النسبة المئوية "
+  },
+  education: {
+    title: "أنواع التعليم",
+    create: "إنشاء التعليم "
+  },
+  session: {
+    title: "الجلسات",
+    create: "إنشاء جلسة"
+  },
+  companySchedule: {
+    title: "جداول الشركة",
+    create: "إنشاء جدول الشركة"
+  },
+  gosiSubscription: {
+    title: "جوزي اشتراك",
+    create: "إنشاء جوزي اشتراك"
   },
   menu: {
     companySetup: "إعداد الشركة",
@@ -193,7 +380,7 @@ export default {
     educationTypes: "أنواع التعليم",
     sessions: "الجلسات",
     companySchedules: "جداول الشركة",
-    gosiSubscription: " جوزي اشتراك",
+    gosiSubscription: "جوزي اشتراك",
 
     search: "بحث (اضغط على 'ctrl + /' للتركيز)",
     dashboard: "لوحة القيادة",

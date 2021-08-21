@@ -27,7 +27,7 @@
               <v-toolbar
                 flat
               >
-                <v-toolbar-title><h3>Beneficiary Types</h3></v-toolbar-title>
+                <v-toolbar-title><h3>{{ $t("beneficiary.title") }}</h3></v-toolbar-title>
                 <v-spacer></v-spacer>
                   <template>
                     <v-btn
@@ -37,7 +37,7 @@
                       rounded
                       @click="dialog = true"
                     >
-                      Create Beneficiary Type
+                      {{ $t("beneficiary.create") }}
                     </v-btn>
                   </template>
               </v-toolbar>
