@@ -95,7 +95,7 @@
                         :label="$t('branch.country')"
                         @change="getCountyCites"
                         :rules="[ (value) => !!value || 'This  field is required']"
-                        @change="getCountyCites"
+                       
                       ></v-select>
                     </v-col>
                     <v-col
