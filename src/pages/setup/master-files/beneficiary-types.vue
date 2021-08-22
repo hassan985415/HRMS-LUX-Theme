@@ -19,7 +19,9 @@
             :headers="headers"
             :items="allData"
             sort-by="en_name"
-            v-if="!dialog"
+            v-if="!dialog && !view"
+          class="row-pointer"
+            @click:row.self="viewItem"
           >
             <template v-slot:top>
               <v-toolbar
@@ -52,9 +54,10 @@
             </div>
           </template>
           </v-data-table>
-        <v-card v-else>
+        <v-card v-if="dialog">
           <v-card-title>
-            <span class="headline">{{ formTitle }}</span>
+            <span v-if="view" class="headline">View Beneficiary Type </span>
+            <span v-else class="headline">{{ formTitle }}</span>
           </v-card-title>
           <v-card-text>
             <v-container>
@@ -69,6 +72,8 @@
                       <v-text-field
                         v-model="editedItem.ar_name"
                         label="Beneficiary Type in Arabic"
+                        :disabled="view"
+                        :filled="view"
                         class="direction"
                         :rules="[ (value) => !!value || 'This  field is required',
                                             (value) => (value && value.length <= 50) || 'maximum 50 characters',]"
@@ -82,6 +87,8 @@
                       <v-text-field
                         v-model="editedItem.en_name"
                         label="Beneficiary Type in English"
+                        :disabled="view"
+                        :filled="view"
                         :rules="[ (value) => !!value || 'This  field is required',
                                             (value) => (value && value.length <= 50) || 'maximum 50 characters',]"
                       ></v-text-field>
@@ -93,6 +100,8 @@
                     >
                       <v-checkbox
                         v-model="editedItem.parentbenefit"
+                        :disabled="view"
+                        :filled="view"
                         :false-value="0"
                         :true-value="1"
                         label="Parent Benefit"
@@ -107,6 +116,8 @@
                     >
                       <v-checkbox
                         v-model="editedItem.finalsetflag"
+                        :disabled="view"
+                        :filled="view"
                         :false-value="0"
                         :true-value="1"
                         label="Final set Flag"
@@ -121,6 +132,8 @@
                     >
                       <v-checkbox
                         v-model="editedItem.moneyvalueflag"
+                        :disabled="view"
+                        :filled="view"
                         :false-value="0"
                         :true-value="1"
                         label="Money Value Flag"
@@ -135,6 +148,8 @@
                     >
                       <v-checkbox
                         v-model="editedItem.holidayflag"
+                        :disabled="view"
+                        :filled="view"
                         :false-value="0"
                         :true-value="1"
                         label="Holiday Flag"
@@ -149,6 +164,8 @@
                     >
                       <v-checkbox
                         v-model="editedItem.printable"
+                        :disabled="view"
+                        :filled="view"
                         :false-value="0"
                         :true-value="1"
                         label="Printable"
@@ -163,6 +180,8 @@
                     >
                       <v-checkbox
                         v-model="editedItem.modifyflag"
+                        :disabled="view"
+                        :filled="view"
                         :false-value="0"
                         :true-value="1"
                         label="Modify Flag"
@@ -177,6 +196,8 @@
                     >
                       <v-checkbox
                         v-model="editedItem.is_active"
+                        :disabled="view"
+                        :filled="view"
                         :false-value="0"
                         :true-value="1"
                         label="Is Active"
@@ -191,6 +212,8 @@
                     >
                       <v-checkbox
                         v-model="editedItem.credit_glid"
+                        :disabled="view"
+                        :filled="view"
                         :false-value="0"
                         :true-value="1"
                         label="Credit Glid"
@@ -205,6 +228,8 @@
                     >
                       <v-checkbox
                         v-model="editedItem.showinreport"
+                        :disabled="view"
+                        :filled="view"
                         :false-value="0"
                         :true-value="1"
                         label="Show in Report"
@@ -219,6 +244,8 @@
                     >
                       <v-checkbox
                         v-model="editedItem.mulfactor"
+                        :disabled="view"
+                        :filled="view"
                         :false-value="0"
                         :true-value="1"
                         label="mulfactor"
@@ -233,6 +260,8 @@
                     >
                       <v-checkbox
                         v-model="editedItem.percent_frsalary"
+                        :disabled="view"
+                        :filled="view"
                         :false-value="0"
                         :true-value="1"
                         label="Percent for Salary"
@@ -247,6 +276,8 @@
                     >
                       <v-checkbox
                         v-model="editedItem.mb"
+                        :disabled="view"
+                        :filled="view"
                         :false-value="0"
                         :true-value="1"
                         label="mb"
@@ -261,29 +292,28 @@
             </v-container>
           </v-card-text>
 
-          <v-card-actions>
+          <v-card-actions v-if="!view">
             <v-spacer></v-spacer>
-            <v-btn
-              color="blue darken-1"
-              text
-              rounded
-              @click="dialog=false"
-            >
+            <v-btn color="blue darken-1" text rounded @click="dialog = false">
               Cancel
             </v-btn>
-            <v-btn
-              color="blue darken-1"
-              text
-              rounded
-              @click="save"
-            >
+            <v-btn color="blue darken-1" text rounded @click="save">
               Save
+            </v-btn>
+          </v-card-actions>
+          <v-card-actions v-else>
+            <v-spacer></v-spacer>
+            <v-btn color="blue darken-1" text rounded @click="view = false; dialog = false; editedItem = {}; editedIndex = -1">
+              Cancel
+            </v-btn>
+            <v-btn color="blue darken-1" text rounded @click="view = false">
+              Edit
             </v-btn>
           </v-card-actions>
         </v-card>
         <v-dialog v-model="dialogDelete" max-width="390px" persistent>
           <v-card>
-            <v-card-title class="headline">Are you sure you want to delete this record?</v-card-title>
+            <v-card-title class="headline delete-font">Are you sure you want to delete this record?</v-card-title>
             <v-card-actions>
               <v-spacer></v-spacer>
               <v-btn color="blue darken-1" text @click="dialogDelete=false">Cancel</v-btn>
@@ -293,6 +323,53 @@
           </v-card>
         </v-dialog>
 <!--        </MaterialCard>-->
+<!--        <v-card v-if="view">-->
+<!--          <v-card-title>-->
+<!--            <span class="headline"> View </span>-->
+<!--          </v-card-title>-->
+<!--          <v-card-text>-->
+<!--            <v-row>-->
+<!--              <v-col cols="12" sm="6" md="6"><h3> En Name </h3> </v-col>-->
+<!--              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.en_name}} </span> </v-col>-->
+<!--              <v-col cols="12" sm="6" md="6"><h3> Ar Name </h3> </v-col>-->
+<!--              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.ar_name}} </span> </v-col>-->
+<!--              <v-col cols="12" sm="6" md="6"><h3> Parent Benefit </h3> </v-col>-->
+<!--              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.parentbenefit}} </span> </v-col>-->
+<!--              <v-col cols="12" sm="6" md="6"><h3> Final Set Flag </h3> </v-col>-->
+<!--              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.finalsetflag}} </span> </v-col>-->
+<!--              <v-col cols="12" sm="6" md="6"><h3> Money Value Flag </h3> </v-col>-->
+<!--              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.moneyvalueflag}} </span> </v-col>-->
+<!--              <v-col cols="12" sm="6" md="6"><h3> Holiday Flag </h3> </v-col>-->
+<!--              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.holidayflag}} </span> </v-col>-->
+<!--              <v-col cols="12" sm="6" md="6"><h3> Printable </h3> </v-col>-->
+<!--              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.printable}} </span> </v-col>-->
+<!--              <v-col cols="12" sm="6" md="6"><h3> Modify Flag </h3> </v-col>-->
+<!--              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.modifyflag}} </span> </v-col>-->
+<!--              <v-col cols="12" sm="6" md="6"><h3> Is Active </h3> </v-col>-->
+<!--              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.is_active}} </span> </v-col>-->
+<!--              <v-col cols="12" sm="6" md="6"><h3> Credit Glid </h3> </v-col>-->
+<!--              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.credit_glid}} </span> </v-col>-->
+<!--              <v-col cols="12" sm="6" md="6"><h3> Show in Report </h3> </v-col>-->
+<!--              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.showinreport}} </span> </v-col>-->
+<!--              <v-col cols="12" sm="6" md="6"><h3> Mulfactor </h3> </v-col>-->
+<!--              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.mulfactor}} </span> </v-col>-->
+<!--              <v-col cols="12" sm="6" md="6"><h3> Percent for Salary </h3> </v-col>-->
+<!--              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.percent_frsalary}} </span> </v-col>-->
+<!--              <v-col cols="12" sm="6" md="6"><h3> mb </h3> </v-col>-->
+<!--              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.mb}} </span> </v-col>-->
+<!--            </v-row>-->
+<!--          </v-card-text>-->
+<!--          <v-card-actions>-->
+<!--            <v-spacer></v-spacer>-->
+<!--            <v-btn color="blue darken-1" text rounded @click="view = false; editedItem = {}; editedIndex = -1">-->
+<!--              Cancel-->
+<!--            </v-btn>-->
+<!--            <v-btn color="blue darken-1" text rounded @click="dialog = true; view = false">-->
+<!--              Edit-->
+<!--            </v-btn>-->
+<!--          </v-card-actions>-->
+<!--        </v-card>-->
+
       </v-col>
     </v-row>
   </v-container>
@@ -309,6 +386,7 @@ export default {
   data() {
     return {
       dialog: false,
+      view: false,
       dialogDelete: false,
       headers: [
         {
@@ -448,6 +526,14 @@ export default {
       this.editedItem = Vue.util.extend({}, item)
       this.dialog = true
     },
+    viewItem (item) {
+      this.editedIndex = 2
+      // this.editedIndex =this.desserts.indexOf(item)
+      // console.log('index',this.desserts.indexOf(item))
+      this.editedItem = Vue.util.extend({}, item)
+      this.view = true
+      this.dialog = true
+    },
     deleteItem (id) {
       this.countryId[0] = id
       // this.editedIndex = this.desserts.indexOf(item)
@@ -503,5 +589,10 @@ export default {
 </script>
 
 <style scoped>
-
+.row-pointer >>> tbody tr :hover {
+  cursor: pointer;
+}
+.delete-font {
+  font-size: 15px !important;
+}
 </style>

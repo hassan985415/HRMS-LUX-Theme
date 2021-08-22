@@ -10,38 +10,40 @@
         cols="12"
         md="12"
       >
-<!--        <MaterialCard-->
-<!--          color="success"-->
-<!--          title="Branch"-->
-<!--          class="px-5 py-3"-->
-<!--        >-->
-          <v-data-table
-            :headers="headers"
-            :items="allData"
-            sort-by="en_name"
-            v-if="!dialog"
-          >
-            <template v-slot:top>
-              <v-toolbar
-                flat
-              >
-                <v-toolbar-title><h3>Branch</h3></v-toolbar-title>
-                <v-spacer></v-spacer>
-                  <template>
-                    <v-btn
-                      color="primary"
-                      dark
-                      class="mb-2"
-                      rounded
-                      @click="dialog= true"
-                    >
-                      Create Branch
-                    </v-btn>
-                  </template>
-              </v-toolbar>
-            </template>
+        <!--        <MaterialCard-->
+        <!--          color="success"-->
+        <!--          title="Branch"-->
+        <!--          class="px-5 py-3"-->
+        <!--        >-->
+        <v-data-table
+          v-if="!dialog && !view"
+          class="row-pointer"
+          :headers="headers"
+          :items="allData"
+          sort-by="en_name"
+          @click:row.self="viewItem"
+        >
+          <template v-slot:top>
+            <v-toolbar
+              flat
+            >
+              <v-toolbar-title><h3>Branch</h3></v-toolbar-title>
+              <v-spacer></v-spacer>
+              <template>
+                <v-btn
+                  color="primary"
+                  dark
+                  class="mb-2"
+                  rounded
+                  @click="dialog= true"
+                >
+                  Create Branch
+                </v-btn>
+              </template>
+            </v-toolbar>
+          </template>
 
-             <template v-slot:item.actions="{ item }">
+          <template v-slot:item.actions="{ item }">
             <div class="d-flex">
               <v-icon small class="mr-2" @click="editItem(item)">
                 mdi-pencil
@@ -51,10 +53,11 @@
               </v-icon>
             </div>
           </template>
-          </v-data-table>
-        <v-card v-else>
+        </v-data-table>
+        <v-card v-if="dialog">
           <v-card-title>
-            <span class="headline">{{ formTitle }}</span>
+            <span v-if="view" class="headline">View Branch </span>
+            <span v-else class="headline">{{ formTitle }}</span>
           </v-card-title>
           <v-card-text>
             <v-container>
@@ -71,6 +74,8 @@
                         :items="companies"
                         :item-text="companies.text"
                         :item-value="companies.value"
+                        :disabled="view"
+                        :filled="view"
                         label="Select Company"
                         :rules="[ (value) => !!value || 'This  field is required']"
                       ></v-select>
@@ -85,9 +90,11 @@
                         :items="countries"
                         :item-text="countries.text"
                         :item-value="countries.value"
+                        :disabled="view"
+                        :filled="view"
                         label="Select Country"
-                        @change="getCountyCites"
                         :rules="[ (value) => !!value || 'This  field is required']"
+                        @change="getCountyCites"
                       ></v-select>
                     </v-col>
                     <v-col
@@ -97,9 +104,11 @@
                     >
                       <v-text-field
                         v-model="editedItem.en_name"
+                        :disabled="view"
+                        :filled="view"
                         label="Branch Name in English"
                         :rules="[ (value) => !!value || 'This  field is required',
-                                            (value) => (value && value.length <= 50) || 'maximum 50 characters',]"
+                                  (value) => (value && value.length <= 50) || 'maximum 50 characters',]"
                       ></v-text-field>
                     </v-col>
                     <v-col
@@ -109,10 +118,12 @@
                     >
                       <v-text-field
                         v-model="editedItem.ar_name"
+                        :disabled="view"
+                        :filled="view"
                         label="Branch Name in Arabic"
                         class="direction"
                         :rules="[ (value) => !!value || 'This  field is required',
-                                            (value) => (value && value.length <= 50) || 'maximum 50 characters',]"
+                                  (value) => (value && value.length <= 50) || 'maximum 50 characters',]"
                       ></v-text-field>
                     </v-col>
                     <v-col
@@ -122,9 +133,11 @@
                     >
                       <v-text-field
                         v-model="editedItem.en_manager_name"
+                        :disabled="view"
+                        :filled="view"
                         label="Manager Name in English"
                         :rules="[ (value) => !!value || 'This  field is required',
-                                            (value) => (value && value.length <= 50) || 'maximum 50 characters',]"
+                                  (value) => (value && value.length <= 50) || 'maximum 50 characters',]"
                       ></v-text-field>
                     </v-col>
                     <v-col
@@ -134,10 +147,12 @@
                     >
                       <v-text-field
                         v-model="editedItem.ar_manager_name"
+                        :disabled="view"
+                        :filled="view"
                         label="Manager Name in Arabic"
                         class="direction"
                         :rules="[ (value) => !!value || 'This  field is required',
-                                            (value) => (value && value.length <= 50) || 'maximum 50 characters',]"
+                                  (value) => (value && value.length <= 50) || 'maximum 50 characters',]"
                       ></v-text-field>
                     </v-col>
                     <v-col
@@ -147,6 +162,8 @@
                     >
                       <v-select
                         v-model="editedItem.city_id"
+                        :disabled="view"
+                        :filled="view"
                         :items="cities"
                         :item-text="cities.text"
                         :item-value="cities.value"
@@ -161,6 +178,8 @@
                     >
                       <v-text-field
                         v-model="editedItem.address_1"
+                        :disabled="view"
+                        :filled="view"
                         label="Address_1"
                       ></v-text-field>
                     </v-col>
@@ -171,6 +190,8 @@
                     >
                       <v-text-field
                         v-model="editedItem.address_2"
+                        :disabled="view"
+                        :filled="view"
                         label="Address_2"
                       ></v-text-field>
                     </v-col>
@@ -181,6 +202,8 @@
                     >
                       <v-text-field
                         v-model="editedItem.address_3"
+                        :disabled="view"
+                        :filled="view"
                         label="Address_3"
                       ></v-text-field>
                     </v-col>
@@ -191,6 +214,8 @@
                     >
                       <v-text-field
                         v-model="editedItem.address_4"
+                        :disabled="view"
+                        :filled="view"
                         label="Address_4"
                       ></v-text-field>
                     </v-col>
@@ -201,6 +226,8 @@
                     >
                       <v-text-field
                         v-model="editedItem.postal_code"
+                        :disabled="view"
+                        :filled="view"
                         label="postal_code"
                         type="number"
                       ></v-text-field>
@@ -212,6 +239,8 @@
                     >
                       <v-text-field
                         v-model="editedItem.state_region"
+                        :disabled="view"
+                        :filled="view"
                         label="state_region"
                       ></v-text-field>
                     </v-col>
@@ -222,6 +251,8 @@
                     >
                       <v-text-field
                         v-model="editedItem.phone_1"
+                        :disabled="view"
+                        :filled="view"
                         label="phone_1"
                       ></v-text-field>
                     </v-col>
@@ -232,6 +263,8 @@
                     >
                       <v-text-field
                         v-model="editedItem.phone_2"
+                        :disabled="view"
+                        :filled="view"
                         label="phone_2"
                       ></v-text-field>
                     </v-col>
@@ -242,6 +275,8 @@
                     >
                       <v-text-field
                         v-model="editedItem.phone_3"
+                        :disabled="view"
+                        :filled="view"
                         label="phone_3"
                       ></v-text-field>
                     </v-col>
@@ -252,6 +287,8 @@
                     >
                       <v-text-field
                         v-model="editedItem.fax_1"
+                        :disabled="view"
+                        :filled="view"
                         label="fax_1"
                       ></v-text-field>
                     </v-col>
@@ -262,6 +299,8 @@
                     >
                       <v-text-field
                         v-model="editedItem.fax_2"
+                        :disabled="view"
+                        :filled="view"
                         label="fax_2"
                       ></v-text-field>
                     </v-col>
@@ -272,6 +311,8 @@
                     >
                       <v-text-field
                         v-model="editedItem.fax_3"
+                        :disabled="view"
+                        :filled="view"
                         label="fax_3"
                       ></v-text-field>
                     </v-col>
@@ -282,6 +323,8 @@
                     >
                       <v-text-field
                         v-model="editedItem.email"
+                        :disabled="view"
+                        :filled="view"
                         label="email"
                       ></v-text-field>
                     </v-col>
@@ -292,6 +335,8 @@
                     >
                       <v-text-field
                         v-model="editedItem.website"
+                        :disabled="view"
+                        :filled="view"
                         label="website"
                       ></v-text-field>
                     </v-col>
@@ -302,6 +347,8 @@
                     >
                       <v-text-field
                         v-model="editedItem.status"
+                        :disabled="view"
+                        :filled="view"
                         label="status"
                       ></v-text-field>
                     </v-col>
@@ -312,6 +359,8 @@
                     >
                       <v-text-field
                         v-model="editedItem.remarks_1"
+                        :disabled="view"
+                        :filled="view"
                         label="remarks_1"
                       ></v-text-field>
                     </v-col>
@@ -322,6 +371,8 @@
                     >
                       <v-text-field
                         v-model="editedItem.remarks_2"
+                        :disabled="view"
+                        :filled="view"
                         label="remarks_2"
                       ></v-text-field>
                     </v-col>
@@ -332,6 +383,8 @@
                     >
                       <v-text-field
                         v-model="editedItem.remarks_3"
+                        :disabled="view"
+                        :filled="view"
                         label="remarks_3"
                       ></v-text-field>
                     </v-col>
@@ -343,29 +396,28 @@
             </v-container>
           </v-card-text>
 
-          <v-card-actions>
+          <v-card-actions v-if="!view">
             <v-spacer></v-spacer>
-            <v-btn
-              color="blue darken-1"
-              text
-              rounded
-              @click="dialog = false"
-            >
+            <v-btn color="blue darken-1" text rounded @click="dialog = false">
               Cancel
             </v-btn>
-            <v-btn
-              color="blue darken-1"
-              text
-              rounded
-              @click="save"
-            >
+            <v-btn color="blue darken-1" text rounded @click="save">
               Save
+            </v-btn>
+          </v-card-actions>
+          <v-card-actions v-else>
+            <v-spacer></v-spacer>
+            <v-btn color="blue darken-1" text rounded @click="view = false; dialog = false; editedItem = {}; editedIndex = -1">
+              Cancel
+            </v-btn>
+            <v-btn color="blue darken-1" text rounded @click="view = false">
+              Edit
             </v-btn>
           </v-card-actions>
         </v-card>
         <v-dialog v-model="dialogDelete" max-width="390px" persistent>
           <v-card>
-            <v-card-title class="headline">Are you sure you want to delete this record?</v-card-title>
+            <v-card-title class="headline delete-font">Are you sure you want to delete this record?</v-card-title>
             <v-card-actions>
               <v-spacer></v-spacer>
               <v-btn color="blue darken-1" text @click="dialogDelete=false">Cancel</v-btn>
@@ -374,7 +426,69 @@
             </v-card-actions>
           </v-card>
         </v-dialog>
-<!--        </MaterialCard>-->
+        <!--        </MaterialCard>-->
+        <!--        <v-card v-if="view">-->
+        <!--          <v-card-title>-->
+        <!--            <span class="headline"> View </span>-->
+        <!--          </v-card-title>-->
+        <!--          <v-card-text>-->
+        <!--            <v-row>-->
+        <!--              <v-col cols="12" sm="6" md="6"><h3> En Name </h3> </v-col>-->
+        <!--              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.en_name}} </span> </v-col>-->
+        <!--              <v-col cols="12" sm="6" md="6"><h3> Ar Name </h3> </v-col>-->
+        <!--              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.ar_name}} </span> </v-col>-->
+        <!--              <v-col cols="12" sm="6" md="6"><h3> En Manager Name </h3> </v-col>-->
+        <!--              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.en_manager_name}} </span> </v-col>-->
+        <!--              <v-col cols="12" sm="6" md="6"><h3> Ar Manager Name </h3> </v-col>-->
+        <!--              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.ar_manager_name}} </span> </v-col>-->
+        <!--              <v-col cols="12" sm="6" md="6"><h3> Address 1 </h3> </v-col>-->
+        <!--              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.address_1}} </span> </v-col>-->
+        <!--              <v-col cols="12" sm="6" md="6"><h3> Address 2 </h3> </v-col>-->
+        <!--              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.address_2}} </span> </v-col>-->
+        <!--              <v-col cols="12" sm="6" md="6"><h3> Address 3 </h3> </v-col>-->
+        <!--              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.address_3}} </span> </v-col>-->
+        <!--              <v-col cols="12" sm="6" md="6"><h3> Address 4 </h3> </v-col>-->
+        <!--              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.address_4}} </span> </v-col>-->
+        <!--              <v-col cols="12" sm="6" md="6"><h3> Postal code </h3> </v-col>-->
+        <!--              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.postal_code}} </span> </v-col>-->
+        <!--              <v-col cols="12" sm="6" md="6"><h3> state region </h3> </v-col>-->
+        <!--              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.state_region}} </span> </v-col>-->
+        <!--              <v-col cols="12" sm="6" md="6"><h3> Phone 1 </h3> </v-col>-->
+        <!--              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.phone_1}} </span> </v-col>-->
+        <!--              <v-col cols="12" sm="6" md="6"><h3> Phone 2 </h3> </v-col>-->
+        <!--              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.phone_2}} </span> </v-col>-->
+        <!--              <v-col cols="12" sm="6" md="6"><h3> Phone 3 </h3> </v-col>-->
+        <!--              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.phone_3}} </span> </v-col>-->
+        <!--              <v-col cols="12" sm="6" md="6"><h3> Fax 1 </h3> </v-col>-->
+        <!--              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.fax_1}} </span> </v-col>-->
+        <!--              <v-col cols="12" sm="6" md="6"><h3> Fax 2 </h3> </v-col>-->
+        <!--              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.fax_2}} </span> </v-col>-->
+        <!--              <v-col cols="12" sm="6" md="6"><h3> Fax 3 </h3> </v-col>-->
+        <!--              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.fax_3}} </span> </v-col>-->
+        <!--              <v-col cols="12" sm="6" md="6"><h3> Email </h3> </v-col>-->
+        <!--              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.email}} </span> </v-col>-->
+        <!--              <v-col cols="12" sm="6" md="6"><h3> Website </h3> </v-col>-->
+        <!--              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.website}} </span> </v-col>-->
+        <!--              <v-col cols="12" sm="6" md="6"><h3> Status </h3> </v-col>-->
+        <!--              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.status}} </span> </v-col>-->
+        <!--              <v-col cols="12" sm="6" md="6"><h3> Remarks 1 </h3> </v-col>-->
+        <!--              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.remarks_1}} </span> </v-col>-->
+        <!--              <v-col cols="12" sm="6" md="6"><h3> Remarks 2 </h3> </v-col>-->
+        <!--              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.remarks_2}} </span> </v-col>-->
+        <!--              <v-col cols="12" sm="6" md="6"><h3> Remarks 3 </h3> </v-col>-->
+        <!--              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.remarks_3}} </span> </v-col>-->
+        <!--            </v-row>-->
+        <!--          </v-card-text>-->
+        <!--          <v-card-actions>-->
+        <!--            <v-spacer></v-spacer>-->
+        <!--            <v-btn color="blue darken-1" text rounded @click="view = false; editedItem = {}; editedIndex = -1">-->
+        <!--              Cancel-->
+        <!--            </v-btn>-->
+        <!--            <v-btn color="blue darken-1" text rounded @click="dialog = true; view = false">-->
+        <!--              Edit-->
+        <!--            </v-btn>-->
+        <!--          </v-card-actions>-->
+        <!--        </v-card>-->
       </v-col>
     </v-row>
   </v-container>
@@ -393,6 +507,7 @@ export default {
     return {
       dialog: false,
       dialogDelete: false,
+      view: false,
       headers: [
         {
           text: 'ID',
@@ -459,17 +574,17 @@ export default {
       cities: []
     }
   },
-  watch: {
-    dialog: function (val) {
-      if(!val){
-        this.$refs.form.reset()
-        this.editedIndex = -1
-      }
-    },
-  },
   computed: {
     formTitle () {
       return this.editedIndex === -1 ? 'New Branch' : 'Edit Branch'
+    }
+  },
+  watch: {
+    dialog: function (val) {
+      if (!val) {
+        this.$refs.form.reset()
+        this.editedIndex = -1
+      }
     }
   },
   created () {
@@ -618,6 +733,17 @@ export default {
 
       this.dialog = true
     },
+    viewItem(item) {
+      this.editedIndex = 2
+      // this.editedIndex =this.desserts.indexOf(item)
+      // console.log('index',this.desserts.indexOf(item))
+      this.editedItem = Vue.util.extend({}, item)
+      this.editedItem.company_id = item.company_id.id
+      this.editedItem.country_id = item.country_id.id
+      this.editedItem.city_id = item.city_id.id
+      this.view = true
+      this.dialog = true
+    },
     deleteItem (id) {
       this.countryId[0] = id
       // this.editedIndex = this.desserts.indexOf(item)
@@ -685,5 +811,11 @@ export default {
 <style scoped>
 .direction {
   direction: rtl;
+}
+.row-pointer >>> tbody tr :hover {
+  cursor: pointer;
+}
+.delete-font {
+  font-size: 15px !important;
 }
 </style>

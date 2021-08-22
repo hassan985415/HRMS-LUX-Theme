@@ -18,7 +18,9 @@
             :headers="headers"
             :items="allData"
             sort-by="en_name"
-            v-if="!dialog"
+            v-if="!dialog && !view"
+          class="row-pointer"
+            @click:row.self="viewItem"
           >
             <template v-slot:top>
               <v-toolbar
@@ -51,9 +53,10 @@
             </div>
           </template>
           </v-data-table>
-        <v-card v-else>
+        <v-card v-if="dialog">
           <v-card-title>
-            <span class="headline">{{ formTitle }}</span>
+            <span v-if="view" class="headline">View Sponsor </span>
+            <span v-else class="headline">{{ formTitle }}</span>
           </v-card-title>
           <v-card-text>
             <v-container>
@@ -69,6 +72,8 @@
                         label="Competence Name in Arabic"
                         class="direction"
                         v-model="editedItem.ar_name"
+                        :disabled="view"
+                        :filled="view"
                         :rules="[ (value) => !!value || 'This  field is required',
                                 (value) => (value && value.length <= 50) || 'maximum 50 characters',]"
                       ></v-text-field>
@@ -81,6 +86,8 @@
                       <v-text-field
                         label="Competence Name in English"
                         v-model="editedItem.en_name"
+                        :disabled="view"
+                        :filled="view"
                         :rules="[ (value) => !!value || 'This  field is required',
                                 (value) => (value && value.length <= 50) || 'maximum 50 characters',]"
                       ></v-text-field>
@@ -93,6 +100,8 @@
                       <v-text-field
                         label="Sponsor"
                         v-model="editedItem.sponsor"
+                        :disabled="view"
+                        :filled="view"
                         :rules="[ (value) => !!value || 'This  field is required',
                                 (value) => (value && value.length <= 50) || 'maximum 50 characters',]"
                       ></v-text-field>
@@ -105,6 +114,8 @@
                       <v-text-field
                         label="En Contact Person"
                         v-model="editedItem.en_contact_person"
+                        :disabled="view"
+                        :filled="view"
                         :rules="[ (value) => !!value || 'This  field is required',
                                 (value) => (value && value.length <= 50) || 'maximum 50 characters',]"
                       ></v-text-field>
@@ -117,6 +128,8 @@
                       <v-text-field
                         label="Ar Contact Person"
                         v-model="editedItem.ar_contact_person"
+                        :disabled="view"
+                        :filled="view"
                         :rules="[ (value) => !!value || 'This  field is required',
                                 (value) => (value && value.length <= 50) || 'maximum 50 characters',]"
                       ></v-text-field>
@@ -129,6 +142,8 @@
                       <v-text-field
                         label="Address"
                         v-model="editedItem.address"
+                        :disabled="view"
+                        :filled="view"
                         :rules="[ (value) => !!value || 'This  field is required',
                                 (value) => (value && value.length <= 50) || 'maximum 50 characters',]"
                       ></v-text-field>
@@ -140,6 +155,8 @@
                     <v-text-field
                       label="Telephone"
                       v-model="editedItem.telephone"
+                      :disabled="view"
+                      :filled="view"
                       :rules="[ (value) => !!value || 'This  field is required',
                                 (value) => (value && value.length <= 50) || 'maximum 50 characters',]"
                     ></v-text-field>
@@ -151,6 +168,8 @@
                     >
                       <v-checkbox
                         v-model="editedItem.is_active"
+                        :disabled="view"
+                        :filled="view"
                         :false-value="0"
                         :true-value="1"
                         label="Is Active"
@@ -165,27 +184,28 @@
             </v-container>
           </v-card-text>
 
-          <v-card-actions>
+          <v-card-actions v-if="!view">
             <v-spacer></v-spacer>
-            <v-btn
-              color="blue darken-1"
-              text
-              @click="dialog=false"
-            >
+            <v-btn color="blue darken-1" text rounded @click="dialog = false">
               Cancel
             </v-btn>
-            <v-btn
-              color="blue darken-1"
-              text
-              @click="save"
-            >
+            <v-btn color="blue darken-1" text rounded @click="save">
               Save
+            </v-btn>
+          </v-card-actions>
+          <v-card-actions v-else>
+            <v-spacer></v-spacer>
+            <v-btn color="blue darken-1" text rounded @click="view = false; dialog = false; editedItem = {}; editedIndex = -1">
+              Cancel
+            </v-btn>
+            <v-btn color="blue darken-1" text rounded @click="view = false">
+              Edit
             </v-btn>
           </v-card-actions>
         </v-card>
         <v-dialog v-model="dialogDelete" max-width="390px" persistent>
           <v-card>
-            <v-card-title class="headline">Are you sure you want to delete this record?</v-card-title>
+            <v-card-title class="headline delete-font">Are you sure you want to delete this record?</v-card-title>
             <v-card-actions>
               <v-spacer></v-spacer>
               <v-btn color="blue darken-1" text @click="dialogDelete=false">Cancel</v-btn>
@@ -195,6 +215,40 @@
           </v-card>
         </v-dialog>
 <!--        </MaterialCard>-->
+<!--        <v-card v-if="view">-->
+<!--          <v-card-title>-->
+<!--            <span class="headline"> View </span>-->
+<!--          </v-card-title>-->
+<!--          <v-card-text>-->
+<!--            <v-row>-->
+<!--              <v-col cols="12" sm="6" md="6"><h3> En Name </h3> </v-col>-->
+<!--              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.en_name}} </span> </v-col>-->
+<!--              <v-col cols="12" sm="6" md="6"><h3> Ar Name </h3> </v-col>-->
+<!--              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.ar_name}} </span> </v-col>-->
+<!--              <v-col cols="12" sm="6" md="6"><h3> Sponsor </h3> </v-col>-->
+<!--              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.sponsor}} </span> </v-col>-->
+<!--              <v-col cols="12" sm="6" md="6"><h3> En Contact Person </h3> </v-col>-->
+<!--              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.en_contact_person}} </span> </v-col>-->
+<!--              <v-col cols="12" sm="6" md="6"><h3> Ar Contact Person </h3> </v-col>-->
+<!--              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.ar_contact_person}} </span> </v-col>-->
+<!--              <v-col cols="12" sm="6" md="6"><h3> Address </h3> </v-col>-->
+<!--              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.address}} </span> </v-col>-->
+<!--              <v-col cols="12" sm="6" md="6"><h3> Telephone </h3> </v-col>-->
+<!--              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.telephone}} </span> </v-col>-->
+<!--              <v-col cols="12" sm="6" md="6"><h3> Is Active </h3> </v-col>-->
+<!--              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.is_active}} </span> </v-col>-->
+<!--            </v-row>-->
+<!--          </v-card-text>-->
+<!--          <v-card-actions>-->
+<!--            <v-spacer></v-spacer>-->
+<!--            <v-btn color="blue darken-1" text rounded @click="view = false; editedItem = {}; editedIndex = -1">-->
+<!--              Cancel-->
+<!--            </v-btn>-->
+<!--            <v-btn color="blue darken-1" text rounded @click="dialog = true; view = false">-->
+<!--              Edit-->
+<!--            </v-btn>-->
+<!--          </v-card-actions>-->
+<!--        </v-card>-->
       </v-col>
     </v-row>
   </v-container>
@@ -211,6 +265,7 @@ export default {
   data(){
     return{
       dialog: false,
+      view: false,
       dialogDelete: false,
       headers: [
         {
@@ -335,6 +390,14 @@ export default {
       this.editedItem = Vue.util.extend({}, item);
       this.dialog = true
     },
+    viewItem (item) {
+      this.editedIndex = 2
+      // this.editedIndex =this.desserts.indexOf(item)
+      // console.log('index',this.desserts.indexOf(item))
+      this.editedItem = Vue.util.extend({}, item);
+      this.view = true
+      this.dialog = true
+    },
     deleteItem (id) {
       this.countryId[0]=id
       // this.editedIndex = this.desserts.indexOf(item)
@@ -383,5 +446,10 @@ export default {
 </script>
 
 <style scoped>
-
+.row-pointer >>> tbody tr :hover {
+  cursor: pointer;
+}
+.delete-font {
+  font-size: 15px !important;
+}
 </style>

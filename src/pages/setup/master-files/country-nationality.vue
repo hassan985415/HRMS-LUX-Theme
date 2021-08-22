@@ -15,10 +15,12 @@
         <!--          class="px-5 py-3"-->
         <!--        >-->
         <v-data-table
-          v-if="!dialog"
+          v-if="!dialog && !view"
+          class="row-pointer"
           :headers="headers"
           :items="countries"
           sort-by="en_name"
+          @click:row.self="viewItem"
         >
           <template v-slot:top>
             <v-toolbar
@@ -57,9 +59,10 @@
             </div>
           </template>
         </v-data-table>
-        <v-card v-else>
+        <v-card v-if="dialog">
           <v-card-title>
-            <span class="headline">{{ formTitle }}</span>
+            <span v-if="view" class="headline">View Country </span>
+            <span v-else class="headline">{{ formTitle }}</span>
           </v-card-title>
           <v-card-text>
             <v-container>
@@ -72,6 +75,8 @@
                   >
                     <v-text-field
                       v-model="editedItem.en_name"
+                      :disabled="view"
+                      :filled="view"
                       label="Country Name(EN)"
                       required
                       :rules="[ (value) => !!value || 'This  field is required']"
@@ -84,6 +89,8 @@
                   >
                     <v-text-field
                       v-model="editedItem.ar_name"
+                      :disabled="view"
+                      :filled="view"
                       label="Country Name(AR)"
                       required
                       :rules="[ (value) => !!value || 'This  field is required']"
@@ -96,6 +103,8 @@
                   >
                     <v-text-field
                       v-model="editedItem.en_nationality"
+                      :disabled="view"
+                      :filled="view"
                       label="Country Nationality(EN)"
                       required
                       :rules="[ (value) => !!value || 'This  field is required']"
@@ -108,6 +117,8 @@
                   >
                     <v-text-field
                       v-model="editedItem.ar_nationality"
+                      :disabled="view"
+                      :filled="view"
                       label="Country Nationality(AR)"
                       required
                       :rules="[ (value) => !!value || 'This  field is required']"
@@ -120,6 +131,8 @@
                   >
                     <v-text-field
                       v-model="editedItem.code"
+                      :disabled="view"
+                      :filled="view"
                       label="Code"
                       required
                       :rules="[ (value) => !!value || 'This  field is required',
@@ -133,6 +146,8 @@
                   >
                     <v-text-field
                       v-model="editedItem.phonecode"
+                      :disabled="view"
+                      :filled="view"
                       label="Phone Code"
                       required
                       :rules="[ (value) => !!value || 'This  field is required',
@@ -144,27 +159,28 @@
             </v-container>
           </v-card-text>
 
-          <v-card-actions>
+          <v-card-actions v-if="!view">
             <v-spacer></v-spacer>
-            <v-btn
-              color="blue darken-1"
-              text
-              @click="dialog=false"
-            >
+            <v-btn color="blue darken-1" text rounded @click="dialog = false">
               Cancel
             </v-btn>
-            <v-btn
-              color="blue darken-1"
-              text
-              @click="save"
-            >
+            <v-btn color="blue darken-1" text rounded @click="save">
               Save
+            </v-btn>
+          </v-card-actions>
+          <v-card-actions v-else>
+            <v-spacer></v-spacer>
+            <v-btn color="blue darken-1" text rounded @click="view = false; dialog = false; editedItem = {}; editedIndex = -1">
+              Cancel
+            </v-btn>
+            <v-btn color="blue darken-1" text rounded @click="view = false">
+              Edit
             </v-btn>
           </v-card-actions>
         </v-card>
         <v-dialog v-model="dialogDelete" max-width="390px" persistent>
           <v-card>
-            <v-card-title class="headline">Are you sure you want to delete this country?</v-card-title>
+            <v-card-title class="headline delete-font">Are you sure you want to delete this country?</v-card-title>
             <v-card-actions>
               <v-spacer></v-spacer>
               <v-btn color="blue darken-1" text @click="dialogDelete=false">Cancel</v-btn>
@@ -174,6 +190,37 @@
           </v-card>
         </v-dialog>
         <!--        </MaterialCard>-->
+
+<!--        <v-card v-if="view">-->
+<!--          <v-card-title>-->
+<!--            <span class="headline"> View </span>-->
+<!--          </v-card-title>-->
+<!--          <v-card-text>-->
+<!--            <v-row>-->
+<!--              <v-col cols="12" sm="6" md="6"><h3> En Name </h3> </v-col>-->
+<!--              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.en_name}} </span> </v-col>-->
+<!--              <v-col cols="12" sm="6" md="6"><h3> Ar Name </h3> </v-col>-->
+<!--              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.ar_name}} </span> </v-col>-->
+<!--              <v-col cols="12" sm="6" md="6"><h3> En Nationality </h3> </v-col>-->
+<!--              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.en_nationality}} </span> </v-col>-->
+<!--              <v-col cols="12" sm="6" md="6"><h3> Ar Nationality </h3> </v-col>-->
+<!--              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.ar_nationality}} </span> </v-col>-->
+<!--              <v-col cols="12" sm="6" md="6"><h3> Code </h3> </v-col>-->
+<!--              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.code}} </span> </v-col>-->
+<!--              <v-col cols="12" sm="6" md="6"><h3> Phone Code </h3> </v-col>-->
+<!--              <v-col cols="12" sm="6" md="6"><span>{{ editedItem.phonecode}} </span> </v-col>-->
+<!--            </v-row>-->
+<!--          </v-card-text>-->
+<!--          <v-card-actions>-->
+<!--            <v-spacer></v-spacer>-->
+<!--            <v-btn color="blue darken-1" text rounded @click="view = false; editedItem = {}; editedIndex = -1">-->
+<!--              Cancel-->
+<!--            </v-btn>-->
+<!--            <v-btn color="blue darken-1" text rounded @click="dialog = true; view = false">-->
+<!--              Edit-->
+<!--            </v-btn>-->
+<!--          </v-card-actions>-->
+<!--        </v-card>-->
       </v-col>
     </v-row>
   </v-container>
@@ -190,6 +237,7 @@ export default {
     return {
       dialog: false,
       dialogDelete: false,
+      view: false,
       headers: [
         {
           text: 'ID',
@@ -237,6 +285,7 @@ export default {
     dialog: function (val) {
       if (!val) {
         // this.$refs.form.reset()
+        this.editedItem = {}
         this.editedIndex = -1
       }
     }
@@ -328,6 +377,15 @@ export default {
       this.editedItem = item
       this.dialog = true
     },
+    viewItem (item) {
+      this.editedIndex = 2
+      // this.editedIndex =this.desserts.indexOf(item)
+      // console.log('index',this.desserts.indexOf(item))
+      this.editedItem = item
+      this.view = true
+      this.dialog = true
+
+    },
     deleteItem (id) {
       this.countryId[0] = id
       // this.editedIndex = this.desserts.indexOf(item)
@@ -377,5 +435,11 @@ export default {
 <style scoped>
 .direction {
   direction: rtl;
+}
+.row-pointer >>> tbody tr :hover {
+  cursor: pointer;
+}
+.delete-font {
+  font-size: 15px !important;
 }
 </style>
