@@ -144,7 +144,7 @@
         <v-dialog v-model="dialogDelete" max-width="390px" persistent>
           <v-card>
             <v-card-title
-              class="headline"
+              class="headline delete-font"
             >Are you sure you want to delete this city?</v-card-title>
             <v-card-actions>
               <v-spacer></v-spacer>
@@ -415,5 +415,8 @@ export default {
 }
 .row-pointer >>> tbody tr :hover {
   cursor: pointer;
+}
+.delete-font {
+  font-size: 15px !important;
 }
 </style>

@@ -183,7 +183,7 @@
         </v-card>
         <v-dialog v-model="dialogDelete" max-width="390px" persistent>
           <v-card>
-            <v-card-title class="headline">Are you sure you want to delete this record?</v-card-title>
+            <v-card-title class="headline delete-font">Are you sure you want to delete this record?</v-card-title>
             <v-card-actions>
               <v-spacer></v-spacer>
               <v-btn color="blue darken-1" text @click="dialogDelete=false">Cancel</v-btn>
@@ -381,6 +381,7 @@ export default {
       this.editedItem = Vue.util.extend({}, item)
       this.editedItem.company_id = item.company_id.id
       this.editedItem.branch_id = item.branch_id.id
+      this.view = true
       this.dialog = true
     },
     viewItem (item) {
@@ -441,5 +442,8 @@ export default {
 <style scoped>
 .row-pointer >>> tbody tr :hover {
   cursor: pointer;
+}
+.delete-font {
+  font-size: 15px !important;
 }
 </style>

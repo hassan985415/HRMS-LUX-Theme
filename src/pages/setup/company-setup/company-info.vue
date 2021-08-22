@@ -184,11 +184,20 @@
               Edit
             </v-btn>
           </v-card-actions>
+          <v-card-actions v-else>
+            <v-spacer></v-spacer>
+            <v-btn color="blue darken-1" text rounded @click="view = false; dialog = false; editedItem = {}; editedIndex = -1">
+              Cancel
+            </v-btn>
+            <v-btn color="blue darken-1" text rounded @click="view = false">
+              Edit
+            </v-btn>
+          </v-card-actions>
         </v-card>
         <v-dialog v-model="dialogDelete" max-width="390px" persistent>
           <v-card>
             <v-card-title
-              class="headline"
+              class="headline delete-font"
             >{{ $t("common.deleteRecord") }}</v-card-title>
             <v-card-actions>
               <v-spacer></v-spacer>
@@ -499,5 +508,8 @@ export default {
 }
 .row-pointer >>> tbody tr :hover {
   cursor: pointer;
+}
+.delete-font {
+  font-size: 15px !important;
 }
 </style>

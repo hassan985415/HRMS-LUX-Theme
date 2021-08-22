@@ -257,13 +257,24 @@
             </v-btn>
           </v-card-actions>
         </v-card>
-        <v-dialog v-model="dialogDelete" max-width="390px" persistent>
+            <v-dialog v-model="dialogDelete" max-width="390px" persistent>
           <v-card>
-            <v-card-title class="headline">Are you sure you want to delete this record?</v-card-title>
+            <v-card-title
+              class="headline delete-font"
+            >{{ $t("common.deleteRecord") }}</v-card-title>
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn color="blue darken-1" text @click="dialogDelete=false">Cancel</v-btn>
-              <v-btn color="blue darken-1" text @click="deleteItemConfirm">OK</v-btn>
+
+              <v-btn
+                color="blue darken-1"
+                text
+                @click="dialogDelete = false"
+              >{{ $t("common.cancel") }}</v-btn>
+              <v-btn
+                color="blue darken-1"
+                text
+                @click="deleteItemConfirm"
+              >{{ $t("common.ok") }}</v-btn>
               <v-spacer></v-spacer>
             </v-card-actions>
           </v-card>
@@ -490,6 +501,16 @@ export default {
       this.view = true
       this.dialog = true
     },
+    viewItem (item) {
+      this.editedIndex = 2
+      // this.editedIndex =this.desserts.indexOf(item)
+      // console.log('index',this.desserts.indexOf(item))
+      this.editedItem = Vue.util.extend({}, item)
+      this.editedItem.company_id = item.company_id.id
+      this.editedItem.branch_id = item.branch_id.id
+      this.view = true
+      this.dialog = true
+    },
     deleteItem (id) {
       this.countryId[0] = id
       // this.editedIndex = this.desserts.indexOf(item)
@@ -544,5 +565,8 @@ export default {
 <style scoped>
 .row-pointer >>> tbody tr :hover {
   cursor: pointer;
+}
+.delete-font {
+  font-size: 15px !important;
 }
 </style>

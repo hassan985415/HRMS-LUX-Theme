@@ -7,7 +7,8 @@
             {{ product.name }}
           </div>
           <div class="title my-2">Welcome! Let's build amazing things together.</div>
-          <v-btn :to="localePath('/')" class="my-4">Take me back</v-btn>
+          <v-btn :to="localePath('/')" class="my-4">Take me back</v-btn><br>
+          <toolbar-language />
         </div>
         <img class="w-full" src="/images/illustrations/signin-illustration.svg" />
       </v-sheet>
@@ -28,11 +29,11 @@
 import { mapState , mapMutations } from 'vuex'
 import Loader from '../components/Loader'
 import Snackbar from '../components/Snackbar'
-
+import ToolbarLanguage from '../components/toolbar/ToolbarLanguage'
 export default {
   name: 'Auth',
   components : {
-    Loader, Snackbar
+    Loader, Snackbar , ToolbarLanguage
   },
   computed: {
     ...mapState('app', ['product','loader', 'alert'])
