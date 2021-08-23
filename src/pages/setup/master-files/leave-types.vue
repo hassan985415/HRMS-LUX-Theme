@@ -27,7 +27,7 @@
             <v-toolbar
               flat
             >
-              <v-toolbar-title><h3>Leave/Vacation Types</h3></v-toolbar-title>
+              <v-toolbar-title><h3>{{ $t("leave.title") }}</h3></v-toolbar-title>
               <v-spacer></v-spacer>
               <template>
                 <v-btn
@@ -37,7 +37,7 @@
                   rounded
                   @click="dialog = true"
                 >
-                  Create Leave Type
+                  {{ $t("leave.create") }}
                 </v-btn>
               </template>
             </v-toolbar>
@@ -73,7 +73,7 @@
                         v-model="editedItem.ar_name"
                         :disabled="view"
                         :filled="view"
-                        label="Leave Type in Arabic"
+                        :label="$t('leave.nameArabic')"
                         class="direction"
                         :rules="[ (value) => !!value || 'This  field is required',
                                   (value) => (value && value.length <= 50) || 'maximum 50 characters',]"
@@ -88,7 +88,7 @@
                         v-model="editedItem.en_name"
                         :disabled="view"
                         :filled="view"
-                        label="Leave Type in English"
+                        :label="$t('leave.nameEnglish')"
                         :rules="[ (value) => !!value || 'This  field is required',
                                   (value) => (value && value.length <= 50) || 'maximum 50 characters',]"
                       ></v-text-field>
@@ -102,7 +102,7 @@
                         v-model="editedItem.duration"
                         :disabled="view"
                         :filled="view"
-                        label="Duration"
+                        :label="$t('leave.duration')"
                         :rules="[ (value) => !!value || 'This  field is required']"
                       ></v-text-field>
                     </v-col>
@@ -117,7 +117,7 @@
                         :filled="view"
                         :false-value="0"
                         :true-value="1"
-                        label="Is Salary"
+                        :label="$t('leave.isSalary')"
                         color="success"
                         hide-details
                       ></v-checkbox>
@@ -133,7 +133,7 @@
                         :filled="view"
                         :false-value="0"
                         :true-value="1"
-                        label="Require Visa"
+                        :label="$t('leave.requireVisa')"
                         color="success"
                         hide-details
                       ></v-checkbox>
@@ -149,7 +149,7 @@
                         :filled="view"
                         :false-value="0"
                         :true-value="1"
-                        label="With Pay"
+                        :label="$t('leave.withPay')"
                         color="success"
                         hide-details
                       ></v-checkbox>
@@ -165,7 +165,7 @@
                         :filled="view"
                         :false-value="0"
                         :true-value="1"
-                        label="Operator"
+                        :label="$t('leave.operator')"
                         color="success"
                         hide-details
                       ></v-checkbox>
@@ -181,7 +181,7 @@
                         :filled="view"
                         :false-value="0"
                         :true-value="1"
-                        label="Extra Leave calc"
+                        :label="$t('leave.extraLeaveCalc')"
                         color="success"
                         hide-details
                       ></v-checkbox>
@@ -197,7 +197,7 @@
                         :filled="view"
                         :false-value="0"
                         :true-value="1"
-                        label="Is Active"
+                        :label="$t('leave.isActive')"
                         color="success"
                         hide-details
                       ></v-checkbox>
@@ -213,7 +213,7 @@
                         :filled="view"
                         :false-value="0"
                         :true-value="1"
-                        label="Is Settlement"
+                        :label="$t('leave.isSettlement')"
                         color="success"
                         hide-details
                       ></v-checkbox>
@@ -229,7 +229,7 @@
                         :filled="view"
                         :false-value="0"
                         :true-value="1"
-                        label="Request"
+                       :label="$t('leave.request')"
                         color="success"
                         hide-details
                       ></v-checkbox>
@@ -244,29 +244,29 @@
           <v-card-actions v-if="!view">
             <v-spacer></v-spacer>
             <v-btn color="blue darken-1" text rounded @click="dialog = false">
-              Cancel
+              {{ $t("common.cancel") }}
             </v-btn>
             <v-btn color="blue darken-1" text rounded @click="save">
-              Save
+              {{ $t("common.save") }}
             </v-btn>
           </v-card-actions>
           <v-card-actions v-else>
             <v-spacer></v-spacer>
             <v-btn color="blue darken-1" text rounded @click="view = false; dialog = false; editedItem = {}; editedIndex = -1">
-              Cancel
+              {{ $t("common.cancel") }}
             </v-btn>
             <v-btn color="blue darken-1" text rounded @click="view = false">
-              Edit
+              {{ $t("common.edit") }}
             </v-btn>
           </v-card-actions>
         </v-card>
         <v-dialog v-model="dialogDelete" max-width="390px" persistent>
           <v-card>
-            <v-card-title class="headline">Are you sure you want to delete this record?</v-card-title>
+            <v-card-title class="headline">{{ $t("common.deleteRecord") }}</v-card-title>
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn color="blue darken-1" text @click="dialogDelete=false">Cancel</v-btn>
-              <v-btn color="blue darken-1" text @click="deleteItemConfirm">OK</v-btn>
+              <v-btn color="blue darken-1" text @click="dialogDelete=false">{{ $t("common.cancel") }}</v-btn>
+              <v-btn color="blue darken-1" text @click="deleteItemConfirm">{{ $t("common.ok") }}</v-btn>
               <v-spacer></v-spacer>
             </v-card-actions>
           </v-card>
@@ -334,22 +334,22 @@ export default {
       dialogDelete: false,
       headers: [
         {
-          text: 'ID',
+          text: this.$i18n.t("common.id"),
           align: 'start',
           value: 'id'
         },
-        { text: 'En Name', value: 'en_name' },
-        { text: 'Ar Name', value: 'ar_name' },
-        { text: 'Duration', value: 'duration' },
-        { text: 'Is Salary', value: 'is_salary' },
-        { text: 'Require Visa', value: 'requirevisa' },
-        { text: 'With Pay', value: 'withpay' },
-        { text: 'Operator', value: 'operator' },
-        { text: 'Extra Leave Calc', value: 'extra_leavecalc' },
-        { text: 'Is Active', value: 'is_active' },
-        { text: 'Is Settlement', value: 'is_settlement' },
-        { text: 'request', value: 'request' },
-        { text: 'Actions', value: 'actions', sortable: false }
+        { text: this.$i18n.t("leave.nameEnglish"), value: 'en_name' },
+        { text: this.$i18n.t("leave.nameArabic"), value: 'ar_name' },
+        { text: this.$i18n.t("leave.duration"), value: 'duration' },
+        { text: this.$i18n.t("leave.isSalary"), value: 'is_salary' },
+        { text: this.$i18n.t("leave.requireVisa"), value: 'requirevisa' },
+        { text: this.$i18n.t("leave.withPay"), value: 'withpay' },
+        { text: this.$i18n.t("leave.operator"), value: 'operator' },
+        { text: this.$i18n.t("leave.extraLeaveCalc"), value: 'extra_leavecalc' },
+        { text: this.$i18n.t("leave.isActive"), value: 'is_active' },
+        { text: this.$i18n.t("leave.isSettlement"), value: 'is_settlement' },
+        { text: this.$i18n.t("leave.request"), value: 'request' },
+        { text: this.$i18n.t("common.action"), value: 'actions', sortable: false }
       ],
       desserts: [],
       editedIndex: -1,
@@ -372,7 +372,7 @@ export default {
   },
   computed: {
     formTitle () {
-      return this.editedIndex === -1 ? 'New Leave/Vacation Type' : 'Edit Leave/Vacation Type'
+      return this.editedIndex === -1 ? this.$t('leave.new') : this.$t('leave.edit')
     }
   },
   watch: {

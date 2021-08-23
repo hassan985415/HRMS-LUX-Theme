@@ -325,19 +325,67 @@ export default {
   },
   beneficiary: {
     title: "أنواع المستفيدين",
-    create: "إنشاء أنواع المستفيدين "
+    create: "إنشاء أنواع المستفيدين ",
+    nameArabic:"نوع المستفيد باللغة العربية",
+    nameEnglish:"نوع المستفيد باللغة الإنجليزية",
+    parentBenefit:"فائدة الوالدين",
+    finalSetFlag:"علم المجموعة النهائية",
+    moneyValueFlag:"علم القيمة المالية",
+    holidayFlag:"علم عطلة",
+    printable:"للطباعة",
+    modifyFlag:"تعديل العلم",
+    isActive:"نشط",
+    creditGlid:"انزلاق الائتمان",
+    showInReport:"تظهر في التقري",
+    mulfactor:"مولفاكتور",
+    percentForSalary:"في المئة للراتب",
+    mb:"ميغابايت",
+
+    new:"نوع المستفيد الجديد",
+    edit:"تحرير نوع المستفيد",
   },
   leave: {
-    title: "أنواع الإجازات / الإجازات",
-    create: "إنشاء أنواع الإجازات / الإجازات "
+    title: "أنواع الإجازات",
+    create: "إنشاء أنواع الإجازات",
+    nameArabic:"أنواع الإجازات باللغة العربية",
+    nameEnglish:"أنواع الإجازات باللغة الإنجليزية",
+    duration:"المدة الزمنية",
+    isSalary:"هو الراتب",
+    requireVisa:"تتطلب تأشيرة",
+    withPay:"بأجر",
+    operator:"المشغل أو العامل",
+    extraLeaveCalc:"إجازة إضافية احسب",
+    isActive:"نشط",
+    isSettlement:"تسوية",
+    request:"طلب",
+
+    new:"نوع الإجازة / الإجازة الجديد",
+    edit:"تحرير نوع الإجازة / الإجازة",
   },
   position: {
     title: "المناصب / التعيينات",
-    create: "إنشاء المناصب "
+    create: "إنشاء المناصب ",
+    nameArabic:"نوع الوظيفة باللغة العربية",
+    nameEnglish:"نوع الوظيفة باللغة الإنجليزية",
+    level:"مستوى",
+    isActive:"نشط",
+
+    new:"منصب جديد",
+    edit:"تحرير الموقف",
   },
   sponsor: {
     title: "الرعاة",
-    create: "إنشاء الرعاة "
+    create: "إنشاء الرعاة ",
+    nameEnglish:"اسم الكفيل باللغة الإنجليزية",
+    nameArabic:"اسم الكفيل بالعربية",
+    address:"عنوان",
+    telephone:"هاتف",
+    isActive:"نشط",
+    contactPersonArabic:"شخص الاتصال باللغة العربية",
+    contactPersonEnglish:"شخص الاتصال باللغة الإنجليزية",
+
+    new:"الراعي الجديد",
+    edit:"تحرير الراعي",
   },
   earning: {
     title: "الأرباح",
