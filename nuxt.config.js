@@ -4,7 +4,7 @@ const { locale, availableLocales, fallbackLocale } = config.locales
 const { gaId } = config.analytics
 
 export default {
-  ssr: false,
+  // ssr: false,
   target: 'static',
   srcDir: 'src/',
   // Global page headers (https://go.nuxtjs.dev/config-head)
