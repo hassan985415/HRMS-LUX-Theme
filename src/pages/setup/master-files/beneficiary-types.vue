@@ -71,7 +71,7 @@
                     >
                       <v-text-field
                         v-model="editedItem.ar_name"
-                        label="Beneficiary Type in Arabic"
+                        :label="$t('beneficiary.nameArabic')"
                         :disabled="view"
                         :filled="view"
                         class="direction"
@@ -86,7 +86,7 @@
                     >
                       <v-text-field
                         v-model="editedItem.en_name"
-                        label="Beneficiary Type in English"
+                       :label="$t('beneficiary.nameEnglish')"
                         :disabled="view"
                         :filled="view"
                         :rules="[ (value) => !!value || 'This  field is required',
@@ -104,7 +104,7 @@
                         :filled="view"
                         :false-value="0"
                         :true-value="1"
-                        label="Parent Benefit"
+                        :label="$t('beneficiary.parentBenefit')"
                         color="success"
                         hide-details
                       ></v-checkbox>
@@ -120,7 +120,7 @@
                         :filled="view"
                         :false-value="0"
                         :true-value="1"
-                        label="Final set Flag"
+                        :label="$t('beneficiary.finalSetFlag')"
                         color="success"
                         hide-details
                       ></v-checkbox>
@@ -136,7 +136,7 @@
                         :filled="view"
                         :false-value="0"
                         :true-value="1"
-                        label="Money Value Flag"
+                        :label="$t('beneficiary.moneyValueFlag')"
                         color="success"
                         hide-details
                       ></v-checkbox>
@@ -152,7 +152,7 @@
                         :filled="view"
                         :false-value="0"
                         :true-value="1"
-                        label="Holiday Flag"
+                        :label="$t('beneficiary.holidayFlag')"
                         color="success"
                         hide-details
                       ></v-checkbox>
@@ -168,7 +168,7 @@
                         :filled="view"
                         :false-value="0"
                         :true-value="1"
-                        label="Printable"
+                        :label="$t('beneficiary.printable')"
                         color="success"
                         hide-details
                       ></v-checkbox>
@@ -184,7 +184,7 @@
                         :filled="view"
                         :false-value="0"
                         :true-value="1"
-                        label="Modify Flag"
+                        :label="$t('beneficiary.modifyFlag')"
                         color="success"
                         hide-details
                       ></v-checkbox>
@@ -200,7 +200,7 @@
                         :filled="view"
                         :false-value="0"
                         :true-value="1"
-                        label="Is Active"
+                        :label="$t('beneficiary.isActive')"
                         color="success"
                         hide-details
                       ></v-checkbox>
@@ -216,7 +216,7 @@
                         :filled="view"
                         :false-value="0"
                         :true-value="1"
-                        label="Credit Glid"
+                        :label="$t('beneficiary.creditGlid')"
                         color="success"
                         hide-details
                       ></v-checkbox>
@@ -232,7 +232,7 @@
                         :filled="view"
                         :false-value="0"
                         :true-value="1"
-                        label="Show in Report"
+                        :label="$t('beneficiary.showInReport')"
                         color="success"
                         hide-details
                       ></v-checkbox>
@@ -248,7 +248,7 @@
                         :filled="view"
                         :false-value="0"
                         :true-value="1"
-                        label="mulfactor"
+                        :label="$t('beneficiary.mulfactor')"
                         color="success"
                         hide-details
                       ></v-checkbox>
@@ -264,7 +264,7 @@
                         :filled="view"
                         :false-value="0"
                         :true-value="1"
-                        label="Percent for Salary"
+                        :label="$t('beneficiary.percentForSalary')"
                         color="success"
                         hide-details
                       ></v-checkbox>
@@ -280,7 +280,7 @@
                         :filled="view"
                         :false-value="0"
                         :true-value="1"
-                        label="mb"
+                        :label="$t('beneficiary.mb')"
                         color="success"
                         hide-details
                       ></v-checkbox>
@@ -295,29 +295,29 @@
           <v-card-actions v-if="!view">
             <v-spacer></v-spacer>
             <v-btn color="blue darken-1" text rounded @click="dialog = false">
-              Cancel
+              {{ $t("common.cancel") }}
             </v-btn>
             <v-btn color="blue darken-1" text rounded @click="save">
-              Save
+              {{ $t("common.save") }}
             </v-btn>
           </v-card-actions>
           <v-card-actions v-else>
             <v-spacer></v-spacer>
             <v-btn color="blue darken-1" text rounded @click="view = false; dialog = false; editedItem = {}; editedIndex = -1">
-              Cancel
+              {{ $t("common.cancel") }}
             </v-btn>
             <v-btn color="blue darken-1" text rounded @click="view = false">
-              Edit
+              {{ $t("common.edit") }}
             </v-btn>
           </v-card-actions>
         </v-card>
         <v-dialog v-model="dialogDelete" max-width="390px" persistent>
           <v-card>
-            <v-card-title class="headline delete-font">Are you sure you want to delete this record?</v-card-title>
+            <v-card-title class="headline delete-font">{{ $t("common.deleteRecord") }}</v-card-title>
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn color="blue darken-1" text @click="dialogDelete=false">Cancel</v-btn>
-              <v-btn color="blue darken-1" text @click="deleteItemConfirm">OK</v-btn>
+              <v-btn color="blue darken-1" text @click="dialogDelete=false">{{ $t("common.cancel") }}</v-btn>
+              <v-btn color="blue darken-1" text @click="deleteItemConfirm">{{ $t("common.ok") }}</v-btn>
               <v-spacer></v-spacer>
             </v-card-actions>
           </v-card>
@@ -390,25 +390,25 @@ export default {
       dialogDelete: false,
       headers: [
         {
-          text: 'ID',
+          text: this.$i18n.t("common.id"),
           align: 'start',
           value: 'id'
         },
-        { text: 'En Name', value: 'en_name' },
-        { text: 'Ar Name', value: 'ar_name' },
-        { text: 'Parent Benefit', value: 'parentbenefit' },
-        { text: 'Final Set Flag', value: 'finalsetflag' },
-        { text: 'Money Value Flag', value: 'moneyvalueflag' },
-        { text: 'Holiday Flag', value: 'holidayflag' },
-        { text: 'Printable', value: 'printable' },
-        { text: 'Modify Flag', value: 'modifyflag' },
-        { text: 'Is Active', value: 'is_active' },
-        { text: 'Credit Glid', value: 'credit_glid' },
-        { text: 'Show in Report', value: 'showinreport' },
-        { text: 'Mulfactor', value: 'mulfactor' },
-        { text: 'Percent for Salary', value: 'percent_frsalary' },
-        { text: 'mb', value: 'mb' },
-        { text: 'Actions', value: 'actions', sortable: false }
+        { text: this.$i18n.t("beneficiary.nameEnglish"), value: 'en_name' },
+        { text: this.$i18n.t("beneficiary.nameArabic"), value: 'ar_name' },
+        { text: this.$i18n.t("beneficiary.parentBenefit"), value: 'parentbenefit' },
+        { text: this.$i18n.t("beneficiary.finalSetFlag"), value: 'finalsetflag' },
+        { text: this.$i18n.t("beneficiary.moneyValueFlag"), value: 'moneyvalueflag' },
+        { text: this.$i18n.t("beneficiary.holidayFlag"), value: 'holidayflag' },
+        { text: this.$i18n.t("beneficiary.printable"), value: 'printable' },
+        { text: this.$i18n.t("beneficiary.modifyFlag"), value: 'modifyflag' },
+        { text: this.$i18n.t("beneficiary.isActive"), value: 'is_active' },
+        { text: this.$i18n.t("beneficiary.creditGlid"), value: 'credit_glid' },
+        { text: this.$i18n.t("beneficiary.showInReport"), value: 'showinreport' },
+        { text: this.$i18n.t("beneficiary.mulfactor"), value: 'mulfactor' },
+        { text: this.$i18n.t("beneficiary.percentForSalary"), value: 'percent_frsalary' },
+        { text: this.$i18n.t("beneficiary.mb"), value: 'mb' },
+        { text:  this.$i18n.t("common.action"), value: 'actions', sortable: false }
       ],
       desserts: [],
       editedIndex: -1,
@@ -434,7 +434,7 @@ export default {
   },
   computed: {
     formTitle () {
-      return this.editedIndex === -1 ? 'New Beneficiary Type' : 'Edit Beneficiary Type'
+      return this.editedIndex === -1 ? this.$t('beneficiary.new') : this.$t('beneficiary.edit')
     }
   },
   watch: {

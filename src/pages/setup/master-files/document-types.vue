@@ -26,7 +26,7 @@
             <v-toolbar
               flat
             >
-              <v-toolbar-title><h3>Document Types</h3></v-toolbar-title>
+              <v-toolbar-title><h3>{{ $t("document.title") }}</h3></v-toolbar-title>
               <v-spacer></v-spacer>
               <template>
                 <v-btn
@@ -36,7 +36,7 @@
                   rounded
                   @click="dialog = true"
                 >
-                  Create Document Type
+                  {{ $t("document.create") }}
                 </v-btn>
               </template>
             </v-toolbar>
@@ -72,7 +72,7 @@
                         v-model="editedItem.ar_name"
                         :disabled="view"
                         :filled="view"
-                        label="Document Types in Arabic"
+                        :label="$t('document.nameArabic')"
                         class="direction"
                         :rules="[ (value) => !!value || 'This  field is required',
                                   (value) => (value && value.length <= 50) || 'maximum 50 characters',]"
@@ -87,7 +87,7 @@
                         v-model="editedItem.en_name"
                         :disabled="view"
                         :filled="view"
-                        label="Document Types in English"
+                        :label="$t('document.nameEnglish')"
                         :rules="[ (value) => !!value || 'This  field is required',
                                   (value) => (value && value.length <= 50) || 'maximum 50 characters',]"
                       ></v-text-field>
@@ -101,7 +101,7 @@
                         v-model="editedItem.exp_date"
                         :disabled="view"
                         :filled="view"
-                        label="Exp Date"
+                        :label="$t('document.expDays')"
                         type="date"
                         :rules="[ (value) => !!value || 'This  field is required']"
                       ></v-text-field>
@@ -117,7 +117,7 @@
                         :filled="view"
                         :false-value="0"
                         :true-value="1"
-                        label="Hijri Flag"
+                        :label="$t('document.inHijri')"
                         color="success"
                         hide-details
                       ></v-checkbox>
@@ -133,7 +133,7 @@
                         :filled="view"
                         :false-value="0"
                         :true-value="1"
-                        label="Co Flag"
+                        :label="$t('document.company')"
                         color="success"
                         hide-details
                       ></v-checkbox>
@@ -149,7 +149,7 @@
                         :filled="view"
                         :false-value="0"
                         :true-value="1"
-                        label="Substitution"
+                        :label="$t('document.substitution')"
                         color="success"
                         hide-details
                       ></v-checkbox>
@@ -165,7 +165,7 @@
                         :filled="view"
                         :false-value="0"
                         :true-value="1"
-                        label="Renew Flag"
+                        :label="$t('document.renewable')"
                         color="success"
                         hide-details
                       ></v-checkbox>
@@ -180,29 +180,29 @@
           <v-card-actions v-if="!view">
             <v-spacer></v-spacer>
             <v-btn color="blue darken-1" text rounded @click="dialog = false">
-              Cancel
+              {{ $t("common.cancel") }}
             </v-btn>
             <v-btn color="blue darken-1" text rounded @click="save">
-              Save
+              {{ $t("common.save") }}
             </v-btn>
           </v-card-actions>
           <v-card-actions v-else>
             <v-spacer></v-spacer>
             <v-btn color="blue darken-1" text rounded @click="view = false; dialog = false; editedItem = {}; editedIndex = -1">
-              Cancel
+              {{ $t("common.cancel") }}
             </v-btn>
             <v-btn color="blue darken-1" text rounded @click="view = false">
-              Edit
+              {{ $t("common.edit") }}
             </v-btn>
           </v-card-actions>
         </v-card>
         <v-dialog v-model="dialogDelete" max-width="390px" persistent>
           <v-card>
-            <v-card-title class="headline delete-font">Are you sure you want to delete this record?</v-card-title>
+            <v-card-title class="headline delete-font">{{ $t("common.deleteRecord") }}</v-card-title>
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn color="blue darken-1" text @click="dialogDelete=false">Cancel</v-btn>
-              <v-btn color="blue darken-1" text @click="deleteItemConfirm">OK</v-btn>
+              <v-btn color="blue darken-1" text @click="dialogDelete=false">{{ $t("common.cancel") }}</v-btn>
+              <v-btn color="blue darken-1" text @click="deleteItemConfirm">{{ $t("common.ok") }}</v-btn>
               <v-spacer></v-spacer>
             </v-card-actions>
           </v-card>
@@ -260,18 +260,18 @@ export default {
       dialogDelete: false,
       headers: [
         {
-          text: 'ID',
+          text: this.$i18n.t("common.id"),
           align: 'start',
           value: 'id'
         },
-        { text: 'En Name', value: 'en_name' },
-        { text: 'Ar Name', value: 'ar_name' },
-        { text: 'Exp Date', value: 'exp_date' },
-        { text: 'Hijri Flag', value: 'hijriflag' },
-        { text: 'Co Flag', value: 'co_flag' },
-        { text: 'Substitution', value: 'substitution' },
-        { text: 'Renew Flag', value: 'renew_flag' },
-        { text: 'Actions', value: 'actions', sortable: false }
+        { text: this.$i18n.t("document.nameEnglish"), value: 'en_name' },
+        { text: this.$i18n.t("document.nameArabic"), value: 'ar_name' },
+        { text: this.$i18n.t("document.expDays"), value: 'exp_date' },
+        { text: this.$i18n.t("document.inHijri"), value: 'hijriflag' },
+        { text: this.$i18n.t("document.company"), value: 'co_flag' },
+        { text: this.$i18n.t("document.substitution"), value: 'substitution' },
+        { text: this.$i18n.t("document.renewable"), value: 'renew_flag' },
+        { text: this.$i18n.t("common.action"), value: 'actions', sortable: false }
       ],
       desserts: [],
       editedIndex: -1,
@@ -290,7 +290,7 @@ export default {
   },
   computed: {
     formTitle () {
-      return this.editedIndex === -1 ? 'New Document Type' : 'Edit Document Type'
+      return this.editedIndex === -1 ? this.$t('document.new') : this.$t('document.edit')
     }
   },
   watch: {

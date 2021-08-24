@@ -33,7 +33,7 @@
                   rounded
                   @click="dialog = true"
                 >
-                  Create City
+                  {{ $t("city.create") }}
                 </v-btn>
               </template>
             </v-toolbar>
@@ -65,7 +65,7 @@
                       :disabled="view"
                       :filled="view"
                       :items="countryData"
-                      label="Country"
+                      :label="$t('city.country')"
                       required
                       :rules="[
                         value => !!value || 'This  field is required'
@@ -77,7 +77,7 @@
                       v-model="editedItem.region"
                       :disabled="view"
                       :filled="view"
-                      label="Region"
+                      :label="$t('city.region')"
                       required
                       :rules="[
                         value => !!value || 'This  field is required'
@@ -89,7 +89,7 @@
                       v-model="editedItem.en_name"
                       :disabled="view"
                       :filled="view"
-                      label="CityName(EN)"
+                      :label="$t('city.nameEnglish')"
                       required
                       :rules="[
                         value => !!value || 'This  field is required'
@@ -102,7 +102,7 @@
                       :disabled="view"
                       :filled="view"
                       class="direction"
-                      label="City Name(AR)"
+                      :label="$t('city.nameArabic')"
                       required
                       :rules="[
                         value => !!value || 'This  field is required'
@@ -114,7 +114,7 @@
                       v-model="editedItem.ticket_value"
                       :disabled="view"
                       :filled="view"
-                      label="Ticket Value"
+                      :label="$t('city.ticketValue')"
                     ></v-text-field>
                   </v-col>
                 </v-row>
@@ -125,19 +125,19 @@
           <v-card-actions v-if="!view">
             <v-spacer></v-spacer>
             <v-btn color="blue darken-1" text rounded @click="dialog = false">
-              Cancel
+              {{ $t("common.cancel") }}
             </v-btn>
             <v-btn color="blue darken-1" text rounded @click="save">
-              Save
+              {{ $t("common.save") }}
             </v-btn>
           </v-card-actions>
           <v-card-actions v-else>
             <v-spacer></v-spacer>
             <v-btn color="blue darken-1" text rounded @click="view = false; dialog = false; editedItem = {}; editedIndex = -1">
-              Cancel
+              {{ $t("common.cancel") }}
             </v-btn>
             <v-btn color="blue darken-1" text rounded @click="view = false">
-              Edit
+              {{ $t("common.edit") }}
             </v-btn>
           </v-card-actions>
         </v-card>
@@ -145,19 +145,19 @@
           <v-card>
             <v-card-title
               class="headline delete-font"
-            >Are you sure you want to delete this city?</v-card-title>
+            >{{ $t("common.deleteRecord") }}</v-card-title>
             <v-card-actions>
               <v-spacer></v-spacer>
               <v-btn
                 color="blue darken-1"
                 text
                 @click="dialogDelete = false"
-              >Cancel</v-btn>
+              >{{ $t("common.cancel") }}</v-btn>
               <v-btn
                 color="blue darken-1"
                 text
                 @click="deleteItemConfirm"
-              >OK</v-btn>
+              >{{ $t("common.ok") }}</v-btn>
               <v-spacer></v-spacer>
             </v-card-actions>
           </v-card>
@@ -210,16 +210,16 @@ export default {
       view: false,
       headers: [
         {
-          text: 'ID',
+          text: this.$i18n.t("common.id"),
           align: 'start',
           value: 'id'
         },
-        { text: 'En Name', value: 'en_name' },
-        { text: 'Ar Name', value: 'ar_name' },
-        { text: 'Region', value: 'region' },
-        { text: 'Ticket Value', value: 'ticket_value' },
-        { text: 'Country', value: 'country_id.en_name' },
-        { text: 'Actions', value: 'actions', sortable: false }
+        { text: this.$i18n.t("city.nameEnglish"), value: 'en_name' },
+        { text: this.$i18n.t("city.nameArabic"), value: 'ar_name' },
+        // { text: 'Region', value: 'region' },
+        { text: this.$i18n.t("city.ticketValue"), value: 'ticket_value' },
+        { text: this.$i18n.t("city.country"), value: 'country_id.en_name' },
+        { text: this.$i18n.t("common.action"), value: 'actions', sortable: false }
       ],
       desserts: [],
       editedIndex: -1,
@@ -247,7 +247,7 @@ export default {
   },
   computed: {
     formTitle() {
-      return this.editedIndex === -1 ? 'New City' : 'Edit City'
+      return this.editedIndex === -1 ? this.$t('city.new') : this.$t('city.edit')
     },
     ...mapState('app', ['countries']),
     countryData() {

@@ -70,7 +70,7 @@
                       md="6"
                     >
                       <v-text-field
-                        label="Positions Types in Arabic"
+                        :label="$t('position.nameArabic')"
                         class="direction"
                         v-model="editedItem.ar_name"
                         :disabled="view"
@@ -85,7 +85,7 @@
                       md="6"
                     >
                       <v-text-field
-                        label="Positions Types in English"
+                        :label="$t('position.nameEnglish')"
                         v-model="editedItem.en_name"
                         :disabled="view"
                         :filled="view"
@@ -104,7 +104,7 @@
                         :filled="view"
                         :false-value="0"
                         :true-value="1"
-                        label="Level"
+                        :label="$t('position.level')"
                         color="success"
                         hide-details
                       ></v-checkbox>
@@ -120,7 +120,7 @@
                         :filled="view"
                         :false-value="0"
                         :true-value="1"
-                        label="Is Active"
+                        :label="$t('position.isActive')"
                         color="success"
                         hide-details
                       ></v-checkbox>
@@ -135,29 +135,29 @@
           <v-card-actions v-if="!view">
             <v-spacer></v-spacer>
             <v-btn color="blue darken-1" text rounded @click="dialog = false">
-              Cancel
+              {{ $t("common.cancel") }}
             </v-btn>
             <v-btn color="blue darken-1" text rounded @click="save">
-              Save
+              {{ $t("common.save") }}
             </v-btn>
           </v-card-actions>
           <v-card-actions v-else>
             <v-spacer></v-spacer>
             <v-btn color="blue darken-1" text rounded @click="view = false; dialog = false; editedItem = {}; editedIndex = -1">
-              Cancel
+              {{ $t("common.cancel") }}
             </v-btn>
             <v-btn color="blue darken-1" text rounded @click="view = false">
-              Edit
+              {{ $t("common.edit") }}
             </v-btn>
           </v-card-actions>
         </v-card>
         <v-dialog v-model="dialogDelete" max-width="390px" persistent>
           <v-card>
-            <v-card-title class="headline delete-font">Are you sure you want to delete this record?</v-card-title>
+            <v-card-title class="headline delete-font">{{ $t("common.deleteRecord") }}</v-card-title>
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn color="blue darken-1" text @click="dialogDelete=false">Cancel</v-btn>
-              <v-btn color="blue darken-1" text @click="deleteItemConfirm">OK</v-btn>
+              <v-btn color="blue darken-1" text @click="dialogDelete=false">{{ $t("common.cancel") }}</v-btn>
+              <v-btn color="blue darken-1" text @click="deleteItemConfirm">{{ $t("common.ok") }}</v-btn>
               <v-spacer></v-spacer>
             </v-card-actions>
           </v-card>
@@ -209,15 +209,15 @@ export default {
       dialogDelete: false,
       headers: [
         {
-          text: 'ID',
+          text: this.$i18n.t("common.id"),
           align: 'start',
           value: 'id',
         },
-        { text: 'En Name', value: 'en_name' },
-        { text: 'Ar Name', value: 'ar_name' },
-        { text: 'Level', value: 'level' },
-        { text: 'Is Active', value: 'is_active' },
-        { text: 'Actions', value: 'actions', sortable: false },
+        { text: this.$i18n.t("position.nameEnglish"), value: 'en_name' },
+        { text: this.$i18n.t("position.nameArabic"), value: 'ar_name' },
+        { text: this.$i18n.t("position.level"), value: 'level' },
+        { text: this.$i18n.t("position.isActive"), value: 'is_active' },
+        { text: this.$i18n.t("common.action"), value: 'actions', sortable: false },
       ],
       desserts: [],
       editedIndex: -1,
@@ -233,7 +233,7 @@ export default {
   },
   computed: {
     formTitle () {
-      return this.editedIndex === -1 ? 'New Position' : 'Edit Position'
+      return this.editedIndex === -1 ? this.$t('position.new') : this.$t('position.edit')
     }
   },
   watch: {
