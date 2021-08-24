@@ -70,7 +70,7 @@
                       md="6"
                     >
                       <v-text-field
-                        label="Competence Name in Arabic"
+                        :label="$t('costCenter.nameArabic')"
                         class="direction"
                         v-model="editedItem.ar_name"
                         :disabled="view"
@@ -85,7 +85,7 @@
                       md="6"
                     >
                       <v-text-field
-                        label="Competence Name in English"
+                       :label="$t('costCenter.nameEnglish')"
                         v-model="editedItem.en_name"
                         :disabled="view"
                         :filled="view"
@@ -104,7 +104,7 @@
                         :filled="view"
                         :false-value="0"
                         :true-value="1"
-                        label="Is Active"
+                        :label="$t('costCenter.isActive')"
                         color="success"
                         hide-details
                       ></v-checkbox>
@@ -120,7 +120,7 @@
                         :filled="view"
                         :false-value="0"
                         :true-value="1"
-                        label="Store cc"
+                        :label="$t('costCenter.storeCc')"
                         color="success"
                         hide-details
                       ></v-checkbox>
@@ -136,7 +136,7 @@
                         :filled="view"
                         :false-value="0"
                         :true-value="1"
-                        label="Status"
+                        :label="$t('costCenter.status')"
                         color="success"
                         hide-details
                       ></v-checkbox>
@@ -152,7 +152,7 @@
                         :filled="view"
                         :false-value="0"
                         :true-value="1"
-                        label="Update Status"
+                        :label="$t('costCenter.updateStatus')"
                         color="success"
                         hide-details
                       ></v-checkbox>
@@ -167,29 +167,29 @@
           <v-card-actions v-if="!view">
             <v-spacer></v-spacer>
             <v-btn color="blue darken-1" text rounded @click="dialog = false">
-              Cancel
+              {{ $t("common.cancel") }}
             </v-btn>
             <v-btn color="blue darken-1" text rounded @click="save">
-              Save
+              {{ $t("common.save") }}
             </v-btn>
           </v-card-actions>
           <v-card-actions v-else>
             <v-spacer></v-spacer>
             <v-btn color="blue darken-1" text rounded @click="view = false; dialog = false; editedItem = {}; editedIndex = -1">
-              Cancel
+              {{ $t("common.cancel") }}
             </v-btn>
             <v-btn color="blue darken-1" text rounded @click="view = false">
-              Edit
+              {{ $t("common.edit") }}
             </v-btn>
           </v-card-actions>
         </v-card>
         <v-dialog v-model="dialogDelete" max-width="390px" persistent>
           <v-card>
-            <v-card-title class="headline delete-font">Are you sure you want to delete this record?</v-card-title>
+            <v-card-title class="headline delete-font">{{ $t("common.deleteRecord") }}</v-card-title>
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn color="blue darken-1" text @click="dialogDelete=false">Cancel</v-btn>
-              <v-btn color="blue darken-1" text @click="deleteItemConfirm">OK</v-btn>
+              <v-btn color="blue darken-1" text @click="dialogDelete=false">{{ $t("common.cancel") }}</v-btn>
+              <v-btn color="blue darken-1" text @click="deleteItemConfirm">{{ $t("common.ok") }}</v-btn>
               <v-spacer></v-spacer>
             </v-card-actions>
           </v-card>
@@ -245,17 +245,17 @@ export default {
       dialogDelete: false,
       headers: [
         {
-          text: 'ID',
+          text: this.$i18n.t("common.id"),
           align: 'start',
           value: 'id',
         },
-        { text: 'En Name', value: 'en_name' },
-        { text: 'Ar Name', value: 'ar_name' },
-        { text: 'Is Active', value: 'is_active' },
-        { text: 'Store cc', value: 'storecc' },
-        { text: 'Status', value: 'status' },
-        { text: 'Update Status', value: 'update_status' },
-        { text: 'Actions', value: 'actions', sortable: false },
+        { text: this.$i18n.t("costCenter.nameEnglish"), value: 'en_name' },
+        { text: this.$i18n.t("costCenter.nameArabic"), value: 'ar_name' },
+        { text: this.$i18n.t("costCenter.isActive"), value: 'is_active' },
+        { text: this.$i18n.t("costCenter.storeCc"), value: 'storecc' },
+        { text: this.$i18n.t("costCenter.status"), value: 'status' },
+        { text: this.$i18n.t("costCenter.updateStatus"), value: 'update_status' },
+        { text: this.$i18n.t("common.action"), value: 'actions', sortable: false },
       ],
       desserts: [],
       editedIndex: -1,
@@ -273,7 +273,7 @@ export default {
   },
   computed: {
     formTitle () {
-      return this.editedIndex === -1 ? 'New Cost Center' : 'Edit Cost Center'
+      return this.editedIndex === -1 ? this.$t('costCenter.new') : this.$t('costCenter.edit')
     }
   },
   watch: {

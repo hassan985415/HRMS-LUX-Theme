@@ -267,26 +267,75 @@ export default {
   earning:{
     title: "Earnings",
     create: "Create Earnings",
+    nameEnglish:"Earning Type in English",
+    nameArabic:"Earning Type in Arabic",
+    percentageOfSalary:"Percentage Of Salary",
+    isFactor:"Is Factor",
+    wValue:"W Value",
+    isFixed:"Is Fixed",
+    isMb:"Is Mb",
+
+    new:"New Earning",
+    edit:"Edit Earning",
   },
   deduction:{
     title: "Deductions",
     create: "Create Deductions",
+    nameArabic:"Deduction Type In Arabic",
+    nameEnglish:"Deduction Type In English",
+    isFixed:"Is Fixed",
+    isMb:"Is Mb",
+    creditGlid:"Credit Glid",
+    parentDeduction:"Parent Deduction",
+    isRequest:"Is Request",
+    printable:"Printable",
+    modifyFlag:"Modify Flag",
+
+    new:"New Deduction",
+    edit:"Edit Deduction",
   },
   modification:{
     title: "Modification",
     create: "Create Modification",
+    nameEnglish:"Modification Type In English",
+    nameArabic:"Modification Type In Arabic",
+    flag:"Flag",
+
+    new:"New Modification",
+    edit:"Edit Modification",
   },
   currency:{
     title: "Currency Type",
     create: "Create Currency",
+    nameEnglish:"Currency Name In English",
+    nameArabic:"Currency Name In Arabic",
+    exchangeRate:"Exchange Rate",
+
+    new:"New Currency",
+    edit:"Edit Currency",
   },
   section:{
     title: "Section",
     create: "Create Section",
+    nameArabic:"Section Description In Arabic",
+    nameEnglish:"Section Description In English",
+
+    new:"New Section",
+    edit:"Edit Section",
   },
   costCenter:{
     title: "Cost Centers",
     create: "Create Cost Center",
+    nameEnglish:"Name In English",
+    nameArabic:"Name In Arabic",
+    status:"Status",
+    updateStatus:"Update Status",
+    storeCc:"Store CC",
+    isActive:"Is Active",
+
+    new:"New Cost Center",
+    edit:"Edit Cost Center",
+    
   },
   percentage:{
     title: "Percentage",

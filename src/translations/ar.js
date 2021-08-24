@@ -389,27 +389,75 @@ export default {
   },
   earning: {
     title: "الأرباح",
-    create: "إنشاء الأرباح "
+    create: "إنشاء الأرباح ",
+    nameEnglish:"نوع الكسب باللغة الإنجليزية",
+    nameArabic:"نوع الكسب باللغة العربية",
+    percentageOfSalary:"نسبة الراتب",
+    isFactor:"هو العامل",
+    wValue:"ث قيمة ",
+    isFixed:"تم إصلاحه",
+    isMb:"هو ميغابايت",
+
+    new:"أرباح جديدة",
+    edit:"تحرير الكسب",
   },
   deduction: {
     title: "الخصومات",
-    create: "إنشاء الخصومات "
+    create: "إنشاء الخصومات ",
+    nameArabic:"نوع الاستقطاع باللغة العربية",
+    nameEnglish:"نوع الخصم باللغة الإنجليزية",
+    isFixed:"تم إصلاحه",
+    isMb:"هو ميغابايت",
+    creditGlid:"انزلاق الائتمان",
+    parentDeduction:"خصم الوالدين",
+    isRequest:"هو الطلب",
+    printable:"للطباعة",
+    modifyFlag:"تعديل العلم",
+
+    new:"خصم جديد",
+    edit:"تحرير الخصم",
   },
   modification: {
     title: "التعديل",
-    create: "إنشاء التعديل "
+    create: "إنشاء التعديل ",
+    nameEnglish:"نوع التعديل باللغة الإنجليزية",
+    nameArabic:"نوع التعديل باللغة العربية",
+    flag:"علم",
+
+    new:"تعديل جديد",
+    edit:"تعديل التعديل",
   },
   currency: {
     title: "أنواع العملات",
-    create: "إنشاء العملات "
+    create: "إنشاء العملات ",
+    nameEnglish:"اسم العملة باللغة الإنجليزية",
+    nameArabic:"اسم العملة باللغة العربية",
+    exchangeRate:"سعر الصرف",
+
+    new:"عملة جديدة",
+    edit:"تحرير العملة",
   },
   section: {
     title: "الأقسام",
-    create: "إنشاء الأقسام "
+    create: "إنشاء الأقسام ",
+    nameArabic:"وصف القسم باللغة العربية",
+    nameEnglish:"وصف القسم باللغة الإنجليزية",
+
+    new:"قسم جديد",
+    edit:"تحرير القسم",
   },
   costCenter: {
     title: "مراكز التكلفة",
-    create: "إنشاء مركز التكلفة "
+    create: "إنشاء مركز التكلفة ",
+    nameEnglish:"الاسم باللغة الإنجليزية",
+    nameArabic:"الاسم باللغة العربية",
+    status:"الحالة",
+    updateStatus:"تحديث الحالة",
+    storeCc:"مخزن سم مكعب",
+    isActive:"نشط",
+
+    new:"مركز تكلفة جديد",
+    edit:"تحرير مركز التكلفة",
   },
   percentage: {
     title: "النسبة المئوية",
