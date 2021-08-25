@@ -461,23 +461,72 @@ export default {
   },
   percentage: {
     title: "النسبة المئوية",
-    create: "إنشاء النسبة المئوية "
+    create: "إنشاء النسبة المئوية ",
+    nameArabic:"الوصف بالعربية",
+    nameEnglish:"الوصف باللغة الإنجليزية",
+    value:"القيمة",
+    to:"إلى",
+    from:"من عند",
+
+    new:"نسبة جديدة",
+    edit:"تعديل النسبة المئوية",
   },
   education: {
     title: "أنواع التعليم",
-    create: "إنشاء التعليم "
+    create: "إنشاء التعليم ",
+    nameEnglish:"نوع التعليم باللغة الإنجليزية",
+    nameArabic:"نوع التعليم باللغة العربية",
+    educationRemark:"ملاحظة التعليم",
+    isSponsored:"برعاية",
+
+    new:"نوع تعليم جديد",
+    edit:"تحرير نوع التعليم",
   },
   session: {
     title: "الجلسات",
-    create: "إنشاء جلسة"
+    create: "إنشاء جلسة",
+    nameEnglish:"اسم اللغة الإنجليزية",
+    nameArabic:"اسم عربي",
+    cin:"سين",
+    cout:"كوت",
+    begin:"يبدأ",
+    end:"نهاية",
+
+    new:"دورة جديدة",
+    edit:"تحرير الجلسة",
   },
   companySchedule: {
     title: "جداول الشركة",
-    create: "إنشاء جدول الشركة"
+    create: "إنشاء جدول الشركة",
+    nameEnglish:"الوصف باللغة الإنجليزية",
+    nameArabic:"الوصف بالعربية",
+    dateFrom:"التاريخ من",
+    dateTo:"تاريخ ل",
+    dateToH:"التاريخ ل_ ح",
+    dateFromH:"التاريخ من_ ح",
+    noWork:"لا عمل",
+    forSchedule:"للجدول الزمني",
+    paidOverTime:"العمل الإضافي المدفوع",
+    selectCompany:"اختر شركة",
+
+    new:"جدول الشركة الجديد",
+    edit:"تعديل جدول الشركة",
+
   },
   gosiSubscription: {
     title: "جوزي اشتراك",
-    create: "إنشاء جوزي اشتراك"
+    create: "إنشاء جوزي اشتراك",
+    nameEnglish:"اسم اللغة الإنجليزية",
+    nameArabic:"اسم عربي",
+
+    new: "جوزي اشتراك الجديد",
+    edit: "تعديل جوزي اشتراك",
+  },
+
+
+  gossiPreferences:{
+    title:"جوزي التفضيلات",
+    create:"إنشاء جوزي التفضيلات",
   },
   menu: {
     companySetup: "إعداد الشركة",
