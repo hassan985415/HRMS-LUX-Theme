@@ -26,7 +26,7 @@
             <v-toolbar
               flat
             >
-              <v-toolbar-title><h3>Payroll Specific Preferences</h3></v-toolbar-title>
+              <v-toolbar-title><h3>{{ $t("payrollSpecific.title") }}</h3></v-toolbar-title>
               <v-spacer></v-spacer>
               <template>
                 <v-btn
@@ -36,7 +36,7 @@
                   rounded
                   @click="dialog = true"
                 >
-                  Create Payroll Specific Preference
+                  {{ $t("payrollSpecific.create") }}
                 </v-btn>
               </template>
             </v-toolbar>
@@ -75,7 +75,7 @@
                         :items="companies"
                         :item-text="companies.text"
                         :item-value="companies.value"
-                        label="Select Company"
+                        :label="$t('payrollSpecific.selectCompany')"
                       ></v-select>
                     </v-col>
                     <v-col
@@ -90,7 +90,7 @@
                         :items="branches"
                         :item-text="branches.text"
                         :item-value="branches.value"
-                        label="Select branch"
+                        :label="$t('payrollSpecific.selectBranch')"
                       ></v-select>
                     </v-col>
                     <v-col
@@ -104,7 +104,7 @@
                         :filled="view"
                         :false-value="0"
                         :true-value="1"
-                        label="sub ledger id"
+                        :label="$t('payrollSpecific.subLedgerId')"
                         color="success"
                         hide-details
                       ></v-checkbox>
@@ -120,7 +120,7 @@
                         :filled="view"
                         :false-value="0"
                         :true-value="1"
-                        label="Monthly pay"
+                        :label="$t('payrollSpecific.monthlyPay')"
                         color="success"
                         hide-details
                       ></v-checkbox>
@@ -136,7 +136,7 @@
                         :filled="view"
                         :false-value="0"
                         :true-value="1"
-                        label="Post to account"
+                        :label="$t('payrollSpecific.postToAccount')"
                         color="success"
                         hide-details
                       ></v-checkbox>
@@ -152,7 +152,7 @@
                         :filled="view"
                         :false-value="0"
                         :true-value="1"
-                        label="Return date"
+                        :label="$t('payrollSpecific.returnDate')"
                         color="success"
                         hide-details
                       ></v-checkbox>
@@ -168,7 +168,7 @@
                         :filled="view"
                         :false-value="0"
                         :true-value="1"
-                        label="Calculate extraleave"
+                        :label="$t('payrollSpecific.calculateExtraLeave')"
                         color="success"
                         hide-details
                       ></v-checkbox>
@@ -184,7 +184,7 @@
                         :filled="view"
                         :false-value="0"
                         :true-value="1"
-                        label="Use twoglacct inbenefits"
+                        :label="$t('payrollSpecific.useTwoGlAcctInBenefit')"
                         color="success"
                         hide-details
                       ></v-checkbox>
@@ -200,7 +200,7 @@
                         :filled="view"
                         :false-value="0"
                         :true-value="1"
-                        label="Payroll rounding"
+                        :label="$t('payrollSpecific.payRollRounding')"
                         color="success"
                         hide-details
                       ></v-checkbox>
@@ -216,7 +216,7 @@
                         :filled="view"
                         :false-value="0"
                         :true-value="1"
-                        label="Map to branch"
+                        :label="$t('payrollSpecific.mapToAcctBranch')"
                         color="success"
                         hide-details
                       ></v-checkbox>
@@ -232,7 +232,7 @@
                         :filled="view"
                         :false-value="0"
                         :true-value="1"
-                        label="Attendance mc"
+                        :label="$t('payrollSpecific.attendenceMc')"
                         color="success"
                         hide-details
                       ></v-checkbox>
@@ -248,7 +248,7 @@
                         :filled="view"
                         :false-value="0"
                         :true-value="1"
-                        label="Cost center based attendance"
+                        :label="$t('payrollSpecific.costCenterBasedAttendence')"
                         color="success"
                         hide-details
                       ></v-checkbox>
@@ -264,7 +264,7 @@
                         :filled="view"
                         :false-value="0"
                         :true-value="1"
-                        label="Entry overtime"
+                        :label="$t('payrollSpecific.entryOverTime')"
                         color="success"
                         hide-details
                       ></v-checkbox>
@@ -280,7 +280,7 @@
                         :filled="view"
                         :false-value="0"
                         :true-value="1"
-                        label="Split payroll"
+                        :label="$t('payrollSpecific.spiltPayRoll')"
                         color="success"
                         hide-details
                       ></v-checkbox>
@@ -296,7 +296,7 @@
                         :filled="view"
                         :false-value="0"
                         :true-value="1"
-                        label="Auto gosi calculate"
+                        :label="$t('payrollSpecific.autoGosiCalculate')"
                         color="success"
                         hide-details
                       ></v-checkbox>
@@ -310,7 +310,7 @@
                         v-model="editedItem.gosi_alert_days"
                         :disabled="view"
                         :filled="view"
-                        label="Gosi alert days"
+                        :label="$t('payrollSpecific.gosiAlertDays')"
                         :rules="[ (value) => !!value || 'This  field is required',
                                   (value) => (value && value.length <= 50) || 'maximum 50 characters',]"
                       ></v-text-field>
@@ -325,19 +325,19 @@
           <v-card-actions v-if="!view">
             <v-spacer></v-spacer>
             <v-btn color="blue darken-1" text rounded @click="dialog = false">
-              Cancel
+               {{ $t("common.cancel") }}
             </v-btn>
             <v-btn color="blue darken-1" text rounded @click="save">
-              Save
+               {{ $t("common.save") }}
             </v-btn>
           </v-card-actions>
           <v-card-actions v-else>
             <v-spacer></v-spacer>
             <v-btn color="blue darken-1" text rounded @click="view = false; dialog = false; editedItem = {}; editedIndex = -1">
-              Cancel
+               {{ $t("common.cancel") }}
             </v-btn>
             <v-btn color="blue darken-1" text rounded @click="view = false">
-              Edit
+               {{ $t("common.edit") }}
             </v-btn>
           </v-card-actions>
         </v-card>
@@ -430,25 +430,25 @@ export default {
       dialogDelete: false,
       headers: [
         {
-          text: 'ID',
+          text: this.$i18n.t("common.id"),
           align: 'start',
           value: 'id'
         },
-        { text: 'Sub ledger id', value: 'sub_ledger_id' },
-        { text: 'Monthly pay', value: 'monthly_pay' },
-        { text: 'Post to account', value: 'post_to_account' },
-        { text: 'Return date', value: 'return_date' },
-        { text: 'Calculate extra leave', value: 'calculate_extraleave' },
-        { text: 'Use two glacct in benefits', value: 'use_twoglacct_inbenefits' },
-        { text: 'Payroll rounding', value: 'payroll_rounding' },
-        { text: 'Map to acctg branch', value: 'map_to_acctg_branch' },
-        { text: 'Attendance mc', value: 'attendance_mc' },
-        { text: 'Costcenter based attendance', value: 'costcenter_based_attendance' },
-        { text: 'Entry overtime', value: 'entry_overtime' },
-        { text: 'Split payroll', value: 'split_payroll' },
-        { text: 'Auto gosi calculate', value: 'auto_gosi_calculate' },
-        { text: 'Gosi alert days', value: 'gosi_alert_days' },
-        { text: 'Actions', value: 'actions', sortable: false }
+        { text: this.$i18n.t("payrollSpecific.subLedgerId"), value: 'sub_ledger_id' },
+        { text: this.$i18n.t("payrollSpecific.monthlyPay"), value: 'monthly_pay' },
+        { text: this.$i18n.t("payrollSpecific.postToAccount"), value: 'post_to_account' },
+        { text: this.$i18n.t("payrollSpecific.returnDate"), value: 'return_date' },
+        { text: this.$i18n.t("payrollSpecific.calculateExtraLeave"), value: 'calculate_extraleave' },
+        { text: this.$i18n.t("payrollSpecific.useTwoGlAcctInBenefit"), value: 'use_twoglacct_inbenefits' },
+        { text: this.$i18n.t("payrollSpecific.payRollRounding"), value: 'payroll_rounding' },
+        { text: this.$i18n.t("payrollSpecific.mapToAcctBranch"), value: 'map_to_acctg_branch' },
+        { text: this.$i18n.t("payrollSpecific.attendenceMc"), value: 'attendance_mc' },
+        { text: this.$i18n.t("payrollSpecific.costCenterBasedAttendence"), value: 'costcenter_based_attendance' },
+        { text: this.$i18n.t("payrollSpecific.entryOverTime"), value: 'entry_overtime' },
+        { text: this.$i18n.t("payrollSpecific.spiltPayRoll"), value: 'split_payroll' },
+        { text: this.$i18n.t("payrollSpecific.autoGosiCalculate"), value: 'auto_gosi_calculate' },
+        { text: this.$i18n.t("payrollSpecific.gosiAlertDays"), value: 'gosi_alert_days' },
+        { text: this.$i18n.t("common.action"), value: 'actions', sortable: false }
       ],
       desserts: [],
       editedIndex: -1,
@@ -478,7 +478,7 @@ export default {
   },
   computed: {
     formTitle () {
-      return this.editedIndex === -1 ? 'New Payroll Specific Preferences' : 'Edit Payroll Specific Preferences'
+      return this.editedIndex === -1 ? this.$t('payrollSpecific.new') : this.$t('payrollSpecific.edit')
     }
   },
   created () {

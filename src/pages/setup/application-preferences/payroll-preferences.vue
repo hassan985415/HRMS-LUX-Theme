@@ -26,7 +26,7 @@
             <v-toolbar
               flat
             >
-              <v-toolbar-title><h3>Payroll Preferences</h3></v-toolbar-title>
+              <v-toolbar-title><h3>{{ $t("payrollPreferences.title") }}</h3></v-toolbar-title>
               <v-spacer></v-spacer>
               <template>
                 <v-btn
@@ -36,7 +36,7 @@
                   rounded
                   @click="dialog = true"
                 >
-                  Create Payroll Preferences
+                  {{ $t("payrollPreferences.create") }}
                 </v-btn>
               </template>
             </v-toolbar>
@@ -75,7 +75,7 @@
                         :items="companies"
                         :item-text="companies.text"
                         :item-value="companies.value"
-                        label="Select Company"
+                        :label="$t('payrollPreferences.selectCompany')"
                       ></v-select>
                     </v-col>
                     <v-col
@@ -90,7 +90,7 @@
                         :items="branches"
                         :item-text="branches.text"
                         :item-value="branches.value"
-                        label="Select branch"
+                        :label="$t('payrollPreferences.selectBranch')"
                       ></v-select>
                     </v-col>
                     <v-col
@@ -102,7 +102,7 @@
                         v-model="editedItem.hours_per_month"
                         :disabled="view"
                         :filled="view"
-                        label="Hours per month"
+                        :label="$t('payrollPreferences.hourPerMonth')"
                         type="number"
                         :rules="[ (value) => !!value || 'This  field is required']"
                       ></v-text-field>
@@ -116,7 +116,7 @@
                         v-model="editedItem.days_per_month"
                         :disabled="view"
                         :filled="view"
-                        label="Days per month"
+                        :label="$t('payrollPreferences.daysPerMonth')"
                         type="number"
                         :rules="[ (value) => !!value || 'This  field is required']"
                       ></v-text-field>
@@ -130,7 +130,7 @@
                         v-model="editedItem.ot"
                         :disabled="view"
                         :filled="view"
-                        label="ot"
+                        :label="$t('payrollPreferences.ot')"
                         type="number"
                         :rules="[ (value) => !!value || 'This  field is required']"
                       ></v-text-field>
@@ -144,7 +144,7 @@
                         v-model="editedItem.tardiness_factor"
                         :disabled="view"
                         :filled="view"
-                        label="Tardiness Factor"
+                        :label="$t('payrollPreferences.tardinessFactor')"
                         type="number"
                         :rules="[ (value) => !!value || 'This  field is required',
                                   (value) => (value && value.length <= 20) || 'maximum 5 characters',]"
@@ -159,7 +159,7 @@
                         v-model="editedItem.absent_factor"
                         :disabled="view"
                         :filled="view"
-                        label="Absent Factor"
+                        :label="$t('payrollPreferences.absentFactor')"
                         type="number"
                         :rules="[ (value) => !!value || 'This  field is required',
                                   (value) => (value && value.length <= 20) || 'maximum 5 characters',]"
@@ -176,7 +176,7 @@
                         :filled="view"
                         :false-value="0"
                         :true-value="1"
-                        label="Calc_outside_payroll"
+                        :label="$t('payrollPreferences.calcOutsidePayRoll')"
                         color="success"
                         hide-details
                       ></v-checkbox>
@@ -192,7 +192,7 @@
                         :filled="view"
                         :false-value="0"
                         :true-value="1"
-                        label="Post_outside_payroll"
+                        :label="$t('payrollPreferences.postAccount')"
                         color="success"
                         hide-details
                       ></v-checkbox>
@@ -208,7 +208,7 @@
                         :filled="view"
                         :false-value="0"
                         :true-value="1"
-                        label="Calc_overtime_payroll"
+                        :label="$t('payrollPreferences.calcOvertimePayroll')"
                         color="success"
                         hide-details
                       ></v-checkbox>
@@ -224,7 +224,7 @@
                         :filled="view"
                         :false-value="0"
                         :true-value="1"
-                        label="Days_only"
+                        :label="$t('payrollPreferences.daysOnly')"
                         color="success"
                         hide-details
                       ></v-checkbox>
@@ -240,7 +240,7 @@
                         :filled="view"
                         :false-value="0"
                         :true-value="1"
-                        label="Full_housing"
+                        :label="$t('payrollPreferences.fullHousing')"
                         color="success"
                         hide-details
                       ></v-checkbox>
@@ -255,19 +255,19 @@
           <v-card-actions v-if="!view">
             <v-spacer></v-spacer>
             <v-btn color="blue darken-1" text rounded @click="dialog = false">
-              Cancel
+              {{ $t("common.cancel") }}
             </v-btn>
             <v-btn color="blue darken-1" text rounded @click="save">
-              Save
+              {{ $t("common.save") }}
             </v-btn>
           </v-card-actions>
           <v-card-actions v-else>
             <v-spacer></v-spacer>
             <v-btn color="blue darken-1" text rounded @click="view = false; dialog = false; editedItem = {}; editedIndex = -1">
-              Cancel
+              {{ $t("common.cancel") }}
             </v-btn>
             <v-btn color="blue darken-1" text rounded @click="view = false">
-              Edit
+              {{ $t("common.edit") }}
             </v-btn>
           </v-card-actions>
         </v-card>
@@ -352,21 +352,21 @@ export default {
       dialogDelete: false,
       headers: [
         {
-          text: 'ID',
+          text: this.$i18n.t("common.id"),
           align: 'start',
           value: 'id'
         },
-        { text: 'Hours per month', value: 'hours_per_month' },
-        { text: 'Days per month', value: 'days_per_month' },
-        { text: 'Ot', value: 'ot' },
-        { text: 'Tardiness factor', value: 'tardiness_factor' },
-        { text: 'Absent factor', value: 'absent_factor' },
-        { text: 'Calc outside payroll', value: 'calc_outside_payroll' },
-        { text: 'Post to acct ot outside payroll', value: 'posttoacct_ot_outside_payroll' },
-        { text: 'Calc overtime payroll', value: 'calc_overtime_payroll' },
-        { text: 'Days only', value: 'days_only' },
-        { text: 'Full housing', value: 'full_housing' },
-        { text: 'Actions', value: 'actions', sortable: false }
+        { text: this.$i18n.t("payrollPreferences.hourPerMonth"), value: 'hours_per_month' },
+        { text: this.$i18n.t("payrollPreferences.daysPerMonth"), value: 'days_per_month' },
+        { text: this.$i18n.t("payrollPreferences.ot"), value: 'ot' },
+        { text: this.$i18n.t("payrollPreferences.trandinessFactor"), value: 'tardiness_factor' },
+        { text: this.$i18n.t("payrollPreferences.absentFactor"), value: 'absent_factor' },
+        { text: this.$i18n.t("payrollPreferences.calcOutsidePayRoll"), value: 'calc_outside_payroll' },
+        { text: this.$i18n.t("payrollPreferences.postAccount"), value: 'posttoacct_ot_outside_payroll' },
+        { text: this.$i18n.t("payrollPreferences.calcOvertimePayroll"), value: 'calc_overtime_payroll' },
+        { text: this.$i18n.t("payrollPreferences.daysOnly"), value: 'days_only' },
+        { text: this.$i18n.t("payrollPreferences.fullHousing"), value: 'full_housing' },
+        { text: this.$i18n.t("common.action"), value: 'actions', sortable: false }
       ],
       desserts: [],
       editedIndex: -1,
@@ -392,7 +392,7 @@ export default {
   },
   computed: {
     formTitle () {
-      return this.editedIndex === -1 ? 'New Payroll Preferences' : 'Edit Payroll Preferences'
+      return this.editedIndex === -1 ?  this.$t('payrollPreferences.new') : this.$t('payrollPreferences.edit')
     }
   },
   created () {

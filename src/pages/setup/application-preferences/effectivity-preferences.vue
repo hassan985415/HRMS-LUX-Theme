@@ -26,7 +26,7 @@
             <v-toolbar
               flat
             >
-              <v-toolbar-title><h3>Effectivity Preferences</h3></v-toolbar-title>
+              <v-toolbar-title><h3>{{ $t("effectivity.title") }}</h3></v-toolbar-title>
               <v-spacer></v-spacer>
               <template >
                 <v-btn
@@ -36,7 +36,7 @@
                   rounded
                   @click="dialog = true"
                 >
-                  Create Effectivity Preferences
+                  {{ $t("effectivity.create") }}
                 </v-btn>
               </template>
             </v-toolbar>
@@ -75,7 +75,7 @@
                         :items="companies"
                         :item-text="companies.text"
                         :item-value="companies.value"
-                        label="Select Company"
+                        :label="$t('effectivity.selectCompany')"
                       ></v-select>
                     </v-col>
                     <v-col
@@ -90,7 +90,7 @@
                         :items="branches"
                         :item-text="branches.text"
                         :item-value="branches.value"
-                        label="Select branch"
+                        :label="$t('effectivity.selectBranch')"
                       ></v-select>
                     </v-col>
                     <v-col
@@ -102,7 +102,7 @@
                         v-model="editedItem.start_date"
                         :disabled="view"
                         :filled="view"
-                        label="Start Date"
+                        :label="$t('effectivity.startDate')"
                         type="date"
                         :rules="[ (value) => !!value || 'This  field is required']"
                       ></v-text-field>
@@ -118,7 +118,7 @@
                         :filled="view"
                         :false-value="0"
                         :true-value="1"
-                        label="Update ticket benefit"
+                        :label="$t('effectivity.updateTicketBenefit')"
                         color="success"
                         hide-details
                       ></v-checkbox>
@@ -134,7 +134,7 @@
                         :filled="view"
                         :false-value="0"
                         :true-value="1"
-                        label="Fix asset"
+                        :label="$t('effectivity.fixAsset')"
                         color="success"
                         hide-details
                       ></v-checkbox>
@@ -150,7 +150,7 @@
                         :filled="view"
                         :false-value="0"
                         :true-value="1"
-                        label="Accumulated"
+                        :label="$t('effectivity.accumulated')"
                         color="success"
                         hide-details
                       ></v-checkbox>
@@ -165,29 +165,29 @@
           <v-card-actions v-if="!view">
             <v-spacer></v-spacer>
             <v-btn color="blue darken-1" text rounded @click="dialog = false">
-              Cancel
+              {{ $t("common.cancel") }}
             </v-btn>
             <v-btn color="blue darken-1" text rounded @click="save">
-              Save
+              {{ $t("common.save") }}
             </v-btn>
           </v-card-actions>
           <v-card-actions v-else>
             <v-spacer></v-spacer>
             <v-btn color="blue darken-1" text rounded @click="view = false; dialog = false; editedItem = {}; editedIndex = -1">
-              Cancel
+              {{ $t("common.cancel") }}
             </v-btn>
             <v-btn color="blue darken-1" text rounded @click="view = false">
-              Edit
+              {{ $t("common.edit") }}
             </v-btn>
           </v-card-actions>
         </v-card>
         <v-dialog v-model="dialogDelete" max-width="390px" persistent>
           <v-card>
-            <v-card-title class="headline delete-font">Are you sure you want to delete this record?</v-card-title>
+            <v-card-title class="headline delete-font">{{ $t("common.deleteRecord") }}</v-card-title>
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn color="blue darken-1" text @click="dialogDelete=false">Cancel</v-btn>
-              <v-btn color="blue darken-1" text @click="deleteItemConfirm">OK</v-btn>
+              <v-btn color="blue darken-1" text @click="dialogDelete=false">{{ $t("common.cancel") }}</v-btn>
+              <v-btn color="blue darken-1" text @click="deleteItemConfirm">{{ $t("common.ok") }}</v-btn>
               <v-spacer></v-spacer>
             </v-card-actions>
           </v-card>
@@ -239,15 +239,15 @@ export default {
       dialogDelete: false,
       headers: [
         {
-          text: 'ID',
+          text: this.$i18n.t("common.id"),
           align: 'start',
           value: 'id'
         },
-        { text: 'Update ticket benefit', value: 'update_ticket_benefit' },
-        { text: 'Fix asset', value: 'fix_asset' },
-        { text: 'Accumulated', value: 'accumulated' },
-        { text: 'Start date', value: 'start_date' },
-        { text: 'Actions', value: 'actions', sortable: false }
+        { text: this.$i18n.t("effectivity.updateTicketBenefit"), value: 'update_ticket_benefit' },
+        { text: this.$i18n.t("effectivity.fixAsset"), value: 'fix_asset' },
+        { text: this.$i18n.t("effectivity.accumulated"), value: 'accumulated' },
+        { text: this.$i18n.t("effectivity.startDate"), value: 'start_date' },
+        { text: this.$i18n.t("common.action"), value: 'actions', sortable: false }
       ],
       desserts: [],
       editedIndex: -1,
@@ -267,7 +267,7 @@ export default {
   },
   computed: {
     formTitle () {
-      return this.editedIndex === -1 ? 'New Effectivity Preferences' : 'Edit Effectivity Preferences'
+      return this.editedIndex === -1 ? this.$t('effectivity.new') : this.$t('effectivity.edit')
     }
   },
   created () {

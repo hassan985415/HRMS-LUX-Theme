@@ -26,7 +26,7 @@
             <v-toolbar
               flat
             >
-              <v-toolbar-title><h3>Gosi Preferences</h3></v-toolbar-title>
+              <v-toolbar-title><h3>{{ $t("gossiPreferences.title") }}</h3></v-toolbar-title>
               <v-spacer></v-spacer>
               <template>
                 <v-btn
@@ -36,7 +36,7 @@
                   rounded
                   @click="dialog = true"
                 >
-                  Create Gosi Preferences
+                  {{ $t("gossiPreferences.create") }}
                 </v-btn>
               </template>
             </v-toolbar>
@@ -75,7 +75,7 @@
                         :items="companies"
                         :item-text="companies.text"
                         :item-value="companies.value"
-                        label="Select Company"
+                        :label="$t('gossiPreferences.selectCompany')"
                       ></v-select>
                     </v-col>
                     <v-col
@@ -90,7 +90,7 @@
                         :items="branches"
                         :item-text="branches.text"
                         :item-value="branches.value"
-                        label="Select branch"
+                       :label="$t('gossiPreferences.selectBranch')"
                       ></v-select>
                     </v-col>
                     <v-col
@@ -102,7 +102,7 @@
                         v-model="editedItem.gosi_non_saudi"
                         :disabled="view"
                         :filled="view"
-                        label="Gosi non_saudi"
+                        :label="$t('gossiPreferences.nonSaudi')"
                         type="number"
                         :rules="[ (value) => !!value || 'This  field is required',
                                   (value) => (value && value.length <= 20) || 'maximum 5 characters',]"
@@ -117,7 +117,7 @@
                         v-model="editedItem.gosi_saudi"
                         :disabled="view"
                         :filled="view"
-                        label="Gosi Saudi"
+                        :label="$t('gossiPreferences.saudi')"
                         type="number"
                         :rules="[ (value) => !!value || 'This  field is required',
                                   (value) => (value && value.length <= 20) || 'maximum 5 characters',]"
@@ -132,7 +132,7 @@
                         v-model="editedItem.gosi_saudi_company"
                         :disabled="view"
                         :filled="view"
-                        label="Gosi saudi_company"
+                        :label="$t('gossiPreferences.companySaudi')"
                         type="number"
                         :rules="[ (value) => !!value || 'This  field is required',
                                   (value) => (value && value.length <= 20) || 'maximum 5 characters',]"
@@ -147,7 +147,7 @@
                         v-model="editedItem.gosi_non_saudi_company"
                         :disabled="view"
                         :filled="view"
-                        label="Gosi_non_saudi_company"
+                        :label="$t('gossiPreferences.companyNonSaudi')"
                         type="number"
                         :rules="[ (value) => !!value || 'This  field is required',
                                   (value) => (value && value.length <= 20) || 'maximum 5 characters',]"
@@ -162,7 +162,7 @@
                         v-model="editedItem.date"
                         :disabled="view"
                         :filled="view"
-                        label="Date"
+                        :label="$t('gossiPreferences.date')"
                         type="date"
                       ></v-text-field>
                     </v-col>
@@ -177,7 +177,7 @@
                         :filled="view"
                         :false-value="0"
                         :true-value="1"
-                        label="Gosi payroll flag"
+                        :label="$t('gossiPreferences.payRollFlag')"
                         color="success"
                         hide-details
                       ></v-checkbox>
@@ -192,19 +192,19 @@
           <v-card-actions v-if="!view">
             <v-spacer></v-spacer>
             <v-btn color="blue darken-1" text rounded @click="dialog = false">
-              Cancel
+              {{ $t("common.cancel") }}
             </v-btn>
             <v-btn color="blue darken-1" text rounded @click="save">
-              Save
+              {{ $t("common.save") }}
             </v-btn>
           </v-card-actions>
           <v-card-actions v-else>
             <v-spacer></v-spacer>
             <v-btn color="blue darken-1" text rounded @click="view = false; dialog = false; editedItem = {}; editedIndex = -1">
-              Cancel
+              {{ $t("common.cancel") }}
             </v-btn>
             <v-btn color="blue darken-1" text rounded @click="view = false">
-              Edit
+              {{ $t("common.edit") }}
             </v-btn>
           </v-card-actions>
         </v-card>
@@ -281,17 +281,17 @@ export default {
       dialogDelete: false,
       headers: [
         {
-          text: 'ID',
+          text: this.$i18n.t("common.id"),
           align: 'start',
           value: 'id'
         },
-        { text: 'Gosi non_saudi', value: 'gosi_non_saudi' },
-        { text: 'Gosi saudi', value: 'gosi_saudi' },
-        { text: 'Gosi saudi_company', value: 'gosi_saudi_company' },
-        { text: 'Gosi non_saudi Company', value: 'gosi_non_saudi_company' },
-        { text: 'Gosi Payroll Flag', value: 'gosi_payroll_flag' },
-        { text: 'Date', value: 'date' },
-        { text: 'Actions', value: 'actions', sortable: false }
+        { text: this.$i18n.t("gossiPreferences.nonSaudi"), value: 'gosi_non_saudi' },
+        { text: this.$i18n.t("gossiPreferences.saudi"), value: 'gosi_saudi' },
+        { text: this.$i18n.t("gossiPreferences.companyNonSaudi"), value: 'gosi_saudi_company' },
+        { text: this.$i18n.t("gossiPreferences.companySaudi"), value: 'gosi_non_saudi_company' },
+        { text: this.$i18n.t("gossiPreferences.payRollFlag"), value: 'gosi_payroll_flag' },
+        { text: this.$i18n.t("gossiPreferences.date"), value: 'date' },
+        { text: this.$i18n.t("common.action"), value: 'actions', sortable: false }
       ],
       desserts: [],
       editedIndex: -1,
@@ -313,7 +313,7 @@ export default {
   },
   computed: {
     formTitle () {
-      return this.editedIndex === -1 ? 'New Gosi Preferences' : 'Edit Gosi Preferences'
+      return this.editedIndex === -1 ? this.$t('gossiPreferences.new') : this.$t('gossiPreferences.edit')
     }
   },
   created () {
