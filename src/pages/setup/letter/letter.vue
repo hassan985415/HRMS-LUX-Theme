@@ -26,7 +26,7 @@
               <v-toolbar
                 flat
               >
-                <v-toolbar-title><h3>Letter</h3></v-toolbar-title>
+                <v-toolbar-title><h3>{{ $t("letter.title") }}</h3></v-toolbar-title>
                 <v-spacer></v-spacer>
                   <template>
                     <v-btn
@@ -36,7 +36,7 @@
                       rounded
                       @click="dialog = true"
                     >
-                      Create Letter
+                      {{ $t("letter.create") }}
                     </v-btn>
                   </template>
               </v-toolbar>
@@ -87,7 +87,7 @@
                         :items="companies"
                         :item-text="companies.text"
                         :item-value="companies.value"
-                        label="Select Company"
+                        :label="$t('letter.selectCompany')"
                       ></v-select>
                     </v-col>
                     <v-col
@@ -102,7 +102,7 @@
                         :items="branches"
                         :item-text="branches.text"
                         :item-value="branches.value"
-                        label="Select branch"
+                        :label="$t('letter.selectBranch')"
                       ></v-select>
                     </v-col>
                     <v-col
@@ -111,7 +111,7 @@
                       md="6"
                     >
                       <v-text-field
-                        label="Serial id"
+                         :label="$t('letter.serialId')"
                         type="number"
                         v-model="editedItem.serial_id"
                         :disabled="view"
@@ -124,7 +124,7 @@
                       md="6"
                     >
                       <v-text-field
-                        label="Doc type"
+                         :label="$t('letter.docType')"
                         type="number"
                         v-model="editedItem.doc_type"
                         :disabled="view"
@@ -142,7 +142,7 @@
                         :filled="view"
                         :false-value="0"
                         :true-value="1"
-                        label="Request"
+                         :label="$t('letter.request')"
                         color="success"
                         hide-details
                       ></v-checkbox>
@@ -153,7 +153,7 @@
                       md="6"
                     >
                       <v-text-field
-                        label="Name in Arabic"
+                         :label="$t('letter.nameInArabic')"
                         class="direction"
                         v-model="editedItem.ar_name"
                         :disabled="view"
@@ -168,7 +168,7 @@
                       md="6"
                     >
                       <v-text-field
-                        label="Name in English"
+                         :label="$t('letter.nameInEnglish')"
                         v-model="editedItem.en_name"
                         :disabled="view"
                         :filled="view"
@@ -182,7 +182,7 @@
                       md="6"
                     >
                       <v-text-field
-                        label="Description in Arabic"
+                         :label="$t('letter.descriptionInArabic')"
                         class="direction"
                         v-model="editedItem.ar_description"
                         :disabled="view"
@@ -195,7 +195,7 @@
                       md="6"
                     >
                       <v-text-field
-                        label="Description in English"
+                        :label="$t('letter.descriptionInEnglish')"
                         v-model="editedItem.en_description"
                         :disabled="view"
                         :filled="view"
@@ -207,7 +207,7 @@
                       md="6"
                     >
                       <v-text-field
-                        label="Language"
+                       :label="$t('letter.language')"
                         v-model="editedItem.language"
                         :disabled="view"
                         :filled="view"
@@ -223,29 +223,29 @@
           <v-card-actions v-if="!view">
             <v-spacer></v-spacer>
             <v-btn color="blue darken-1" text rounded @click="dialog = false">
-              Cancel
+              {{ $t("common.cancel") }}
             </v-btn>
             <v-btn color="blue darken-1" text rounded @click="save">
-              Save
+              {{ $t("common.save") }}
             </v-btn>
           </v-card-actions>
           <v-card-actions v-else>
             <v-spacer></v-spacer>
             <v-btn color="blue darken-1" text rounded @click="view = false; dialog = false; editedItem = {}; editedIndex = -1">
-              Cancel
+              {{ $t("common.cancel") }}
             </v-btn>
             <v-btn color="blue darken-1" text rounded @click="view = false">
-              Edit
+              {{ $t("common.edit") }}
             </v-btn>
           </v-card-actions>
         </v-card>
         <v-dialog v-model="dialogDelete" max-width="390px" persistent>
           <v-card>
-            <v-card-title class="headline delete-font">Are you sure you want to delete this record?</v-card-title>
+            <v-card-title class="headline delete-font">{{ $t("common.deleteRecord") }}</v-card-title>
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn color="blue darken-1" text @click="dialogDelete=false">Cancel</v-btn>
-              <v-btn color="blue darken-1" text @click="deleteItemConfirm">OK</v-btn>
+              <v-btn color="blue darken-1" text @click="dialogDelete=false">{{ $t("common.cancel") }}</v-btn>
+              <v-btn color="blue darken-1" text @click="deleteItemConfirm">{{ $t("common.ok") }}</v-btn>
               <v-spacer></v-spacer>
             </v-card-actions>
           </v-card>
@@ -423,19 +423,19 @@ export default {
       dialogAttach: false,
       headers: [
         {
-          text: 'ID',
+          text: this.$i18n.t("common.id"),
           align: 'start',
           value: 'id',
         },
-        { text: 'Serial id', value: 'serial_id' },
-        { text: 'Doc type', value: 'doc_type' },
-        { text: 'Request', value: 'request' },
-        { text: 'En name', value: 'en_name' },
-        { text: 'Ar name', value: 'ar_name' },
-        { text: 'Ar description', value: 'ar_description' },
-        { text: 'En description', value: 'en_description' },
-        { text: 'Language', value: 'language' },
-        { text: 'Actions', value: 'actions', sortable: false },
+        { text: this.$i18n.t("letter.serialId"), value: 'serial_id' },
+        { text: this.$i18n.t("letter.docType"), value: 'doc_type' },
+        { text: this.$i18n.t("letter.request"), value: 'request' },
+        { text: this.$i18n.t("letter.nameInEnglish"), value: 'en_name' },
+        { text: this.$i18n.t("letter.nameInArabic"), value: 'ar_name' },
+        { text: this.$i18n.t("letter.descriptionInArabic"), value: 'ar_description' },
+        { text: this.$i18n.t("letter.descriptionInEnglish"), value: 'en_description' },
+        { text: this.$i18n.t("letter.language"), value: 'language' },
+        { text: this.$i18n.t("common.action"), value: 'actions', sortable: false },
       ],
       attachHeaders: [
         {
@@ -492,7 +492,7 @@ export default {
   },
   computed: {
     formTitle () {
-      return this.editedIndex === -1 ? 'New Letter' : 'Edit Letter'
+      return this.editedIndex === -1 ? this.$t('letter.new') : this.$t('letter.edit')
     }
   },
   created () {

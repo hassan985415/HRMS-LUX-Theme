@@ -26,7 +26,7 @@
               <v-toolbar
                 flat
               >
-                <v-toolbar-title><h3>Termination Specific Preferences</h3></v-toolbar-title>
+                <v-toolbar-title><h3>{{ $t("terminationSpecific.title") }}</h3></v-toolbar-title>
                 <v-spacer></v-spacer>
                   <template>
                     <v-btn
@@ -36,7 +36,7 @@
                       rounded
                       @click="dialog = true"
                     >
-                      Create Termination Specific Preference
+                      {{ $t("terminationSpecific.create") }}
                     </v-btn>
                   </template>
               </v-toolbar>
@@ -75,7 +75,7 @@
                         :items="companies"
                         :item-text="companies.text"
                         :item-value="companies.value"
-                        label="Select Company"
+                        :label="$t('terminationSpecific.selectCompany')"
                       ></v-select>
                     </v-col>
                     <v-col
@@ -90,7 +90,7 @@
                         :items="branches"
                         :item-text="branches.text"
                         :item-value="branches.value"
-                        label="Select branch"
+                        :label="$t('terminationSpecific.selectBranch')"
                       ></v-select>
                     </v-col>
                     <v-col
@@ -104,7 +104,7 @@
                         :filled="view"
                         :false-value="0"
                         :true-value="1"
-                        label="Include eos"
+                        :label="$t('terminationSpecific.includeEos')"
                         color="success"
                         hide-details
                       ></v-checkbox>
@@ -115,7 +115,7 @@
                       md="6"
                     >
                       <v-text-field
-                        label="End service benefit"
+                        :label="$t('terminationSpecific.endServiceBenefit')"
                         v-model="editedItem.end_service_benefit"
                         :disabled="view"
                         :filled="view"
@@ -129,7 +129,7 @@
                       md="6"
                     >
                       <v-text-field
-                        label="Resignation notice"
+                        :label="$t('terminationSpecific.resignationNotice')"
                         type="number"
                         v-model="editedItem.resignation_notice"
                         :disabled="view"
@@ -143,7 +143,7 @@
                       md="6"
                     >
                       <v-text-field
-                        label="Termination notice"
+                        :label="$t('terminationSpecific.terminationNotice')"
                         type="number"
                         v-model="editedItem.termination_notice"
                         :disabled="view"
@@ -161,19 +161,19 @@
           <v-card-actions v-if="!view">
             <v-spacer></v-spacer>
             <v-btn color="blue darken-1" text rounded @click="dialog = false">
-              Cancel
+              {{ $t("common.cancel") }}
             </v-btn>
             <v-btn color="blue darken-1" text rounded @click="save">
-              Save
+              {{ $t("common.save") }}
             </v-btn>
           </v-card-actions>
           <v-card-actions v-else>
             <v-spacer></v-spacer>
             <v-btn color="blue darken-1" text rounded @click="view = false; dialog = false; editedItem = {}; editedIndex = -1">
-              Cancel
+              {{ $t("common.cancel") }}
             </v-btn>
             <v-btn color="blue darken-1" text rounded @click="view = false">
-              Edit
+              {{ $t("common.edit") }}
             </v-btn>
           </v-card-actions>
         </v-card>
@@ -247,15 +247,15 @@ export default {
       dialogDelete: false,
       headers: [
         {
-          text: 'ID',
+          text: this.$i18n.t("common.id"),
           align: 'start',
           value: 'id',
         },
-        { text: 'End service benefit', value: 'end_service_benefit' },
-        { text: 'Resignation notice', value: 'resignation_notice' },
-        { text: 'Termination notice', value: 'termination_notice' },
-        { text: 'include eos', value: 'include_eos' },
-        { text: 'Actions', value: 'actions', sortable: false },
+        { text: this.$i18n.t("terminationSpecific.endServiceBenefit"), value: 'end_service_benefit' },
+        { text: this.$i18n.t("terminationSpecific.resignationNotice"), value: 'resignation_notice' },
+        { text: this.$i18n.t("terminationSpecific.terminationNotice"), value: 'termination_notice' },
+        { text: this.$i18n.t("terminationSpecific.includeEos"), value: 'include_eos' },
+        { text: this.$i18n.t("common.action"), value: 'actions', sortable: false },
       ],
       desserts: [],
       editedIndex: -1,
@@ -275,7 +275,7 @@ export default {
   },
   computed: {
     formTitle () {
-      return this.editedIndex === -1 ? 'New Termination Specific Preferences' : 'Edit Termination Specific Preferences'
+      return this.editedIndex === -1 ? this.$t('terminationSpecific.new') : this.$t('terminationSpecific.edit')
     }
   },
   created () {

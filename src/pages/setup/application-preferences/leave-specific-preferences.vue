@@ -26,7 +26,7 @@
             <v-toolbar
               flat
             >
-              <v-toolbar-title><h3>Leave Specific Preferences</h3></v-toolbar-title>
+              <v-toolbar-title><h3>{{ $t("leaveSpecific.title") }}</h3></v-toolbar-title>
               <v-spacer></v-spacer>
               <template>
                 <v-btn
@@ -36,7 +36,7 @@
                   rounded
                   @click="dialog = true"
                 >
-                  Create Leave Specific Preference
+                  {{ $t("leaveSpecific.create") }}
                 </v-btn>
               </template>
             </v-toolbar>
@@ -75,7 +75,7 @@
                         :items="companies"
                         :item-text="companies.text"
                         :item-value="companies.value"
-                        label="Select Company"
+                        :label="$t('leaveSpecific.selectCompany')"
                       ></v-select>
                     </v-col>
                     <v-col
@@ -90,7 +90,7 @@
                         :items="branches"
                         :item-text="branches.text"
                         :item-value="branches.value"
-                        label="Select branch"
+                        :label="$t('leaveSpecific.selectBranch')"
                       ></v-select>
                     </v-col>
                     <v-col
@@ -104,7 +104,7 @@
                         :filled="view"
                         :false-value="0"
                         :true-value="1"
-                        label="Forward vacation days"
+                        :label="$t('leaveSpecific.forwardVacationDaysBalance')"
                         color="success"
                         hide-details
                       ></v-checkbox>
@@ -120,7 +120,7 @@
                         :filled="view"
                         :false-value="0"
                         :true-value="1"
-                        label="Use latest salary calc"
+                        :label="$t('leaveSpecific.useLatestSalaryCalculation')"
                         color="success"
                         hide-details
                       ></v-checkbox>
@@ -136,7 +136,7 @@
                         :filled="view"
                         :false-value="0"
                         :true-value="1"
-                        label="Include vacation days"
+                        :label="$t('leaveSpecific.includeVacationsDays')"
                         color="success"
                         hide-details
                       ></v-checkbox>
@@ -152,7 +152,7 @@
                         :filled="view"
                         :false-value="0"
                         :true-value="1"
-                        label="Days in year"
+                        :label="$t('leaveSpecific.daysInYear')"
                         color="success"
                         hide-details
                       ></v-checkbox>
@@ -168,7 +168,7 @@
                         :filled="view"
                         :false-value="0"
                         :true-value="1"
-                        label="Include eos"
+                        :label="$t('leaveSpecific.includeEos')"
                         color="success"
                         hide-details
                       ></v-checkbox>
@@ -184,7 +184,7 @@
                         :filled="view"
                         :false-value="0"
                         :true-value="1"
-                        label="Current days month"
+                        :label="$t('leaveSpecific.currentDaysMonth')"
                         color="success"
                         hide-details
                       ></v-checkbox>
@@ -198,7 +198,7 @@
                         v-model="editedItem.vacation_per_contract"
                         :disabled="view"
                         :filled="view"
-                        label="Vacation per contract"
+                        :label="$t('leaveSpecific.vacationPerContract')"
                         type="number"
                         :rules="[ (value) => !!value || 'This  field is required']"
                       ></v-text-field>
@@ -212,7 +212,7 @@
                         v-model="editedItem.vacation_days_per_contract"
                         :disabled="view"
                         :filled="view"
-                        label="Vacation per contract"
+                        :label="$t('leaveSpecific.vacationDaysPerContract')"
                         type="number"
                         :rules="[ (value) => !!value || 'This  field is required']"
                       ></v-text-field>
@@ -226,7 +226,7 @@
                         v-model="editedItem.fiscal_year_end"
                         :disabled="view"
                         :filled="view"
-                        label="Fiscal year end"
+                        :label="$t('leaveSpecific.fiscalYearEnd')"
                         type="date"
                         :rules="[ (value) => !!value || 'This  field is required']"
                       ></v-text-field>
@@ -241,19 +241,19 @@
           <v-card-actions v-if="!view">
             <v-spacer></v-spacer>
             <v-btn color="blue darken-1" text rounded @click="dialog = false">
-              Cancel
+               {{ $t("common.cancel") }}
             </v-btn>
             <v-btn color="blue darken-1" text rounded @click="save">
-              Save
+               {{ $t("common.save") }}
             </v-btn>
           </v-card-actions>
           <v-card-actions v-else>
             <v-spacer></v-spacer>
             <v-btn color="blue darken-1" text rounded @click="view = false; dialog = false; editedItem = {}; editedIndex = -1">
-              Cancel
+               {{ $t("common.cancel") }}
             </v-btn>
             <v-btn color="blue darken-1" text rounded @click="view = false">
-              Edit
+               {{ $t("common.edit") }}
             </v-btn>
           </v-card-actions>
         </v-card>
@@ -337,20 +337,20 @@ export default {
       dialogDelete: false,
       headers: [
         {
-          text: 'ID',
+          text: this.$i18n.t("common.id"),
           align: 'start',
           value: 'id'
         },
-        { text: 'Forward vacation days balance', value: 'forward_vacation_days_balance' },
-        { text: 'Use latest salary calc', value: 'use_latest_salary_calc' },
-        { text: 'Include vacation days', value: 'include_vacation_days' },
-        { text: 'Days in year', value: 'days_in_year' },
-        { text: 'Include eos', value: 'include_eos' },
-        { text: 'Current days month', value: 'current_days_month' },
-        { text: 'Fiscal year end', value: 'fiscal_year_end' },
-        { text: 'Vacation per contract', value: 'vacation_per_contract' },
-        { text: 'Vacation days per contract', value: 'vacation_days_per_contract' },
-        { text: 'Actions', value: 'actions', sortable: false }
+        { text: this.$i18n.t("leaveSpecific.forwardVacationDaysBalance"), value: 'forward_vacation_days_balance' },
+        { text: this.$i18n.t("leaveSpecific.useLatestSalaryCalculation"), value: 'use_latest_salary_calc' },
+        { text: this.$i18n.t("leaveSpecific.includeVacationsDays"), value: 'include_vacation_days' },
+        { text: this.$i18n.t("leaveSpecific.daysInYear"), value: 'days_in_year' },
+        { text: this.$i18n.t("leaveSpecific.includeEos"), value: 'include_eos' },
+        { text: this.$i18n.t("leaveSpecific.currentDaysMonth"), value: 'current_days_month' },
+        { text: this.$i18n.t("leaveSpecific.fiscalYearEnd"), value: 'fiscal_year_end' },
+        { text: this.$i18n.t("leaveSpecific.vacationPerContract"), value: 'vacation_per_contract' },
+        { text:  this.$i18n.t("leaveSpecific.vacationDaysPerContract"), value: 'vacation_days_per_contract' },
+        { text:  this.$i18n.t("common.action"), value: 'actions', sortable: false }
       ],
       desserts: [],
       editedIndex: -1,
@@ -375,7 +375,7 @@ export default {
   },
   computed: {
     formTitle () {
-      return this.editedIndex === -1 ? 'New Leave Specific Preferences' : 'Edit Leave Specific Preferences'
+      return this.editedIndex === -1 ? this.$t('leaveSpecific.new') : this.$t('leaveSpecific.edit')
     }
   },
   created () {

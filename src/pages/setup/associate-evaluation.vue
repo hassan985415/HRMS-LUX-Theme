@@ -26,7 +26,7 @@
               <v-toolbar
                 flat
               >
-                <v-toolbar-title><h3>Associate Evaluations</h3></v-toolbar-title>
+                <v-toolbar-title><h3>{{ $t("associateEvaluations.title") }}</h3></v-toolbar-title>
                 <v-spacer></v-spacer>
                   <template >
                     <v-btn
@@ -36,7 +36,7 @@
                       rounded
                       @click="dialog = true"
                     >
-                      Create Associate Evaluation
+                     {{ $t("associateEvaluations.create") }}
                     </v-btn>
                   </template>
               </v-toolbar>
@@ -75,7 +75,7 @@
                         :items="companies"
                         :item-text="companies.text"
                         :item-value="companies.value"
-                        label="Select Company"
+                        :label="$t('associateEvaluations.selectCompany')"
                         :rules="[ (value) => !!value || 'This  field is required',]"
                       ></v-select>
                     </v-col>
@@ -91,7 +91,7 @@
                         :items="designations"
                         :item-text="designations.text"
                         :item-value="designations.value"
-                        label="Select designation"
+                        :label="$t('associateEvaluations.selectDesignation')"
                         :rules="[ (value) => !!value || 'This  field is required',]"
                       ></v-select>
                     </v-col>
@@ -107,7 +107,7 @@
                         :items="evaluations"
                         :item-text="evaluations.text"
                         :item-value="evaluations.value"
-                        label="Select Evaluation"
+                        :label="$t('associateEvaluations.selectEvaluations')"
                         :rules="[ (value) => !!value || 'This  field is required',]"
                       ></v-select>
                     </v-col>
@@ -123,7 +123,7 @@
                         :items="branches"
                         :item-text="branches.text"
                         :item-value="branches.value"
-                        label="Select branch"
+                        :label="$t('associateEvaluations.selectBranch')"
                         :rules="[ (value) => !!value || 'This  field is required',]"
                       ></v-select>
                     </v-col>
@@ -133,7 +133,7 @@
                       md="6"
                     >
                       <v-text-field
-                        label="Max Mark"
+                        :label="$t('associateEvaluations.maxMark')"
                         v-model="editedItem.max_mark"
                         :disabled="view"
                         :filled="view"
@@ -147,7 +147,7 @@
                       md="6"
                     >
                       <v-text-field
-                        label="Status"
+                        :label="$t('associateEvaluations.status')"
                         type="number"
                         v-model="editedItem.status"
                         :disabled="view"
@@ -166,29 +166,29 @@
           <v-card-actions v-if="!view">
             <v-spacer></v-spacer>
             <v-btn color="blue darken-1" text rounded @click="dialog = false">
-              Cancel
+              {{ $t("common.cancel") }}
             </v-btn>
             <v-btn color="blue darken-1" text rounded @click="save">
-              Save
+              {{ $t("common.save") }}
             </v-btn>
           </v-card-actions>
           <v-card-actions v-else>
             <v-spacer></v-spacer>
             <v-btn color="blue darken-1" text rounded @click="view = false; dialog = false; editedItem = {}; editedIndex = -1">
-              Cancel
+              {{ $t("common.cancel") }}
             </v-btn>
             <v-btn color="blue darken-1" text rounded @click="view = false">
-              Edit
+              {{ $t("common.edit") }}
             </v-btn>
           </v-card-actions>
         </v-card>
         <v-dialog v-model="dialogDelete" max-width="390px" persistent>
           <v-card>
-            <v-card-title class="headline delete-font">Are you sure you want to delete this record?</v-card-title>
+            <v-card-title class="headline delete-font">{{ $t("common.deleteRecord") }}</v-card-title>
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn color="blue darken-1" text @click="dialogDelete=false">Cancel</v-btn>
-              <v-btn color="blue darken-1" text @click="deleteItemConfirm">OK</v-btn>
+              <v-btn color="blue darken-1" text @click="dialogDelete=false">{{ $t("common.cancel") }}</v-btn>
+              <v-btn color="blue darken-1" text @click="deleteItemConfirm">{{ $t("common.ok") }}</v-btn>
               <v-spacer></v-spacer>
             </v-card-actions>
           </v-card>
@@ -237,13 +237,13 @@ export default {
       dialogDelete: false,
       headers: [
         {
-          text: 'ID',
+          text: this.$i18n.t("common.id"),
           align: 'start',
           value: 'id',
         },
-        { text: 'Max Mark', value: 'max_mark' },
-        { text: 'Status', value: 'status' },
-        { text: 'Actions', value: 'actions', sortable: false },
+        { text: this.$i18n.t("associateEvaluations.maxMark"), value: 'max_mark' },
+        { text: this.$i18n.t("associateEvaluations.status"), value: 'status' },
+        { text: this.$i18n.t("common.action"), value: 'actions', sortable: false },
       ],
       desserts: [],
       editedIndex: -1,
@@ -265,7 +265,7 @@ export default {
   },
   computed: {
     formTitle () {
-      return this.editedIndex === -1 ? 'New Associate Evaluation' : 'Edit Associate Evaluation'
+      return this.editedIndex === -1 ? this.$t('associateEvaluations.new') : this.$t('associateEvaluations.edit')
     }
   },
   watch: {
