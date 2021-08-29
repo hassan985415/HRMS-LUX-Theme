@@ -75,7 +75,7 @@
                         :item-value="companies.value"
                         :disabled="view"
                         :filled="view"
-                        label="Select Company"
+                        :label="$t('companySchedule.selectCompany')"
                       ></v-select>
                     </v-col>
                     <v-col
@@ -87,7 +87,7 @@
                         v-model="editedItem.ar_description"
                         :disabled="view"
                         :filled="view"
-                        label="Description in Arabic"
+                        :label="$t('companySchedule.nameArabic')"
                         class="direction"
                         :rules="[ (value) => !!value || 'This  field is required',
                                   (value) => (value && value.length <= 50) || 'maximum 50 characters',]"
@@ -102,7 +102,7 @@
                         v-model="editedItem.en_description"
                         :disabled="view"
                         :filled="view"
-                        label="Description in English"
+                        :label="$t('companySchedule.nameEnglish')"
                         :rules="[ (value) => !!value || 'This  field is required',
                                   (value) => (value && value.length <= 50) || 'maximum 50 characters',]"
                       ></v-text-field>
@@ -116,7 +116,7 @@
                         v-model="editedItem.date_from"
                         :disabled="view"
                         :filled="view"
-                        label="Date From"
+                        :label="$t('companySchedule.dateFrom')"
                         type="date"
                         :rules="[ (value) => !!value || 'This  field is required']"
                       ></v-text-field>
@@ -130,7 +130,7 @@
                         v-model="editedItem.date_to"
                         :disabled="view"
                         :filled="view"
-                        label="Date To"
+                        :label="$t('companySchedule.dateTo')"
                         type="date"
                         :rules="[ (value) => !!value || 'This  field is required']"
                       ></v-text-field>
@@ -144,7 +144,7 @@
                         v-model="editedItem.date_from_h"
                         :disabled="view"
                         :filled="view"
-                        label="Date From_h"
+                        :label="$t('companySchedule.dateFromH')"
                         type="date"
                         :rules="[ (value) => !!value || 'This  field is required']"
                       ></v-text-field>
@@ -158,7 +158,7 @@
                         v-model="editedItem.date_to_h"
                         :disabled="view"
                         :filled="view"
-                        label="Date To_h"
+                        :label="$t('companySchedule.dateToH')"
                         type="date"
                         :rules="[ (value) => !!value || 'This  field is required']"
                       ></v-text-field>
@@ -174,7 +174,7 @@
                         :filled="view"
                         :false-value="0"
                         :true-value="1"
-                        label="No Work"
+                        :label="$t('companySchedule.noWork')"
                         color="success"
                         hide-details
                       ></v-checkbox>
@@ -190,7 +190,7 @@
                         :filled="view"
                         :false-value="0"
                         :true-value="1"
-                        label="For Schedule"
+                        :label="$t('companySchedule.forSchedule')"
                         color="success"
                         hide-details
                       ></v-checkbox>
@@ -206,7 +206,7 @@
                         :filled="view"
                         :false-value="0"
                         :true-value="1"
-                        label="Paid Overtime"
+                        :label="$t('companySchedule.paidOverTime')"
                         color="success"
                         hide-details
                       ></v-checkbox>
@@ -221,29 +221,29 @@
           <v-card-actions v-if="!view">
             <v-spacer></v-spacer>
             <v-btn color="blue darken-1" text rounded @click="dialog = false">
-              Cancel
+              {{ $t("common.cancel") }}
             </v-btn>
             <v-btn color="blue darken-1" text rounded @click="save">
-              Save
+              {{ $t("common.save") }}
             </v-btn>
           </v-card-actions>
           <v-card-actions v-else>
             <v-spacer></v-spacer>
             <v-btn color="blue darken-1" text rounded @click="view = false; dialog = false; editedItem = {}; editedIndex = -1">
-              Cancel
+              {{ $t("common.cancel") }}
             </v-btn>
             <v-btn color="blue darken-1" text rounded @click="view = false">
-              Edit
+              {{ $t("common.edit") }}
             </v-btn>
           </v-card-actions>
         </v-card>
         <v-dialog v-model="dialogDelete" max-width="390px" persistent>
           <v-card>
-            <v-card-title class="headline delete-font">Are you sure you want to delete this record?</v-card-title>
+            <v-card-title class="headline delete-font">{{ $t("common.deleteRecord") }}</v-card-title>
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn color="blue darken-1" text @click="dialogDelete=false">Cancel</v-btn>
-              <v-btn color="blue darken-1" text @click="deleteItemConfirm">OK</v-btn>
+              <v-btn color="blue darken-1" text @click="dialogDelete=false">{{ $t("common.cancel") }}</v-btn>
+              <v-btn color="blue darken-1" text @click="deleteItemConfirm">{{ $t("common.ok") }}</v-btn>
               <v-spacer></v-spacer>
             </v-card-actions>
           </v-card>
@@ -305,20 +305,20 @@ export default {
       dialogDelete: false,
       headers: [
         {
-          text: 'ID',
+          text: this.$i18n.t("common.id"),
           align: 'start',
           value: 'id'
         },
-        { text: 'En Description', value: 'en_description' },
-        { text: 'Ar Description', value: 'ar_description' },
-        { text: 'Date From', value: 'date_from' },
-        { text: 'Date To', value: 'date_to' },
-        { text: 'Date From_h', value: 'date_from_h' },
-        { text: 'Date To_h', value: 'date_to_h' },
-        { text: 'No Work', value: 'no_work' },
-        { text: 'For Schedule', value: 'for_schedule' },
-        { text: 'Paid Overtime', value: 'paid_overtime' },
-        { text: 'Actions', value: 'actions', sortable: false }
+        { text: this.$i18n.t("companySchedule.nameEnglish"), value: 'en_description' },
+        { text: this.$i18n.t("companySchedule.nameArabic"), value: 'ar_description' },
+        { text: this.$i18n.t("companySchedule.dateFrom"), value: 'date_from' },
+        { text: this.$i18n.t("companySchedule.dateTo"), value: 'date_to' },
+        { text: this.$i18n.t("companySchedule.dateFromH"), value: 'date_from_h' },
+        { text: this.$i18n.t("companySchedule.dateToH"), value: 'date_to_h' },
+        { text: this.$i18n.t("companySchedule.noWork"), value: 'no_work' },
+        { text: this.$i18n.t("companySchedule.forSchedule"), value: 'for_schedule' },
+        { text: this.$i18n.t("companySchedule.paidOverTime"), value: 'paid_overtime' },
+        { text: this.$i18n.t("common.action"), value: 'actions', sortable: false }
       ],
       desserts: [],
       editedIndex: -1,
@@ -341,7 +341,7 @@ export default {
   },
   computed: {
     formTitle () {
-      return this.editedIndex === -1 ? 'New Company Schedule' : 'Edit Company Schedule'
+      return this.editedIndex === -1 ? this.$t('companySchedule.new') : this.$t('companySchedule.edit')
     }
   },
   watch: {

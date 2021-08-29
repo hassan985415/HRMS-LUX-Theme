@@ -69,7 +69,7 @@
                       md="6"
                     >
                       <v-text-field
-                        label="Competence Name in Arabic"
+                        :label="$t('deduction.nameArabic')"
                         class="direction"
                         v-model="editedItem.ar_name"
                         :disabled="view"
@@ -84,7 +84,7 @@
                       md="6"
                     >
                       <v-text-field
-                        label="Competence Name in English"
+                        :label="$t('deduction.nameEnglish')"
                         v-model="editedItem.en_name"
                         :disabled="view"
                         :filled="view"
@@ -98,7 +98,7 @@
                       md="6"
                     >
                       <v-text-field
-                        label="Credit Glid"
+                        :label="$t('deduction.creditGlid')"
                         v-model="editedItem.credit_glid"
                         :disabled="view"
                         :filled="view"
@@ -117,7 +117,7 @@
                         :filled="view"
                         :false-value="0"
                         :true-value="1"
-                        label="Is Fixed"
+                        :label="$t('deduction.isFixed')"
                         color="success"
                         hide-details
                       ></v-checkbox>
@@ -133,7 +133,7 @@
                         :filled="view"
                         :false-value="0"
                         :true-value="1"
-                        label="parentdeduction"
+                        :label="$t('deduction.parentDeduction')"
                         color="success"
                         hide-details
                       ></v-checkbox>
@@ -149,7 +149,7 @@
                         :filled="view"
                         :false-value="0"
                         :true-value="1"
-                        label="Is Request"
+                        :label="$t('deduction.isRequest')"
                         color="success"
                         hide-details
                       ></v-checkbox>
@@ -165,7 +165,7 @@
                         :filled="view"
                         :false-value="0"
                         :true-value="1"
-                        label="Modify Flag"
+                        :label="$t('deduction.modifyFlag')"
                         color="success"
                         hide-details
                       ></v-checkbox>
@@ -181,7 +181,7 @@
                         :filled="view"
                         :false-value="0"
                         :true-value="1"
-                        label="Is mb"
+                        :label="$t('deduction.isMb')"
                         color="success"
                         hide-details
                       ></v-checkbox>
@@ -197,7 +197,7 @@
                         :filled="view"
                         :false-value="0"
                         :true-value="1"
-                        label="Printable"
+                        :label="$t('deduction.printable')"
                         color="success"
                         hide-details
                       ></v-checkbox>
@@ -212,29 +212,29 @@
           <v-card-actions v-if="!view">
             <v-spacer></v-spacer>
             <v-btn color="blue darken-1" text rounded @click="dialog = false">
-              Cancel
+              {{ $t("common.cancel") }}
             </v-btn>
             <v-btn color="blue darken-1" text rounded @click="save">
-              Save
+              {{ $t("common.save") }}
             </v-btn>
           </v-card-actions>
           <v-card-actions v-else>
             <v-spacer></v-spacer>
             <v-btn color="blue darken-1" text rounded @click="view = false; dialog = false; editedItem = {}; editedIndex = -1">
-              Cancel
+              {{ $t("common.cancel") }}
             </v-btn>
             <v-btn color="blue darken-1" text rounded @click="view = false">
-              Edit
+              {{ $t("common.edit") }}
             </v-btn>
           </v-card-actions>
         </v-card>
         <v-dialog v-model="dialogDelete" max-width="390px" persistent>
           <v-card>
-            <v-card-title class="headline delete-font">Are you sure you want to delete this record?</v-card-title>
+            <v-card-title class="headline delete-font">{{ $t("common.deleteRecord") }}</v-card-title>
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn color="blue darken-1" text @click="dialogDelete=false">Cancel</v-btn>
-              <v-btn color="blue darken-1" text @click="deleteItemConfirm">OK</v-btn>
+              <v-btn color="blue darken-1" text @click="dialogDelete=false">{{ $t("common.cancel") }}</v-btn>
+              <v-btn color="blue darken-1" text @click="deleteItemConfirm">{{ $t("common.ok") }}</v-btn>
               <v-spacer></v-spacer>
             </v-card-actions>
           </v-card>
@@ -296,20 +296,20 @@ export default {
       dialogDelete: false,
       headers: [
         {
-          text: 'ID',
+          text: this.$i18n.t("common.id"),
           align: 'start',
           value: 'id',
         },
-        { text: 'En Name', value: 'en_name' },
-        { text: 'Ar Name', value: 'ar_name' },
-        { text: 'Is Fixed', value: 'is_fixed' },
-        { text: 'Credit Glid', value: 'credit_glid' },
-        { text: 'Parent Deduction', value: 'parentdeduction' },
-        { text: 'Is Request', value: 'is_request' },
-        { text: 'Modify Flag', value: 'modifyflag' },
-        { text: 'Is mb', value: 'is_mb' },
-        { text: 'Printable', value: 'printable' },
-        { text: 'Actions', value: 'actions', sortable: false },
+        { text: this.$i18n.t("deduction.nameEnglish"), value: 'en_name' },
+        { text: this.$i18n.t("deduction.nameArabic"), value: 'ar_name' },
+        { text: this.$i18n.t("deduction.isFixed"), value: 'is_fixed' },
+        { text: this.$i18n.t("deduction.creditGlid"), value: 'credit_glid' },
+        { text: this.$i18n.t("deduction.parentDeduction"), value: 'parentdeduction' },
+        { text: this.$i18n.t("deduction.isRequest"), value: 'is_request' },
+        { text: this.$i18n.t("deduction.modifyFlag"), value: 'modifyflag' },
+        { text: this.$i18n.t("deduction.isMb"), value: 'is_mb' },
+        { text: this.$i18n.t("deduction.printable"), value: 'printable' },
+        { text: this.$i18n.t("common.action"), value: 'actions', sortable: false },
       ],
       desserts: [],
       editedIndex: -1,
@@ -330,7 +330,7 @@ export default {
   },
   computed: {
     formTitle () {
-      return this.editedIndex === -1 ? 'New Deduction' : 'Edit Deduction'
+      return this.editedIndex === -1 ? this.$t('deduction.new') : this.$t('deduction.edit')
     }
   },
   watch: {

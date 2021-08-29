@@ -26,7 +26,7 @@
             <v-toolbar
               flat
             >
-              <v-toolbar-title><h3>Sms</h3></v-toolbar-title>
+              <v-toolbar-title><h3>{{ $t("sms.title") }}</h3></v-toolbar-title>
               <v-spacer></v-spacer>
               <template>
                 <v-btn
@@ -36,7 +36,7 @@
                   rounded
                   @click="dialog = true"
                 >
-                  Create sms
+                  {{ $t("sms.create") }}
                 </v-btn>
               </template>
             </v-toolbar>
@@ -87,7 +87,7 @@
                         :items="companies"
                         :item-text="companies.text"
                         :item-value="companies.value"
-                        label="Select Company"
+                        :label="$t('sms.selectCompany')"
                       ></v-select>
                     </v-col>
                     <v-col
@@ -102,7 +102,7 @@
                         :items="branches"
                         :item-text="branches.text"
                         :item-value="branches.value"
-                        label="Select branch"
+                        :label="$t('sms.selectBranch')"
                       ></v-select>
                     </v-col>
                     <v-col
@@ -114,7 +114,7 @@
                         v-model="editedItem.status"
                         :disabled="view"
                         :filled="view"
-                        label="status"
+                       :label="$t('sms.status')"
                         type="number"
                       ></v-text-field>
                     </v-col>
@@ -127,7 +127,7 @@
                         v-model="editedItem.type"
                         :disabled="view"
                         :filled="view"
-                        label="Type"
+                        :label="$t('sms.type')"
                         type="number"
                       ></v-text-field>
                     </v-col>
@@ -142,7 +142,7 @@
                         :filled="view"
                         :false-value="0"
                         :true-value="1"
-                        label="Auto"
+                        :label="$t('sms.auto')"
                         color="success"
                         hide-details
                       ></v-checkbox>
@@ -158,7 +158,7 @@
                         :filled="view"
                         :false-value="0"
                         :true-value="1"
-                        label="Both"
+                        :label="$t('sms.both')"
                         color="success"
                         hide-details
                       ></v-checkbox>
@@ -172,7 +172,7 @@
                         v-model="editedItem.ar_name"
                         :disabled="view"
                         :filled="view"
-                        label="Name in Arabic"
+                        :label="$t('sms.nameInArabic')"
                         class="direction"
                         :rules="[ (value) => !!value || 'This  field is required',
                                   (value) => (value && value.length <= 50) || 'maximum 50 characters',]"
@@ -187,7 +187,7 @@
                         v-model="editedItem.en_name"
                         :disabled="view"
                         :filled="view"
-                        label="Name in English"
+                        :label="$t('sms.nameInEnglish')"
                         :rules="[ (value) => !!value || 'This  field is required',
                                   (value) => (value && value.length <= 50) || 'maximum 50 characters',]"
                       ></v-text-field>
@@ -201,7 +201,7 @@
                         v-model="editedItem.ar_description"
                         :disabled="view"
                         :filled="view"
-                        label="Description in Arabic"
+                        :label="$t('sms.descriptionInArabic')"
                         class="direction"
                       ></v-text-field>
                     </v-col>
@@ -214,7 +214,7 @@
                         v-model="editedItem.en_description"
                         :disabled="view"
                         :filled="view"
-                        label="Description in English"
+                        :label="$t('sms.descriptionInEnglish')"
                       ></v-text-field>
                     </v-col>
                   </v-row>
@@ -227,29 +227,29 @@
           <v-card-actions v-if="!view">
             <v-spacer></v-spacer>
             <v-btn color="blue darken-1" text rounded @click="dialog = false">
-              Cancel
+              {{ $t("common.cancel") }}
             </v-btn>
             <v-btn color="blue darken-1" text rounded @click="save">
-              Save
+              {{ $t("common.save") }}
             </v-btn>
           </v-card-actions>
           <v-card-actions v-else>
             <v-spacer></v-spacer>
             <v-btn color="blue darken-1" text rounded @click="view = false; dialog = false; editedItem = {}; editedIndex = -1">
-              Cancel
+              {{ $t("common.cancel") }}
             </v-btn>
             <v-btn color="blue darken-1" text rounded @click="view = false">
-              Edit
+              {{ $t("common.edit") }}
             </v-btn>
           </v-card-actions>
         </v-card>
         <v-dialog v-model="dialogDelete" max-width="390px" persistent>
           <v-card>
-            <v-card-title class="headline delete-font">Are you sure you want to delete this record?</v-card-title>
+            <v-card-title class="headline delete-font">{{ $t("common.deleteRecord") }}</v-card-title>
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn color="blue darken-1" text @click="dialogDelete=false">Cancel</v-btn>
-              <v-btn color="blue darken-1" text @click="deleteItemConfirm">OK</v-btn>
+              <v-btn color="blue darken-1" text @click="dialogDelete=false">{{ $t("common.cancel") }}</v-btn>
+              <v-btn color="blue darken-1" text @click="deleteItemConfirm">{{ $t("common.ok") }}</v-btn>
               <v-spacer></v-spacer>
             </v-card-actions>
           </v-card>
@@ -426,19 +426,19 @@ export default {
       dialogAttach: false,
       headers: [
         {
-          text: 'ID',
+          text: this.$i18n.t("common.id"),
           align: 'start',
           value: 'id'
         },
-        { text: 'Status', value: 'status' },
-        { text: 'Doc type', value: 'type' },
-        { text: 'Auto', value: 'auto' },
-        { text: 'Both', value: 'both' },
-        { text: 'En name', value: 'en_name' },
-        { text: 'Ar name', value: 'ar_name' },
-        { text: 'Ar description', value: 'ar_description' },
-        { text: 'En description', value: 'en_description' },
-        { text: 'Actions', value: 'actions', sortable: false }
+        { text: this.$i18n.t("sms.status"), value: 'status' },
+        { text: this.$i18n.t("sms.docType"), value: 'type' },
+        { text: this.$i18n.t("sms.auto"), value: 'auto' },
+        { text: this.$i18n.t("sms.both"), value: 'both' },
+        { text: this.$i18n.t("sms.nameInEnglish"), value: 'en_name' },
+        { text: this.$i18n.t("sms.nameInArabic"), value: 'ar_name' },
+        { text: this.$i18n.t("sms.descriptionInArabic"), value: 'ar_description' },
+        { text: this.$i18n.t("sms.descriptionInEnglish"), value: 'en_description' },
+        { text: this.$i18n.t("common.action"), value: 'actions', sortable: false }
       ],
       attachHeaders: [
         {
@@ -488,7 +488,7 @@ export default {
   },
   computed: {
     formTitle () {
-      return this.editedIndex === -1 ? 'New sms' : 'Edit sms'
+      return this.editedIndex === -1 ? this.$t('sms.new') : this.$t('sms.edit')
     }
   },
   watch: {
