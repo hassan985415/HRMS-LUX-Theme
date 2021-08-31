@@ -60,10 +60,10 @@
                     <v-col cols="12" sm="6" md="6">
                       <v-text-field
                         v-model="editedItem.en_name"
-                       
+
                         :disabled="view"
                         :filled="view"
-                       :label="$t('companyInfo.englishName')"
+                        :label="$t('companyInfo.englishName')"
                         :rules="[
                           value => !!value || 'This  field is required',
                           value =>
@@ -140,14 +140,19 @@
                         type="file"
                       ></v-text-field>
 
-                      <img
-                        v-if="editedItem.logo && this.editedIndex != -1"
-                        :src="fileUrl + editedItem.logo"
-                        alt=""
-                        style="display: flex;border-radius: 50%"
-                        width="200"
-                        height="200"
-                      />
+                      <div class="img_wrp ">
+                        <img
+                          v-if="editedItem.logo && this.editedIndex != -1"
+                          :src="fileUrl + editedItem.logo"
+                          alt=""
+                          style="display: flex;border-radius: 50%"
+                          width="200"
+                          height="200"
+                        />
+                        <v-icon v-if="editedItem.logo && !view" small class="mr-2 close" @click="remove">
+                          mdi-close
+                        </v-icon>
+                      </div>
                     </v-col>
                     <!--                              <v-col-->
                     <!--                                cols="12"-->
@@ -173,15 +178,6 @@
             </v-btn>
             <v-btn color="blue darken-1" text rounded @click="save">
               {{ $t("common.save") }}
-            </v-btn>
-          </v-card-actions>
-          <v-card-actions v-else>
-            <v-spacer></v-spacer>
-            <v-btn color="blue darken-1" text rounded @click="view = false; dialog = false; editedItem = {}; editedIndex = -1">
-              Cancel
-            </v-btn>
-            <v-btn color="blue darken-1" text rounded @click="view = false">
-              Edit
             </v-btn>
           </v-card-actions>
           <v-card-actions v-else>
@@ -280,16 +276,16 @@ export default {
       view: false,
       dialogDelete: false,
       headers: [
-        { text: this.$i18n.t("companyInfo.id"), align: 'start', value: 'id' },
-        { text: this.$i18n.t("companyInfo.logo"), value: 'logo', sortable: false },
-        { text: this.$i18n.t("companyInfo.englishName"), value: 'en_name' },
-        { text: this.$i18n.t("companyInfo.arabicName"), value: 'ar_name' },
-        { text: this.$i18n.t("companyInfo.englishRegisterName"), value: 'en_register_name' },
-        { text: this.$i18n.t("companyInfo.arabicRegisterName"), value: 'er_register_name' },
-        { text: this.$i18n.t("companyInfo.dateOfIncorporation"), value: 'incorporation_date' },
-        { text: this.$i18n.t("companyInfo.typeOfBussinessInEnglish"), value: 'en_type_of_business' },
-        { text: this.$i18n.t("companyInfo.typeOfBussinessInArabic"), value: 'ar_type_of_business' },
-        { text: this.$i18n.t("companyInfo.actions"), value: 'actions', sortable: false }
+        { text: this.$i18n.t('companyInfo.id'), align: 'start', value: 'id' },
+        { text: this.$i18n.t('companyInfo.logo'), value: 'logo', sortable: false },
+        { text: this.$i18n.t('companyInfo.englishName'), value: 'en_name' },
+        { text: this.$i18n.t('companyInfo.arabicName'), value: 'ar_name' },
+        { text: this.$i18n.t('companyInfo.englishRegisterName'), value: 'en_register_name' },
+        { text: this.$i18n.t('companyInfo.arabicRegisterName'), value: 'er_register_name' },
+        { text: this.$i18n.t('companyInfo.dateOfIncorporation'), value: 'incorporation_date' },
+        { text: this.$i18n.t('companyInfo.typeOfBussinessInEnglish'), value: 'en_type_of_business' },
+        { text: this.$i18n.t('companyInfo.typeOfBussinessInArabic'), value: 'ar_type_of_business' },
+        { text: this.$i18n.t('companyInfo.actions'), value: 'actions', sortable: false }
       ],
       desserts: [],
       editedIndex: -1,
@@ -373,7 +369,11 @@ export default {
           if (imagefile.files[0]) {
             formData.append('logo', imagefile.files[0])
           } else {
-            formData.append('logo', null)
+            if (this.editedItem.logo) {
+              formData.append('logo', this.editedItem.logo)
+            } else {
+              formData.append('logo', null)
+            }
           }
           const data = {
             path: '/company/' + this.editedItem.id,
@@ -480,6 +480,10 @@ export default {
           })
         })
     },
+    remove () {
+      delete this.editedItem['logo']
+      this.save()
+    },
     reset() {
       this.editedItem.en_name = ''
       this.editedItem.ar_name = ''
@@ -511,5 +515,15 @@ export default {
 }
 .delete-font {
   font-size: 15px !important;
+}
+.img_wrp {
+  display: inline-block;
+  position: relative;
+}
+.close {
+  right: 0;
+  top: 0;
+  position: absolute;
+  cursor: pointer;
 }
 </style>
